@@ -1,0 +1,44 @@
+# === HarmonyOS / DevEco build outputs ===
+**/build/
+/.hvigor/
+/hvigor/
+/AppScope/resources/*
+
+# === DevEco IDE ===
+.appanalyzer/
+/.idea/
+/.vscode/
+*.iml
+.DS_Store
+
+# === Dependencies ===
+/oh_modules/
+/node_modules/
+
+# === Build artifacts ===
+*.hap
+*.hsp
+*.app
+*.hqf
+*.hspa
+
+# === Signing / local config (sensitive) ===
+/local.properties
+*.p12
+*.p7b
+*.cer
+*.pem
+/Certificate_Signing/
+
+# === Logs ===
+*.log
+/hvigor/wrapper/dists/*/
+
+# === DevEco cache ===
+**/.tsbuildinfo
+**/*.msgpack
+**/*.protoBin
+**/cache/
+**/generated/
+**/intermediates/
+**/outputs/

@@ -1,0 +1,4082 @@
+[
+  {
+    "word": "一心一意",
+    "pinyin": "yī xīn yī yì",
+    "explanation": "心思意念专一，毫不分心",
+    "source": "三国志",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一马当先",
+    "pinyin": "yī mǎ dāng xiān",
+    "explanation": "比喻走在前面，起带头作用",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一箭双雕",
+    "pinyin": "yī jiàn shuāng diāo",
+    "explanation": "一箭射中两只雕，比喻一举两得",
+    "source": "北史",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一帆风顺",
+    "pinyin": "yī fān fēng shùn",
+    "explanation": "比喻非常顺利，毫无阻碍",
+    "source": "镜花缘",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一鸣惊人",
+    "pinyin": "yī míng jīng rén",
+    "explanation": "比喻平时不出名，一下做出惊人的成绩",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一举两得",
+    "pinyin": "yī jǔ liǎng dé",
+    "explanation": "做一件事得到两方面的好处",
+    "source": "东观汉记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一望无际",
+    "pinyin": "yī wàng wú jì",
+    "explanation": "一眼望不到边，形容极其辽阔",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一针见血",
+    "pinyin": "yī zhēn jiàn xiě",
+    "explanation": "比喻说话简短而能抓住本质",
+    "source": "南史",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一知半解",
+    "pinyin": "yī zhī bàn jiě",
+    "explanation": "知道得不全面，理解得不透彻",
+    "source": "宋史",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一诺千金",
+    "pinyin": "yī nuò qiān jīn",
+    "explanation": "形容说话算数，极有信用",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一毛不拔",
+    "pinyin": "yī máo bù bá",
+    "explanation": "形容非常吝啬",
+    "source": "孟子",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一落千丈",
+    "pinyin": "yī luò qiān zhàng",
+    "explanation": "形容景况、地位急剧下降",
+    "source": "唐书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一窍不通",
+    "pinyin": "yī qiào bù tōng",
+    "explanation": "比喻什么都不懂",
+    "source": "吕氏春秋",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一视同仁",
+    "pinyin": "yī shì tóng rén",
+    "explanation": "对人同样看待，不分厚薄",
+    "source": "左传",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一败涂地",
+    "pinyin": "yī bài tú dì",
+    "explanation": "形容失败到了不可收拾的地步",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一字千金",
+    "pinyin": "yī zì qiān jīn",
+    "explanation": "形容文辞精妙，不可更改",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一气呵成",
+    "pinyin": "yī qì hē chéng",
+    "explanation": "比喻文章的气势首尾贯通",
+    "source": "文心雕龙",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "三心二意",
+    "pinyin": "sān xīn èr yì",
+    "explanation": "犹豫不决，意志不坚定",
+    "source": "醒世恒言",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "三令五申",
+    "pinyin": "sān lìng wǔ shēn",
+    "explanation": "多次命令和告诫",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "三头六臂",
+    "pinyin": "sān tóu liù bì",
+    "explanation": "比喻神奇的本领",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "三顾茅庐",
+    "pinyin": "sān gù máo lú",
+    "explanation": "比喻真心诚意地邀请",
+    "source": "三国志",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "四海为家",
+    "pinyin": "sì hǎi wéi jiā",
+    "explanation": "原指帝王占有天下，后指到处为家",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "四面楚歌",
+    "pinyin": "sì miàn chǔ gē",
+    "explanation": "比喻陷入四面受敌、孤立无援的境地",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "四通八达",
+    "pinyin": "sì tōng bā dá",
+    "explanation": "形容交通极便利",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "五花八门",
+    "pinyin": "wǔ huā bā mén",
+    "explanation": "比喻变化多端或花样繁多",
+    "source": "虞初新志",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "五光十色",
+    "pinyin": "wǔ guāng shí sè",
+    "explanation": "形容色彩鲜艳，花样繁多",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "五谷丰登",
+    "pinyin": "wǔ gǔ fēng dēng",
+    "explanation": "指年成好，粮食丰收",
+    "source": "六韬",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "六神无主",
+    "pinyin": "liù shén wú zhǔ",
+    "explanation": "形容心慌意乱，拿不定主意",
+    "source": "醒世恒言",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "七上八下",
+    "pinyin": "qī shàng bā xià",
+    "explanation": "形容心里慌乱不安",
+    "source": "水浒传",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "七嘴八舌",
+    "pinyin": "qī zuǐ bā shé",
+    "explanation": "形容人多口杂",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "八仙过海",
+    "pinyin": "bā xiān guò hǎi",
+    "explanation": "比喻各自显示自己的本领",
+    "source": "八仙过海",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "八面玲珑",
+    "pinyin": "bā miàn líng lóng",
+    "explanation": "形容人处世圆滑，面面俱到",
+    "source": "旧唐书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "九牛一毛",
+    "pinyin": "jiǔ niú yī máo",
+    "explanation": "比喻极大数量中的极微小的数量",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "九死一生",
+    "pinyin": "jiǔ sǐ yī shēng",
+    "explanation": "形容经历极大的危险而幸存",
+    "source": "楚辞",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "十全十美",
+    "pinyin": "shí quán shí měi",
+    "explanation": "各方面都非常完美，毫无缺陷",
+    "source": "镜花缘",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "十拿九稳",
+    "pinyin": "shí ná jiǔ wěn",
+    "explanation": "比喻很有把握",
+    "source": "儿女英雄传",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "百发百中",
+    "pinyin": "bǎi fā bǎi zhòng",
+    "explanation": "形容射箭或打枪准确，每次都命中目标",
+    "source": "战国策",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "百折不挠",
+    "pinyin": "bǎi zhé bù náo",
+    "explanation": "比喻意志坚强，无论受到多少次挫折，毫不动摇退缩",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "百里挑一",
+    "pinyin": "bǎi lǐ tiāo yī",
+    "explanation": "一百个里挑出一个，形容十分优秀的",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "百闻不如一见",
+    "pinyin": "bǎi wén bù rú yī jiàn",
+    "explanation": "听到一百次不如亲眼看到一次",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "千军万马",
+    "pinyin": "qiān jūn wàn mǎ",
+    "explanation": "形容雄壮的队伍或浩大的声势",
+    "source": "南史",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "千变万化",
+    "pinyin": "qiān biàn wàn huà",
+    "explanation": "形容变化极多",
+    "source": "列子",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "千辛万苦",
+    "pinyin": "qiān xīn wàn kǔ",
+    "explanation": "各种各样的艰难困苦",
+    "source": "元曲选",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "千钧一发",
+    "pinyin": "qiān jūn yī fà",
+    "explanation": "比喻情况万分危急",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "千篇一律",
+    "pinyin": "qiān piān yī lǜ",
+    "explanation": "一千篇文章都一个样，指办事按一个格式",
+    "source": "诗品",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "万紫千红",
+    "pinyin": "wàn zǐ qiān hóng",
+    "explanation": "形容百花齐放，色彩艳丽",
+    "source": "春日",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "万众一心",
+    "pinyin": "wàn zhòng yī xīn",
+    "explanation": "千万人一条心，比喻团结一致",
+    "source": "后汉书",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "万无一失",
+    "pinyin": "wàn wú yī shī",
+    "explanation": "形容有绝对把握，不会出差错",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "三番五次",
+    "pinyin": "sān fān wǔ cì",
+    "explanation": "屡次，多次",
+    "source": "儒林外史",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "两面三刀",
+    "pinyin": "liǎng miàn sān dāo",
+    "explanation": "比喻耍两面派手法",
+    "source": "旧唐书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "亡羊补牢",
+    "pinyin": "wáng yáng bǔ láo",
+    "explanation": "比喻出了问题以后想办法补救",
+    "source": "战国策",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "守株待兔",
+    "pinyin": "shǒu zhū dài tù",
+    "explanation": "比喻不主动努力，而存万一的侥幸心理",
+    "source": "韩非子",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "画蛇添足",
+    "pinyin": "huà shé tiān zú",
+    "explanation": "比喻做了多余的事",
+    "source": "战国策",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "对牛弹琴",
+    "pinyin": "duì niú tán qín",
+    "explanation": "比喻对不懂道理的人讲道理",
+    "source": "庄子",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "画龙点睛",
+    "pinyin": "huà lóng diǎn jīng",
+    "explanation": "比喻在关键处用几句话点明实质",
+    "source": "历代名画记",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "马到成功",
+    "pinyin": "mǎ dào chéng gōng",
+    "explanation": "形容工作刚开始就取得成功",
+    "source": "楚辞",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "狐假虎威",
+    "pinyin": "hú jiǎ hǔ wēi",
+    "explanation": "比喻依仗别人的势力来欺压人",
+    "source": "战国策",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "鹤立鸡群",
+    "pinyin": "hè lì jī qún",
+    "explanation": "比喻一个人的才能或仪表在一群人里头显得很突出",
+    "source": "世说新语",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "鸦雀无声",
+    "pinyin": "yā què wú shēng",
+    "explanation": "形容非常静",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "龙飞凤舞",
+    "pinyin": "lóng fēi fèng wǔ",
+    "explanation": "形容山势蜿蜒雄壮，也形容书法笔势有力",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "如鱼得水",
+    "pinyin": "rú yú dé shuǐ",
+    "explanation": "比喻得到跟自己十分投合的人或环境",
+    "source": "三国志",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "井底之蛙",
+    "pinyin": "jǐng dǐ zhī wā",
+    "explanation": "比喻见识狭窄的人",
+    "source": "庄子",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "老马识途",
+    "pinyin": "lǎo mǎ shí tú",
+    "explanation": "比喻有经验的人对事情比较熟悉",
+    "source": "韩非子",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "虎头蛇尾",
+    "pinyin": "hǔ tóu shé wěi",
+    "explanation": "比喻做事有始无终",
+    "source": "李逵负荆",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "龙腾虎跃",
+    "pinyin": "lóng téng hǔ yuè",
+    "explanation": "形容动作矫健有力",
+    "source": "拟寒山拾得",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "鸡犬不宁",
+    "pinyin": "jī quǎn bù níng",
+    "explanation": "形容骚扰得厉害",
+    "source": "捕蛇者说",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "马不停蹄",
+    "pinyin": "mǎ bù tíng tí",
+    "explanation": "比喻一刻也不停留地前进",
+    "source": "醒世恒言",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "兔死狐悲",
+    "pinyin": "tù sǐ hú bēi",
+    "explanation": "比喻因同类的死亡或不幸而感到悲伤",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "龙凤呈祥",
+    "pinyin": "lóng fèng chéng xiáng",
+    "explanation": "指吉庆之事",
+    "source": "孔丛子",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "鸡鸣狗盗",
+    "pinyin": "jī míng gǒu dào",
+    "explanation": "指微不足道的本领",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狼吞虎咽",
+    "pinyin": "láng tūn hǔ yàn",
+    "explanation": "形容吃东西又猛又急",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "鱼目混珠",
+    "pinyin": "yú mù hùn zhū",
+    "explanation": "比喻用假的冒充真的",
+    "source": "魏书",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "凤毛麟角",
+    "pinyin": "fèng máo lín jiǎo",
+    "explanation": "比喻珍贵而稀少的人或物",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狗急跳墙",
+    "pinyin": "gǒu jí tiào qiáng",
+    "explanation": "比喻坏人在走投无路时豁出去",
+    "source": "敦煌变文集",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "指鹿为马",
+    "pinyin": "zhǐ lù wéi mǎ",
+    "explanation": "比喻故意颠倒黑白",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "飞蛾扑火",
+    "pinyin": "fēi é pū huǒ",
+    "explanation": "比喻自取灭亡",
+    "source": "梁书",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "金蝉脱壳",
+    "pinyin": "jīn chán tuō qiào",
+    "explanation": "比喻用计脱身",
+    "source": "西游记",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "螳臂当车",
+    "pinyin": "táng bì dāng chē",
+    "explanation": "比喻做力量做不到的事情",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "水中捞月",
+    "pinyin": "shuǐ zhōng lāo yuè",
+    "explanation": "比喻去做根本做不到的事情",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "盲人摸象",
+    "pinyin": "máng rén mō xiàng",
+    "explanation": "比喻对事物只凭片面的了解",
+    "source": "大般涅槃经",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "走马观花",
+    "pinyin": "zǒu mǎ guān huā",
+    "explanation": "比喻粗略地观察事物",
+    "source": "唐诗别裁",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "莺歌燕舞",
+    "pinyin": "yīng gē yàn wǔ",
+    "explanation": "形容春天鸟儿喧闹活跃的景象",
+    "source": "白雪遗音",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狗仗人势",
+    "pinyin": "gǒu zhàng rén shì",
+    "explanation": "比喻坏人依靠某种势力欺侮人",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "马革裹尸",
+    "pinyin": "mǎ gé guǒ shī",
+    "explanation": "形容为国作战，决心为国捐躯的意志",
+    "source": "后汉书",
+    "difficulty": 3,
+    "category": "动物成语"
+  },
+  {
+    "word": "龙马精神",
+    "pinyin": "lóng mǎ jīng shén",
+    "explanation": "比喻旺盛的精力",
+    "source": "唐书",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "车水马龙",
+    "pinyin": "chē shuǐ mǎ lóng",
+    "explanation": "形容来往车马很多，连续不断的热闹情景",
+    "source": "后汉书",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "万马奔腾",
+    "pinyin": "wàn mǎ bēn téng",
+    "explanation": "形容群众性的活动声势浩大",
+    "source": "木兰诗",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "飞黄腾达",
+    "pinyin": "fēi huáng téng dá",
+    "explanation": "比喻官职地位上升得很快",
+    "source": "符读书城南",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "杯弓蛇影",
+    "pinyin": "bēi gōng shé yǐng",
+    "explanation": "比喻因疑虑而引起恐惧",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "杀鸡儆猴",
+    "pinyin": "shā jī jǐng hóu",
+    "explanation": "比喻惩罚一个人来警告其余的人",
+    "source": "易经",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狼心狗肺",
+    "pinyin": "láng xīn gǒu fèi",
+    "explanation": "形容心肠像狼和狗一样凶恶、狠毒",
+    "source": "醒世恒言",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "风和日丽",
+    "pinyin": "fēng hé rì lì",
+    "explanation": "形容晴朗暖和的天气",
+    "source": "醒世恒言",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "山清水秀",
+    "pinyin": "shān qīng shuǐ xiù",
+    "explanation": "形容风景优美",
+    "source": "蓼莪",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "花好月圆",
+    "pinyin": "huā hǎo yuè yuán",
+    "explanation": "比喻美好圆满",
+    "source": "牡丹亭",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "雷厉风行",
+    "pinyin": "léi lì fēng xíng",
+    "explanation": "比喻执行政策法令严厉迅速",
+    "source": "潮州刺史谢上表",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "云开雾散",
+    "pinyin": "yún kāi wù sàn",
+    "explanation": "比喻怨愤、疑虑得以消除",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "春暖花开",
+    "pinyin": "chūn nuǎn huā kāi",
+    "explanation": "春天气候温暖，百花盛开",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "冰天雪地",
+    "pinyin": "bīng tiān xuě dì",
+    "explanation": "形容冰雪漫天盖地",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "明月清风",
+    "pinyin": "míng yuè qīng fēng",
+    "explanation": "比喻超尘脱俗的悠闲生活",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "暴风骤雨",
+    "pinyin": "bào fēng zhòu yǔ",
+    "explanation": "比喻声势浩大，发展急速而猛烈",
+    "source": "西游记",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "云淡风轻",
+    "pinyin": "yún dàn fēng qīng",
+    "explanation": "微风轻拂，浮云淡薄",
+    "source": "春日偶成",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "星罗棋布",
+    "pinyin": "xīng luó qí bù",
+    "explanation": "形容数量多分布广",
+    "source": "西都赋",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "水落石出",
+    "pinyin": "shuǐ luò shí chū",
+    "explanation": "比喻事情的真相完全显露出来",
+    "source": "醉翁亭记",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "花团锦簇",
+    "pinyin": "huā tuán jǐn cù",
+    "explanation": "形容五彩缤纷，十分华丽的景象",
+    "source": "红楼梦",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "满园春色",
+    "pinyin": "mǎn yuán chūn sè",
+    "explanation": "比喻欣欣向荣的景象",
+    "source": "牡丹亭",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "日落西山",
+    "pinyin": "rì luò xī shān",
+    "explanation": "太阳快要落山，比喻人到老年将死",
+    "source": "秦并六国平话",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "碧波荡漾",
+    "pinyin": "bì bō dàng yàng",
+    "explanation": "青绿色的波浪，起伏不定",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "湖光山色",
+    "pinyin": "hú guāng shān sè",
+    "explanation": "湖的风光，山的景色",
+    "source": "梦溪笔谈",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "惊涛骇浪",
+    "pinyin": "jīng tāo hài làng",
+    "explanation": "比喻险恶的环境或遭遇",
+    "source": "牡丹亭",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "雨过天晴",
+    "pinyin": "yǔ guò tiān qíng",
+    "explanation": "雨后转晴，比喻情况由坏变好",
+    "source": "文心雕龙",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "风花雪月",
+    "pinyin": "fēng huā xuě yuè",
+    "explanation": "原指四时美景",
+    "source": "白孔六帖",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "风平浪静",
+    "pinyin": "fēng píng làng jìng",
+    "explanation": "比喻平静无事",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "倾盆大雨",
+    "pinyin": "qīng pén dà yǔ",
+    "explanation": "雨大得像盆里的水直往下倒",
+    "source": "白朴曲",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "春光明媚",
+    "pinyin": "chūn guāng míng mèi",
+    "explanation": "形容春天的景物鲜明可爱",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "秋高气爽",
+    "pinyin": "qiū gāo qì shuǎng",
+    "explanation": "形容秋季晴空万里，天气清爽",
+    "source": "崔府君碑",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "月明星稀",
+    "pinyin": "yuè míng xīng xī",
+    "explanation": "月亮明亮时，星星就显得稀疏了",
+    "source": "短歌行",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "风卷残云",
+    "pinyin": "fēng juǎn cán yún",
+    "explanation": "比喻一下子把残存的东西一扫而光",
+    "source": "还魂记",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "水乳交融",
+    "pinyin": "shuǐ rǔ jiāo róng",
+    "explanation": "比喻关系非常融洽或结合十分紧密",
+    "source": "苕溪渔隐丛话",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "行云流水",
+    "pinyin": "xíng yún liú shuǐ",
+    "explanation": "比喻自然不受拘束",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "海阔天空",
+    "pinyin": "hǎi kuò tiān kōng",
+    "explanation": "形容大自然的广阔",
+    "source": "隋唐演义",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "艳阳高照",
+    "pinyin": "yàn yáng gāo zhào",
+    "explanation": "灿烂的太阳高高挂在天空普照大地",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "绿草如茵",
+    "pinyin": "lǜ cǎo rú yīn",
+    "explanation": "绿油油的草好像地上铺的褥子",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "骄阳似火",
+    "pinyin": "jiāo yáng sì huǒ",
+    "explanation": "强烈的阳光好像烈火一样",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "白雪皑皑",
+    "pinyin": "bái xuě ái ái",
+    "explanation": "洁白的积雪银光耀眼",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "山河壮丽",
+    "pinyin": "shān hé zhuàng lì",
+    "explanation": "形容祖国的山水雄伟壮阔",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "风吹草动",
+    "pinyin": "fēng chuī cǎo dòng",
+    "explanation": "比喻微小的变动",
+    "source": "敦煌变文集",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "电闪雷鸣",
+    "pinyin": "diàn shǎn léi míng",
+    "explanation": "比喻声势很大",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "刻舟求剑",
+    "pinyin": "kè zhōu qiú jiàn",
+    "explanation": "比喻不懂事物已发展变化而仍静止地看问题",
+    "source": "吕氏春秋",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "掩耳盗铃",
+    "pinyin": "yǎn ěr dào líng",
+    "explanation": "比喻自己欺骗自己",
+    "source": "吕氏春秋",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "叶公好龙",
+    "pinyin": "yè gōng hào lóng",
+    "explanation": "比喻口头上说爱好某事物，实际上并不真爱好",
+    "source": "新序",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "画饼充饥",
+    "pinyin": "huà bǐng chōng jī",
+    "explanation": "比喻用空想来安慰自己",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "买椟还珠",
+    "pinyin": "mǎi dú huán zhū",
+    "explanation": "比喻没有眼光，取舍不当",
+    "source": "韩非子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "自相矛盾",
+    "pinyin": "zì xiāng máo dùn",
+    "explanation": "比喻自己说话做事前后抵触",
+    "source": "韩非子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "杞人忧天",
+    "pinyin": "qǐ rén yōu tiān",
+    "explanation": "比喻不必要的忧虑和担心",
+    "source": "列子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "坐井观天",
+    "pinyin": "zuò jǐng guān tiān",
+    "explanation": "坐在井底看天，比喻眼界小",
+    "source": "庄子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "愚公移山",
+    "pinyin": "yú gōng yí shān",
+    "explanation": "比喻坚持不懈地改造自然",
+    "source": "列子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "望梅止渴",
+    "pinyin": "wàng méi zhǐ kě",
+    "explanation": "比喻愿望无法实现，用空想安慰自己",
+    "source": "世说新语",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "邯郸学步",
+    "pinyin": "hán dān xué bù",
+    "explanation": "比喻模仿人不到家",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "滥竽充数",
+    "pinyin": "làn yú chōng shù",
+    "explanation": "比喻无本领的冒充有本领",
+    "source": "韩非子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "鹬蚌相争",
+    "pinyin": "yù bàng xiāng zhēng",
+    "explanation": "比喻双方相争持",
+    "source": "战国策",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "塞翁失马",
+    "pinyin": "sài wēng shī mǎ",
+    "explanation": "比喻一时虽然受到损失，也许反而因此能得到好处",
+    "source": "淮南子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "郑人买履",
+    "pinyin": "zhèng rén mǎi lǚ",
+    "explanation": "用来讽刺只信教条，不顾实际的人",
+    "source": "韩非子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "铁杵磨针",
+    "pinyin": "tiě chǔ mó zhēn",
+    "explanation": "比喻只要有决心，肯下工夫",
+    "source": "方舆胜览",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "拔苗助长",
+    "pinyin": "bá miáo zhù zhǎng",
+    "explanation": "比喻违反事物发展的客观规律",
+    "source": "孟子",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "抱薪救火",
+    "pinyin": "bào xīn jiù huǒ",
+    "explanation": "比喻用错误的方法去消除灾祸",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "杯水车薪",
+    "pinyin": "bēi shuǐ chē xīn",
+    "explanation": "比喻力量太小，对解决困难作用不大",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "惊弓之鸟",
+    "pinyin": "jīng gōng zhī niǎo",
+    "explanation": "比喻经过惊吓的人碰到一点动静就非常害怕",
+    "source": "战国策",
+    "difficulty": 1,
+    "category": "寓言故事"
+  },
+  {
+    "word": "朝三暮四",
+    "pinyin": "zhāo sān mù sì",
+    "explanation": "比喻常常变卦，反复无常",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "杀鸡取卵",
+    "pinyin": "shā jī qǔ luǎn",
+    "explanation": "比喻贪图眼前的好处而不顾长远利益",
+    "source": "伊索寓言",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "缘木求鱼",
+    "pinyin": "yuán mù qiú yú",
+    "explanation": "比喻方向或办法不对头",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "班门弄斧",
+    "pinyin": "bān mén nòng fǔ",
+    "explanation": "比喻在行家面前卖弄本领",
+    "source": "王氏族谱",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "捕风捉影",
+    "pinyin": "bǔ fēng zhuō yǐng",
+    "explanation": "比喻说话做事丝毫没有事实根据",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "空中楼阁",
+    "pinyin": "kōng zhōng lóu gé",
+    "explanation": "比喻虚幻的事物或脱离实际的空想",
+    "source": "二程遗书",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "画地为牢",
+    "pinyin": "huà dì wéi láo",
+    "explanation": "比喻只许在指定的范围内活动",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "城门失火殃及池鱼",
+    "pinyin": "chéng mén shī huǒ yāng jí chí yú",
+    "explanation": "比喻因受连累而遭到损失或祸害",
+    "source": "吕氏春秋",
+    "difficulty": 3,
+    "category": "寓言故事"
+  },
+  {
+    "word": "完璧归赵",
+    "pinyin": "wán bì guī zhào",
+    "explanation": "比喻把原物完好地归还物品主人",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "破釜沉舟",
+    "pinyin": "pò fǔ chén zhōu",
+    "explanation": "比喻下决心不顾一切地干到底",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "卧薪尝胆",
+    "pinyin": "wò xīn cháng dǎn",
+    "explanation": "比喻刻苦自励，发奋图强",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "纸上谈兵",
+    "pinyin": "zhǐ shàng tán bīng",
+    "explanation": "比喻空谈理论，不能解决实际问题",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "负荆请罪",
+    "pinyin": "fù jīng qǐng zuì",
+    "explanation": "表示向人认错赔罪",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "草船借箭",
+    "pinyin": "cǎo chuán jiè jiàn",
+    "explanation": "比喻善于巧用计谋",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "火烧赤壁",
+    "pinyin": "huǒ shāo chì bì",
+    "explanation": "指三国时期著名的以少胜多的战役",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "空城计",
+    "pinyin": "kōng chéng jì",
+    "explanation": "指在危急处境下，掩饰空虚",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "闻鸡起舞",
+    "pinyin": "wén jī qǐ wǔ",
+    "explanation": "比喻有志之士及时奋发",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "入木三分",
+    "pinyin": "rù mù sān fēn",
+    "explanation": "形容书法极有笔力",
+    "source": "书断",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "乐不思蜀",
+    "pinyin": "lè bù sī shǔ",
+    "explanation": "比喻在新环境中得到乐趣",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "图穷匕见",
+    "pinyin": "tú qióng bǐ xiàn",
+    "explanation": "比喻事情发展到最后，真相显露",
+    "source": "战国策",
+    "difficulty": 3,
+    "category": "历史典故"
+  },
+  {
+    "word": "悬梁刺股",
+    "pinyin": "xuán liáng cì gǔ",
+    "explanation": "形容刻苦学习",
+    "source": "战国策",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "投笔从戎",
+    "pinyin": "tóu bǐ cóng róng",
+    "explanation": "指文人弃文从武",
+    "source": "后汉书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "精忠报国",
+    "pinyin": "jīng zhōng bào guó",
+    "explanation": "为国家竭尽忠诚",
+    "source": "宋史",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "背水一战",
+    "pinyin": "bèi shuǐ yī zhàn",
+    "explanation": "比喻在绝境中做出最后一搏",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "围魏救赵",
+    "pinyin": "wéi wèi jiù zhào",
+    "explanation": "指袭击敌人后方的据点",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "退避三舍",
+    "pinyin": "tuì bì sān shè",
+    "explanation": "比喻退让和回避",
+    "source": "左传",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "洛阳纸贵",
+    "pinyin": "luò yáng zhǐ guì",
+    "explanation": "比喻著作有价值，流传广",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "才高八斗",
+    "pinyin": "cái gāo bā dǒu",
+    "explanation": "形容人的文才极高",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "江郎才尽",
+    "pinyin": "jiāng láng cái jìn",
+    "explanation": "比喻才思衰退",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "暗渡陈仓",
+    "pinyin": "àn dù chén cāng",
+    "explanation": "比喻暗中进行活动",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "初出茅庐",
+    "pinyin": "chū chū máo lú",
+    "explanation": "比喻刚离开家庭或学校出来工作",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "大器晚成",
+    "pinyin": "dà qì wǎn chéng",
+    "explanation": "指能担当大事的人物要经过长期的磨炼",
+    "source": "老子",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "东山再起",
+    "pinyin": "dōng shān zài qǐ",
+    "explanation": "比喻失势之后又重新得势",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "对症下药",
+    "pinyin": "duì zhèng xià yào",
+    "explanation": "比喻针对具体情况决定解决问题的办法",
+    "source": "三国志",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "风声鹤唳",
+    "pinyin": "fēng shēng hè lì",
+    "explanation": "形容惊慌失措",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "高山流水",
+    "pinyin": "gāo shān liú shuǐ",
+    "explanation": "比喻知己或知音",
+    "source": "列子",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "鸿门宴",
+    "pinyin": "hóng mén yàn",
+    "explanation": "比喻不怀好意的宴会",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "历史典故"
+  },
+  {
+    "word": "口蜜腹剑",
+    "pinyin": "kǒu mì fù jiàn",
+    "explanation": "形容两面派的狡猾阴险",
+    "source": "资治通鉴",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "老当益壮",
+    "pinyin": "lǎo dāng yì zhuàng",
+    "explanation": "形容年纪虽老而志气更旺盛",
+    "source": "后汉书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "力挽狂澜",
+    "pinyin": "lì wǎn kuáng lán",
+    "explanation": "比喻尽力挽回危险的局势",
+    "source": "进学解",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "成也萧何败也萧何",
+    "pinyin": "chéng yě xiāo hé bài yě xiāo hé",
+    "explanation": "比喻事情的成败或好坏都是由同一个人或同一件事引起的",
+    "source": "史记",
+    "difficulty": 3,
+    "category": "历史典故"
+  },
+  {
+    "word": "光明磊落",
+    "pinyin": "guāng míng lěi luò",
+    "explanation": "形容胸怀坦白，没有私心",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "大公无私",
+    "pinyin": "dà gōng wú sī",
+    "explanation": "指办事公正，没有私心",
+    "source": "汉书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "见义勇为",
+    "pinyin": "jiàn yì yǒng wéi",
+    "explanation": "看到正义的事，就勇敢地去做",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "助人为乐",
+    "pinyin": "zhù rén wéi lè",
+    "explanation": "帮助人就是快乐",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "诚实守信",
+    "pinyin": "chéng shí shǒu xìn",
+    "explanation": "内心与言行一致，不虚假",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "谦虚谨慎",
+    "pinyin": "qiān xū jǐn shèn",
+    "explanation": "形容人虚心礼让，小心谨慎",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "吃苦耐劳",
+    "pinyin": "chī kǔ nài láo",
+    "explanation": "能过困苦的生活，也经得起劳累",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "宽宏大量",
+    "pinyin": "kuān hóng dà liàng",
+    "explanation": "形容人度量大",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "尊师重道",
+    "pinyin": "zūn shī zhòng dào",
+    "explanation": "尊敬老师，重视应该遵循的道理",
+    "source": "后汉书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "勤俭节约",
+    "pinyin": "qín jiǎn jié yuē",
+    "explanation": "勤劳而节俭",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "知恩图报",
+    "pinyin": "zhī ēn tú bào",
+    "explanation": "得到别人的恩惠，要记住报答",
+    "source": "诗经",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "舍生取义",
+    "pinyin": "shě shēng qǔ yì",
+    "explanation": "为了正义事业不惜牺牲生命",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "威武不屈",
+    "pinyin": "wēi wǔ bù qū",
+    "explanation": "强暴的压力不能使之屈服",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "德高望重",
+    "pinyin": "dé gāo wàng zhòng",
+    "explanation": "道德高尚，名望很大",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "高风亮节",
+    "pinyin": "gāo fēng liàng jié",
+    "explanation": "形容道德和行为都很高尚",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "两袖清风",
+    "pinyin": "liǎng xiù qīng fēng",
+    "explanation": "比喻做官廉洁",
+    "source": "元曲选",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "克己奉公",
+    "pinyin": "kè jǐ fèng gōng",
+    "explanation": "克制自己的私心，一心为公",
+    "source": "后汉书",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "持之以恒",
+    "pinyin": "chí zhī yǐ héng",
+    "explanation": "长期坚持下去",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "天下为公",
+    "pinyin": "tiān xià wéi gōng",
+    "explanation": "原意是天下是公众的",
+    "source": "礼记",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "舍己为人",
+    "pinyin": "shě jǐ wéi rén",
+    "explanation": "舍弃自己的利益去帮助别人",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "拾金不昧",
+    "pinyin": "shí jīn bù mèi",
+    "explanation": "捡到财物不隐藏起来不占为己有",
+    "source": "歧路灯",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "厚德载物",
+    "pinyin": "hòu dé zài wù",
+    "explanation": "形容品德高尚，能承担重任",
+    "source": "周易",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "光明正大",
+    "pinyin": "guāng míng zhèng dà",
+    "explanation": "形容胸怀坦白，言行正派",
+    "source": "朱子语类",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "公正无私",
+    "pinyin": "gōng zhèng wú sī",
+    "explanation": "做事公正，没有私心",
+    "source": "淮南子",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "仁至义尽",
+    "pinyin": "rén zhì yì jìn",
+    "explanation": "竭尽仁义之道",
+    "source": "礼记",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "视死如归",
+    "pinyin": "shì sǐ rú guī",
+    "explanation": "把死看得像回家一样平常",
+    "source": "管子",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "堂堂正正",
+    "pinyin": "táng táng zhèng zhèng",
+    "explanation": "形容光明正大",
+    "source": "孙子兵法",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "推心置腹",
+    "pinyin": "tuī xīn zhì fù",
+    "explanation": "形容真心待人",
+    "source": "后汉书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "言行一致",
+    "pinyin": "yán xíng yī zhì",
+    "explanation": "说的和做的完全一样",
+    "source": "逸周书",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "志存高远",
+    "pinyin": "zhì cún gāo yuǎn",
+    "explanation": "追求远大的理想及对事业上的抱负",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "自强不息",
+    "pinyin": "zì qiáng bù xī",
+    "explanation": "自觉地努力向上，永不松懈",
+    "source": "周易",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "不耻下问",
+    "pinyin": "bù chǐ xià wèn",
+    "explanation": "形容人谦虚好学",
+    "source": "论语",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "赤子之心",
+    "pinyin": "chì zǐ zhī xīn",
+    "explanation": "比喻人的纯洁善良的心",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "奉公守法",
+    "pinyin": "fèng gōng shǒu fǎ",
+    "explanation": "遵守法令，不违法",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "心花怒放",
+    "pinyin": "xīn huā nù fàng",
+    "explanation": "心里高兴得像花儿盛开一样",
+    "source": "文明小史",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "悲喜交加",
+    "pinyin": "bēi xǐ jiāo jiā",
+    "explanation": "悲伤和喜悦的心情交织在一起",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "怒发冲冠",
+    "pinyin": "nù fà chōng guān",
+    "explanation": "指愤怒得头发直竖",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "喜出望外",
+    "pinyin": "xǐ chū wàng wài",
+    "explanation": "由于没有想到的好事而非常高兴",
+    "source": "宋史",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "忧心忡忡",
+    "pinyin": "yōu xīn chōng chōng",
+    "explanation": "形容心事重重，非常忧愁",
+    "source": "诗经",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "心旷神怡",
+    "pinyin": "xīn kuàng shén yí",
+    "explanation": "心境开阔，精神愉快",
+    "source": "岳阳楼记",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "痛心疾首",
+    "pinyin": "tòng xīn jí shǒu",
+    "explanation": "形容痛恨到极点",
+    "source": "左传",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "欣喜若狂",
+    "pinyin": "xīn xǐ ruò kuáng",
+    "explanation": "形容高兴到了极点",
+    "source": "牡丹亭",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "闷闷不乐",
+    "pinyin": "mèn mèn bù lè",
+    "explanation": "形容心情烦闷，不快活",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "悔不当初",
+    "pinyin": "huǐ bù dāng chū",
+    "explanation": "后悔当初不该这样做",
+    "source": "长恨歌",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "心平气和",
+    "pinyin": "xīn píng qì hé",
+    "explanation": "心情平静，态度温和",
+    "source": "菜根谭",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "慷慨激昂",
+    "pinyin": "kāng kǎi jī áng",
+    "explanation": "精神振奋，情绪激昂",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "黯然神伤",
+    "pinyin": "àn rán shén shāng",
+    "explanation": "形容由于心情沮丧而面带感伤的神色",
+    "source": "聊斋志异",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "乐极生悲",
+    "pinyin": "lè jí shēng bēi",
+    "explanation": "高兴到极点时，发生使人悲伤的事",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "悲欢离合",
+    "pinyin": "bēi huān lí hé",
+    "explanation": "泛指生活中经历的各种境遇",
+    "source": "水调歌头",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "心惊肉跳",
+    "pinyin": "xīn jīng ròu tiào",
+    "explanation": "形容担心灾祸临头",
+    "source": "西游记",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "愁眉苦脸",
+    "pinyin": "chóu méi kǔ liǎn",
+    "explanation": "形容愁苦的神色",
+    "source": "儒林外史",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "满面春风",
+    "pinyin": "mǎn miàn chūn fēng",
+    "explanation": "比喻人喜悦舒畅的表情",
+    "source": "岳阳楼记",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "垂头丧气",
+    "pinyin": "chuí tóu sàng qì",
+    "explanation": "形容因失败或不顺利而情绪低落",
+    "source": "送穷文",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "得意忘形",
+    "pinyin": "dé yì wàng xíng",
+    "explanation": "形容浅薄的人稍有得意就高兴得控制不住自己",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "感人肺腑",
+    "pinyin": "gǎn rén fèi fǔ",
+    "explanation": "使人内心深受感动",
+    "source": "牡丹亭",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "惊魂未定",
+    "pinyin": "jīng hún wèi dìng",
+    "explanation": "指受惊后心情还没有平静下来",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "百感交集",
+    "pinyin": "bǎi gǎn jiāo jí",
+    "explanation": "感触很多，百端交集",
+    "source": "世说新语",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "怅然若失",
+    "pinyin": "chàng rán ruò shī",
+    "explanation": "形容心情沮丧",
+    "source": "诗经",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "称心如意",
+    "pinyin": "chèn xīn rú yì",
+    "explanation": "形容心满意足",
+    "source": "晋书",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "大惊小怪",
+    "pinyin": "dà jīng xiǎo guài",
+    "explanation": "形容对不足为奇的事感到惊讶",
+    "source": "牡丹亭",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "胆战心惊",
+    "pinyin": "dǎn zhàn xīn jīng",
+    "explanation": "形容十分害怕",
+    "source": "碧桃花",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "愤愤不平",
+    "pinyin": "fèn fèn bù píng",
+    "explanation": "心中不服，感到气愤",
+    "source": "汉书",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "和颜悦色",
+    "pinyin": "hé yán yuè sè",
+    "explanation": "形容态度和蔼可亲",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "欢天喜地",
+    "pinyin": "huān tiān xǐ dì",
+    "explanation": "形容非常高兴",
+    "source": "西厢记",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "怒火中烧",
+    "pinyin": "nù huǒ zhōng shāo",
+    "explanation": "愤怒的火焰在心中燃烧",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "手足无措",
+    "pinyin": "shǒu zú wú cuò",
+    "explanation": "手脚没有地方放，形容慌张",
+    "source": "论语",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "心如刀割",
+    "pinyin": "xīn rú dāo gē",
+    "explanation": "内心痛苦得像刀割一样",
+    "source": "牡丹亭",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "欣喜雀跃",
+    "pinyin": "xīn xǐ què yuè",
+    "explanation": "高兴得像鸟雀一样跳跃",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "栩栩如生",
+    "pinyin": "xǔ xǔ rú shēng",
+    "explanation": "形容画作、雕塑中的艺术形象等生动逼真",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "惟妙惟肖",
+    "pinyin": "wéi miào wéi xiào",
+    "explanation": "描写或模仿的非常逼真",
+    "source": "聊斋志异",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "巧夺天工",
+    "pinyin": "qiǎo duó tiān gōng",
+    "explanation": "人工的精巧胜过天然",
+    "source": "赠放烟火者",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "美轮美奂",
+    "pinyin": "měi lún měi huàn",
+    "explanation": "形容房屋高大华丽",
+    "source": "礼记",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "琳琅满目",
+    "pinyin": "lín láng mǎn mù",
+    "explanation": "比喻美好的事物很多",
+    "source": "世说新语",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "金碧辉煌",
+    "pinyin": "jīn bì huī huáng",
+    "explanation": "形容建筑物装饰华丽",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "五彩缤纷",
+    "pinyin": "wǔ cǎi bīn fēn",
+    "explanation": "指颜色繁多，非常好看",
+    "source": "镜花缘",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "流光溢彩",
+    "pinyin": "liú guāng yì cǎi",
+    "explanation": "流动的光影，满溢的色彩",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "排山倒海",
+    "pinyin": "pái shān dǎo hǎi",
+    "explanation": "形容力量强盛，声势浩大",
+    "source": "资治通鉴",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "惊天动地",
+    "pinyin": "jīng tiān dòng dì",
+    "explanation": "使天地惊动，形容某个事件的声势或意义极大",
+    "source": "白居易诗",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "震耳欲聋",
+    "pinyin": "zhèn ěr yù lóng",
+    "explanation": "形容声音很大",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "无边无际",
+    "pinyin": "wú biān wú jì",
+    "explanation": "形容范围极为广阔",
+    "source": "说岳全传",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "一尘不染",
+    "pinyin": "yī chén bù rǎn",
+    "explanation": "泛指丝毫不受坏习惯、坏风气的影响",
+    "source": "释氏要览",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "井井有条",
+    "pinyin": "jǐng jǐng yǒu tiáo",
+    "explanation": "形容说话办事有条有理",
+    "source": "荀子",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "出类拔萃",
+    "pinyin": "chū lèi bá cuì",
+    "explanation": "形容超出同类之上",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "不同凡响",
+    "pinyin": "bù tóng fán xiǎng",
+    "explanation": "形容事物不平凡，很出色",
+    "source": "宋书",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "叹为观止",
+    "pinyin": "tàn wéi guān zhǐ",
+    "explanation": "指赞美所见到的事物好到了极点",
+    "source": "左传",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "炉火纯青",
+    "pinyin": "lú huǒ chún qīng",
+    "explanation": "比喻功夫达到了纯熟完美的境界",
+    "source": "四溟诗话",
+    "difficulty": 3,
+    "category": "形容描写"
+  },
+  {
+    "word": "登峰造极",
+    "pinyin": "dēng fēng zào jí",
+    "explanation": "比喻学问、技能等达到最高的境界",
+    "source": "世说新语",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "出神入化",
+    "pinyin": "chū shén rù huà",
+    "explanation": "形容技艺达到了绝妙的境界",
+    "source": "西厢记",
+    "difficulty": 3,
+    "category": "形容描写"
+  },
+  {
+    "word": "笔走龙蛇",
+    "pinyin": "bǐ zǒu lóng shé",
+    "explanation": "形容书法生动而有气势",
+    "source": "醉后赠张九旭",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "博大精深",
+    "pinyin": "bó dà jīng shēn",
+    "explanation": "形容思想和学识广博高深",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "不计其数",
+    "pinyin": "bù jì qí shù",
+    "explanation": "没法计算数目，形容很多",
+    "source": "醒世恒言",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "川流不息",
+    "pinyin": "chuān liú bù xī",
+    "explanation": "形容行人、车马等像水流一样连续不断",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "从容不迫",
+    "pinyin": "cóng róng bù pò",
+    "explanation": "形容态度镇静，不慌不忙",
+    "source": "诗经",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "大名鼎鼎",
+    "pinyin": "dà míng dǐng dǐng",
+    "explanation": "形容名气很大",
+    "source": "儒林外史",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "独树一帜",
+    "pinyin": "dú shù yī zhì",
+    "explanation": "比喻独特新奇，自成一家",
+    "source": "隋唐演义",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "风度翩翩",
+    "pinyin": "fēng dù piān piān",
+    "explanation": "形容人的举止姿态十分优美",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "鬼斧神工",
+    "pinyin": "guǐ fǔ shén gōng",
+    "explanation": "形容建筑、雕塑等技能的精巧",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "虎背熊腰",
+    "pinyin": "hǔ bèi xióng yāo",
+    "explanation": "形容人身体魁梧健壮",
+    "source": "飞刀对箭",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "绘声绘色",
+    "pinyin": "huì shēng huì sè",
+    "explanation": "形容叙述或描写生动逼真",
+    "source": "二十年目睹之怪现状",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "豁然开朗",
+    "pinyin": "huò rán kāi lǎng",
+    "explanation": "比喻对某个道理长期思索不解后突然明白",
+    "source": "桃花源记",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "汗牛充栋",
+    "pinyin": "hàn niú chōng dòng",
+    "explanation": "形容藏书非常多",
+    "source": "黄生借书说",
+    "difficulty": 3,
+    "category": "形容描写"
+  },
+  {
+    "word": "海市蜃楼",
+    "pinyin": "hǎi shì shèn lóu",
+    "explanation": "比喻虚幻的事物",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "女娲补天",
+    "pinyin": "nǚ wā bǔ tiān",
+    "explanation": "神话传说中女娲炼石补天的故事",
+    "source": "淮南子",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "精卫填海",
+    "pinyin": "jīng wèi tián hǎi",
+    "explanation": "比喻意志坚决，不畏艰难",
+    "source": "山海经",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "夸父逐日",
+    "pinyin": "kuā fù zhú rì",
+    "explanation": "比喻人有大志，也比喻不自量力",
+    "source": "山海经",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "后羿射日",
+    "pinyin": "hòu yì shè rì",
+    "explanation": "神话传说中后羿射下九个太阳的故事",
+    "source": "淮南子",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "嫦娥奔月",
+    "pinyin": "cháng é bēn yuè",
+    "explanation": "神话传说中嫦娥飞向月宫的故事",
+    "source": "淮南子",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "开天辟地",
+    "pinyin": "kāi tiān pì dì",
+    "explanation": "比喻空前的，自古以来没有过的",
+    "source": "三五历纪",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "点石成金",
+    "pinyin": "diǎn shí chéng jīn",
+    "explanation": "比喻修改文章时稍稍改动原来的文字",
+    "source": "列仙传",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "天衣无缝",
+    "pinyin": "tiān yī wú fèng",
+    "explanation": "比喻事物周密完善",
+    "source": "灵怪录",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "沧海桑田",
+    "pinyin": "cāng hǎi sāng tián",
+    "explanation": "大海变成桑田，比喻世事变化很大",
+    "source": "神仙传",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "火眼金睛",
+    "pinyin": "huǒ yǎn jīn jīng",
+    "explanation": "比喻眼光十分犀利",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "腾云驾雾",
+    "pinyin": "téng yún jià wù",
+    "explanation": "原指传说中利用法术乘云雾飞行",
+    "source": "老君堂",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "呼风唤雨",
+    "pinyin": "hū fēng huàn yǔ",
+    "explanation": "比喻能够支配自然或左右某种局面",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "牛郎织女",
+    "pinyin": "niú láng zhī nǚ",
+    "explanation": "比喻分居两地的夫妻",
+    "source": "古诗十九首",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "天女散花",
+    "pinyin": "tiān nǚ sàn huā",
+    "explanation": "比喻大雪纷飞或五彩缤纷的奇景",
+    "source": "维摩诘经",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "大闹天宫",
+    "pinyin": "dà nào tiān gōng",
+    "explanation": "比喻桀骜不驯，敢于反抗",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "哪吒闹海",
+    "pinyin": "né zhā nào hǎi",
+    "explanation": "比喻不畏强暴，勇于斗争",
+    "source": "封神演义",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "劈山救母",
+    "pinyin": "pī shān jiù mǔ",
+    "explanation": "比喻为正义而英勇斗争",
+    "source": "宝莲灯",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "鹊桥相会",
+    "pinyin": "què qiáo xiāng huì",
+    "explanation": "比喻夫妻或情人久别后团聚",
+    "source": "古诗十九首",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "水漫金山",
+    "pinyin": "shuǐ màn jīn shān",
+    "explanation": "比喻水势浩大",
+    "source": "白蛇传",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "盘古开天",
+    "pinyin": "pán gǔ kāi tiān",
+    "explanation": "指开创人类历史的伟大壮举",
+    "source": "三五历纪",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "吴刚伐桂",
+    "pinyin": "wú gāng fá guì",
+    "explanation": "比喻永无休止的劳作",
+    "source": "酉阳杂俎",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "月下老人",
+    "pinyin": "yuè xià lǎo rén",
+    "explanation": "比喻主管婚姻的神",
+    "source": "续玄怪录",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "羽化登仙",
+    "pinyin": "yǔ huà dēng xiān",
+    "explanation": "形容人修炼得道",
+    "source": "赤壁赋",
+    "difficulty": 3,
+    "category": "神话传说"
+  },
+  {
+    "word": "仙风道骨",
+    "pinyin": "xiān fēng dào gǔ",
+    "explanation": "形容人的风度神采不同一般",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "天马行空",
+    "pinyin": "tiān mǎ xíng kōng",
+    "explanation": "比喻诗文气势豪放",
+    "source": "离骚",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "白蛇传",
+    "pinyin": "bái shé chuán",
+    "explanation": "比喻坚贞不渝的爱情",
+    "source": "民间传说",
+    "difficulty": 1,
+    "category": "神话传说"
+  },
+  {
+    "word": "梁祝化蝶",
+    "pinyin": "liáng zhù huà dié",
+    "explanation": "比喻爱情的忠贞不渝",
+    "source": "民间传说",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "刑天舞干戚",
+    "pinyin": "xíng tiān wǔ gān qī",
+    "explanation": "比喻不屈不挠的战斗精神",
+    "source": "山海经",
+    "difficulty": 3,
+    "category": "神话传说"
+  },
+  {
+    "word": "共工怒触不周山",
+    "pinyin": "gòng gōng nù chù bù zhōu shān",
+    "explanation": "比喻伟大的变革精神",
+    "source": "淮南子",
+    "difficulty": 3,
+    "category": "神话传说"
+  },
+  {
+    "word": "毛遂自荐",
+    "pinyin": "máo suì zì jiàn",
+    "explanation": "比喻自告奋勇，自己推荐自己担任某项工作",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "张飞穿针",
+    "pinyin": "zhāng fēi chuān zhēn",
+    "explanation": "比喻粗中有细",
+    "source": "民间俗语",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "刘备借荆州",
+    "pinyin": "liú bèi jiè jīng zhōu",
+    "explanation": "比喻借了就不还",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "孙悟空大闹天宫",
+    "pinyin": "sūn wù kōng dà nào tiān gōng",
+    "explanation": "比喻桀骜不驯，敢于反抗",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "武松打虎",
+    "pinyin": "wǔ sōng dǎ hǔ",
+    "explanation": "比喻勇敢无畏",
+    "source": "水浒传",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "林黛玉葬花",
+    "pinyin": "lín dài yù zàng huā",
+    "explanation": "比喻多愁善感",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "孔夫子搬家",
+    "pinyin": "kǒng fū zǐ bān jiā",
+    "explanation": "比喻全是输（书）",
+    "source": "民间歇后语",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "姜太公钓鱼",
+    "pinyin": "jiāng tài gōng diào yú",
+    "explanation": "比喻心甘情愿地上当",
+    "source": "史记",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "包公断案",
+    "pinyin": "bāo gōng duàn àn",
+    "explanation": "比喻铁面无私",
+    "source": "民间传说",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "韩信点兵",
+    "pinyin": "hán xìn diǎn bīng",
+    "explanation": "比喻越多越好",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "岳飞精忠报国",
+    "pinyin": "yuè fēi jīng zhōng bào guó",
+    "explanation": "形容忠心报国",
+    "source": "宋史",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "张良拾鞋",
+    "pinyin": "zhāng liáng shí xié",
+    "explanation": "比喻尊老敬贤",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "秦叔宝卖马",
+    "pinyin": "qín shū bǎo mài mǎ",
+    "explanation": "比喻英雄落魄",
+    "source": "隋唐演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "穆桂英挂帅",
+    "pinyin": "mù guì yīng guà shuài",
+    "explanation": "比喻女中豪杰挑大梁",
+    "source": "杨家将",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "林冲上梁山",
+    "pinyin": "lín chōng shàng liáng shān",
+    "explanation": "比喻被逼无奈，走投无路",
+    "source": "水浒传",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "孙悟空七十二变",
+    "pinyin": "sūn wù kōng qī shí èr biàn",
+    "explanation": "比喻变化多端",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "猪八戒照镜子",
+    "pinyin": "zhū bā jiè zhào jìng zi",
+    "explanation": "比喻里外不是人",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "人物成语"
+  },
+  {
+    "word": "沙僧挑担子",
+    "pinyin": "shā sēng tiāo dàn zi",
+    "explanation": "比喻任劳任怨",
+    "source": "西游记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "李白斗酒诗百篇",
+    "pinyin": "lǐ bái dǒu jiǔ shī bǎi piān",
+    "explanation": "形容人才思敏捷",
+    "source": "新唐书",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "关羽走麦城",
+    "pinyin": "guān yǔ zǒu mài chéng",
+    "explanation": "比喻英雄末路",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "诸葛亮借东风",
+    "pinyin": "zhū gě liàng jiè dōng fēng",
+    "explanation": "比喻巧妙地利用各种条件达到目的",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "曹操献刀",
+    "pinyin": "cáo cāo xiàn dāo",
+    "explanation": "比喻机智应变",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "王羲之写字",
+    "pinyin": "wáng xī zhī xiě zì",
+    "explanation": "比喻书法极好",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "关羽卖豆腐",
+    "pinyin": "guān yǔ mài dòu fǔ",
+    "explanation": "比喻人硬货不硬",
+    "source": "民间俗语",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "曹操吃鸡肋",
+    "pinyin": "cáo cāo chī jī lèi",
+    "explanation": "比喻食之无味，弃之可惜",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "一板一眼",
+    "pinyin": "yi ban yi yan",
+    "explanation": "比喻言语行动有条理",
+    "source": "红楼梦",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一目十行",
+    "pinyin": "yi mu shi hang",
+    "explanation": "形容看书非常快",
+    "source": "梁书",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一曝十寒",
+    "pinyin": "yi pu shi han",
+    "explanation": "比喻学习一时勤奋一时懒散",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "二桃杀三士",
+    "pinyin": "er tao sha san shi",
+    "explanation": "比喻借刀杀人",
+    "source": "晏子春秋",
+    "difficulty": 3,
+    "category": "数字成语"
+  },
+  {
+    "word": "三寸不烂之舌",
+    "pinyin": "san cun bu lan zhi she",
+    "explanation": "形容能言善辩",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "四海升平",
+    "pinyin": "si hai sheng ping",
+    "explanation": "天下太平",
+    "source": "唐书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "五体投地",
+    "pinyin": "wu ti tou di",
+    "explanation": "比喻佩服到了极点",
+    "source": "梁书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "八拜之交",
+    "pinyin": "ba bai zhi jiao",
+    "explanation": "世代有交情者",
+    "source": "紫钗记",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "九九归一",
+    "pinyin": "jiu jiu gui yi",
+    "explanation": "归根到底",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "十恶不赦",
+    "pinyin": "shi e bu she",
+    "explanation": "形容罪大恶极",
+    "source": "隋书",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "如虎添翼",
+    "pinyin": "ru hu tian yi",
+    "explanation": "比喻强有力的人又增添了新的助力",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "胆小如鼠",
+    "pinyin": "dan xiao ru shu",
+    "explanation": "形容非常胆小",
+    "source": "魏书",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "鸟语花香",
+    "pinyin": "niao yu hua xiang",
+    "explanation": "形容春天美好的景象",
+    "source": "紫钗记",
+    "difficulty": 1,
+    "category": "动物成语"
+  },
+  {
+    "word": "鼠目寸光",
+    "pinyin": "shu mu cun guang",
+    "explanation": "形容目光短浅",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "兔死狗烹",
+    "pinyin": "tu si gou peng",
+    "explanation": "比喻事成之后把有功之人抛弃",
+    "source": "史记",
+    "difficulty": 3,
+    "category": "动物成语"
+  },
+  {
+    "word": "羊入虎口",
+    "pinyin": "yang ru hu kou",
+    "explanation": "比喻弱者落入强者手中",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "鱼龙混杂",
+    "pinyin": "yu long hun za",
+    "explanation": "比喻坏人和好人混在一起",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "飞蛾赴火",
+    "pinyin": "fei e fu huo",
+    "explanation": "比喻自寻死路",
+    "source": "梁书",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狗血淋头",
+    "pinyin": "gou xue lin tou",
+    "explanation": "形容被骂得一无是处",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "狼狈为奸",
+    "pinyin": "lang bei wei jian",
+    "explanation": "比喻互相勾结做坏事",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "春寒料峭",
+    "pinyin": "chun han liao qiao",
+    "explanation": "形容初春的寒冷",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "春色满园",
+    "pinyin": "chun se man yuan",
+    "explanation": "春天的景色充满了整个园子",
+    "source": "唐诗",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "大雨滂沱",
+    "pinyin": "da yu pang tuo",
+    "explanation": "形容雨下得很大",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "风驰电掣",
+    "pinyin": "feng chi dian che",
+    "explanation": "形容非常迅速",
+    "source": "六韬",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "风调雨顺",
+    "pinyin": "feng tiao yu shun",
+    "explanation": "形容气候适宜",
+    "source": "旧唐书",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "花红柳绿",
+    "pinyin": "hua hong liu lü",
+    "explanation": "形容春天的美丽景色",
+    "source": "唐诗",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "晴空万里",
+    "pinyin": "qing kong wan li",
+    "explanation": "形容天空晴朗没有云彩",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "日积月累",
+    "pinyin": "ri ji yue lei",
+    "explanation": "一天一天地不断积累",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "天寒地冻",
+    "pinyin": "tian han di dong",
+    "explanation": "形容天气极为寒冷",
+    "source": "元曲",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "岁月如梭",
+    "pinyin": "sui yue ru suo",
+    "explanation": "形容时间过得很快",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "春回大地",
+    "pinyin": "chun hui da di",
+    "explanation": "形容春天又来到人间",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "秋风萧瑟",
+    "pinyin": "qiu feng xiao se",
+    "explanation": "形容秋风吹拂树木的声音",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "得过且过",
+    "pinyin": "de guo qie guo",
+    "explanation": "只要能过得去就这样过下去",
+    "source": "元曲",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "东施效颦",
+    "pinyin": "dong shi xiao pin",
+    "explanation": "比喻模仿别人反而出丑",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "此地无银三百两",
+    "pinyin": "ci di wu yin san bai liang",
+    "explanation": "比喻想要隐瞒掩饰结果反而暴露",
+    "source": "民间故事",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "悲喜交集",
+    "pinyin": "bei xi jiao ji",
+    "explanation": "悲伤和喜悦的心情交织在一起",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "情感表达"
+  },
+  {
+    "word": "愁肠百结",
+    "pinyin": "chou chang bai jie",
+    "explanation": "形容愁绪难解",
+    "source": "牡丹亭",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "博学多才",
+    "pinyin": "bo xue duo cai",
+    "explanation": "学识广博有多方面的才能",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "才思敏捷",
+    "pinyin": "cai si min jie",
+    "explanation": "形容人的反应快思维灵活",
+    "source": "世说新语",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "德才兼备",
+    "pinyin": "de cai jian bei",
+    "explanation": "既有好的思想品质又有工作的才干和能力",
+    "source": "元曲",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "鹤发童颜",
+    "pinyin": "he fa tong yan",
+    "explanation": "形容老年人气色好",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "眉清目秀",
+    "pinyin": "mei qing mu xiu",
+    "explanation": "形容人容貌清秀",
+    "source": "西游记",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "面黄肌瘦",
+    "pinyin": "mian huang ji shou",
+    "explanation": "形容人营养不良或有病的样子",
+    "source": "元曲",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "膀大腰圆",
+    "pinyin": "bang da yao yuan",
+    "explanation": "形容人的身体高大粗壮",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "一表人才",
+    "pinyin": "yi biao ren cai",
+    "explanation": "形容人容貌俊秀端正",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "仪表堂堂",
+    "pinyin": "yi biao tang tang",
+    "explanation": "形容人的容貌端正魁梧",
+    "source": "三国演义",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "眉开眼笑",
+    "pinyin": "mei kai yan xiao",
+    "explanation": "形容非常高兴愉快的样子",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "诸葛亮皱眉头",
+    "pinyin": "zhu ge liang zhou mei tou",
+    "explanation": "比喻计上心来",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "张飞拆桥",
+    "pinyin": "zhang fei chai qiao",
+    "explanation": "比喻有勇无谋",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "唐僧念紧箍咒",
+    "pinyin": "tang seng nian jin gu zhou",
+    "explanation": "比喻约束别人",
+    "source": "西游记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "一五一十",
+    "pinyin": "yi wu yi shi",
+    "explanation": "比喻叙述从头到尾",
+    "source": "水浒",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "千真万确",
+    "pinyin": "qian zhen wan que",
+    "explanation": "形容非常确实",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "万象更新",
+    "pinyin": "wan xiang gen xin",
+    "explanation": "一切事物都改换了样子",
+    "source": "红楼梦",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一马平川",
+    "pinyin": "yi ma ping chuan",
+    "explanation": "形容地势平坦",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "数字成语"
+  },
+  {
+    "word": "一路顺风",
+    "pinyin": "yi lu shun feng",
+    "explanation": "祝愿旅途平安",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "一丝不苟",
+    "pinyin": "yi si bu gou",
+    "explanation": "形容做事认真细致",
+    "source": "儒林外史",
+    "difficulty": 1,
+    "category": "数字成语"
+  },
+  {
+    "word": "鸡飞蛋打",
+    "pinyin": "ji fei dan da",
+    "explanation": "比喻两头落空一无所得",
+    "source": "隋唐演义",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "鼠窃狗盗",
+    "pinyin": "shu qie gou dao",
+    "explanation": "比喻小偷小摸",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "猪狗不如",
+    "pinyin": "zhu gou bu ru",
+    "explanation": "形容人格低下",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "春风化雨",
+    "pinyin": "chun feng hua yu",
+    "explanation": "比喻良好的教育",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "大风大浪",
+    "pinyin": "da feng da lang",
+    "explanation": "比喻社会的大动荡大变化",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "风和日暖",
+    "pinyin": "feng he ri nuan",
+    "explanation": "风很平静阳光暖人",
+    "source": "紫钗记",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "山明水秀",
+    "pinyin": "shan ming shui xiu",
+    "explanation": "形容风景优美",
+    "source": "黄庭坚诗",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "阳光明媚",
+    "pinyin": "yang guang ming mei",
+    "explanation": "形容天气晴朗",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "自然成语"
+  },
+  {
+    "word": "鸡飞狗跳",
+    "pinyin": "ji fei gou tiao",
+    "explanation": "形容混乱骚乱",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "安分守己",
+    "pinyin": "an fen shou ji",
+    "explanation": "规矩老实，守本分",
+    "source": "论语",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "安居乐业",
+    "pinyin": "an ju le ye",
+    "explanation": "安定地生活，愉快地工作",
+    "source": "老子",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "安然无恙",
+    "pinyin": "an ran wu yang",
+    "explanation": "平安无事，没有受到损害",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "按部就班",
+    "pinyin": "an bu jiu ban",
+    "explanation": "按照一定的步骤慢慢进行",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "白手起家",
+    "pinyin": "bai shou qi jia",
+    "explanation": "形容在没有基础和条件很差的情况下自力更生",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "半途而废",
+    "pinyin": "ban tu er fei",
+    "explanation": "做事没有恒心，中途停止",
+    "source": "礼记",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "包罗万象",
+    "pinyin": "bao luo wan xiang",
+    "explanation": "形容内容丰富，应有尽有",
+    "source": "南史",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "饱经风霜",
+    "pinyin": "bao jing feng shuang",
+    "explanation": "形容经历过长期的艰难困苦",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "笨鸟先飞",
+    "pinyin": "ben niao xian fei",
+    "explanation": "比喻能力差的人怕落后，做事比别人先动手",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "笔下生花",
+    "pinyin": "bi xia sheng hua",
+    "explanation": "比喻文人才思俊逸，写作的诗文极佳",
+    "source": "开元天宝遗事",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "辩才无碍",
+    "pinyin": "bian cai wu ai",
+    "explanation": "形容能说善辩",
+    "source": "三国演义",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "冰清玉洁",
+    "pinyin": "bing qing yu jie",
+    "explanation": "形容人品高尚、操行清白",
+    "source": "诗经",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "并行不悖",
+    "pinyin": "bing xing bu bei",
+    "explanation": "同时进行，不相冲突",
+    "source": "中庸",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "不动声色",
+    "pinyin": "bu dong sheng se",
+    "explanation": "形容非常镇静",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "不分彼此",
+    "pinyin": "bu fen bi ci",
+    "explanation": "形容关系密切，交情深厚",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "不在话下",
+    "pinyin": "bu zai hua xia",
+    "explanation": "形容事情轻微，不值得一提",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "残羹冷炙",
+    "pinyin": "can geng leng zhi",
+    "explanation": "指吃剩的饭菜",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "草菅人命",
+    "pinyin": "cao jian ren ming",
+    "explanation": "形容草率地把人命看得和野草一样",
+    "source": "汉书",
+    "difficulty": 3,
+    "category": "历史典故"
+  },
+  {
+    "word": "层峦叠嶂",
+    "pinyin": "ceng luan die zhang",
+    "explanation": "形容山峰起伏，连绵重叠",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "察言观色",
+    "pinyin": "cha yan guan se",
+    "explanation": "观察别人的说话或脸色",
+    "source": "论语",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "姹紫嫣红",
+    "pinyin": "cha zi yan hong",
+    "explanation": "形容各种花朵娇艳美丽",
+    "source": "牡丹亭",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "搀前马后",
+    "pinyin": "chan qian ma hou",
+    "explanation": "比喻因爱一个人而连带喜爱与他有关的人或物",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "长风破浪",
+    "pinyin": "chang feng po lang",
+    "explanation": "比喻志向远大，不怕困难",
+    "source": "宋书",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "沉鱼落雁",
+    "pinyin": "chen yu luo yan",
+    "explanation": "形容女子容貌美丽",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "诚心诚意",
+    "pinyin": "cheng xin cheng yi",
+    "explanation": "形容十分真挚诚恳",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "吃里爬外",
+    "pinyin": "chi li pa wai",
+    "explanation": "受着别人的恩惠，却反过来背叛",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "重蹈覆辙",
+    "pinyin": "chong dao fu zhe",
+    "explanation": "比喻不吸取教训，重犯以前的错误",
+    "source": "后汉书",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "踌躇满志",
+    "pinyin": "chou chu man zhi",
+    "explanation": "形容对自己取得的成就非常得意",
+    "source": "庄子",
+    "difficulty": 3,
+    "category": "情感表达"
+  },
+  {
+    "word": "出尔反尔",
+    "pinyin": "chu er fan er",
+    "explanation": "比喻说了又翻悔，言行前后矛盾",
+    "source": "孟子",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "初生牛犊",
+    "pinyin": "chu sheng niu du",
+    "explanation": "比喻年轻人思想上没有框框，敢想敢干",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "穿针引线",
+    "pinyin": "chuan zhen yin xian",
+    "explanation": "比喻从中联系撮合",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "吹毛求疵",
+    "pinyin": "chui mao qiu ci",
+    "explanation": "比喻故意挑剔别人的缺点",
+    "source": "韩非子",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "唇枪舌剑",
+    "pinyin": "chun qiang she jian",
+    "explanation": "形容辩论时言语锋利，争辩激烈",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "从善如流",
+    "pinyin": "cong shan ru liu",
+    "explanation": "形容能迅速地接受别人的好意见",
+    "source": "左传",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "寸草不生",
+    "pinyin": "cun cao bu sheng",
+    "explanation": "形容土地贫瘠",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "打草惊蛇",
+    "pinyin": "da cao jing she",
+    "explanation": "比喻做事不周密，行动不谨慎",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "大显身手",
+    "pinyin": "da xian shen shou",
+    "explanation": "充分显示出本领和才能",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "单枪匹马",
+    "pinyin": "dan qiang pi ma",
+    "explanation": "比喻孤身一人或单独行动",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "当局者迷",
+    "pinyin": "dang ju zhe mi",
+    "explanation": "比喻当事人往往因为对利害得失的考虑太多，认识不客观",
+    "source": "旧唐书",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "刀山火海",
+    "pinyin": "dao shan huo hai",
+    "explanation": "比喻极其危险和困难的地方",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "道听途说",
+    "pinyin": "dao ting tu shuo",
+    "explanation": "泛指没有根据的传闻",
+    "source": "论语",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "得心应手",
+    "pinyin": "de xin ying shou",
+    "explanation": "比喻技艺纯熟或做事情非常顺利",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "等量齐观",
+    "pinyin": "deng liang qi guan",
+    "explanation": "指对有差别的事物同等看待",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "颠倒是非",
+    "pinyin": "dian dao shi fei",
+    "explanation": "把对的说成不对，不对说成对的",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "喋喋不休",
+    "pinyin": "die die bu xiu",
+    "explanation": "说话唠唠叨叨，没完没了",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "洞若观火",
+    "pinyin": "dong ruo guan huo",
+    "explanation": "形容观察事物非常透彻",
+    "source": "尚书",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "独断专行",
+    "pinyin": "du duan zhuan xing",
+    "explanation": "行事专断，不考虑别人的意见",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "鹅行鸭步",
+    "pinyin": "e xing ya bu",
+    "explanation": "形容行走迟缓",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "耳濡目染",
+    "pinyin": "er ru mu ran",
+    "explanation": "形容听得多了，见得多了，自然而然受到影响",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "发愤图强",
+    "pinyin": "fa fen tu qiang",
+    "explanation": "决心奋斗，努力谋求强盛",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "翻然悔悟",
+    "pinyin": "fan ran hui wu",
+    "explanation": "形容很快地转变得很好",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "反躬自问",
+    "pinyin": "fan gong zi wen",
+    "explanation": "反过来问自己",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "方兴未艾",
+    "pinyin": "fang xing wei ai",
+    "explanation": "形容形势或事物正在蓬勃发展",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "飞沙走石",
+    "pinyin": "fei sha zou shi",
+    "explanation": "形容风势狂暴",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "非分之想",
+    "pinyin": "fei fen zhi xiang",
+    "explanation": "超出本分的想法",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "肺腑之言",
+    "pinyin": "fei fu zhi yan",
+    "explanation": "发自内心的真诚的话",
+    "source": "牡丹亭",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "分辨是非",
+    "pinyin": "fen bian shi fei",
+    "explanation": "辨别清楚是和非",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "愤世嫉俗",
+    "pinyin": "fen shi ji su",
+    "explanation": "对黑暗的社会和不良的习俗表示愤恨、憎恶",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "丰功伟绩",
+    "pinyin": "feng gong wei ji",
+    "explanation": "伟大的功绩",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "风餐露宿",
+    "pinyin": "feng can lu su",
+    "explanation": "形容旅途或野外生活的艰苦",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "赴汤蹈火",
+    "pinyin": "fu tang dao huo",
+    "explanation": "比喻不避艰险，奋勇向前",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "隔墙有耳",
+    "pinyin": "ge qiang you er",
+    "explanation": "比喻即使秘密商量，别人也可能知道",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "各抒己见",
+    "pinyin": "ge shu ji jian",
+    "explanation": "各人充分发表自己的意见",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "孤掌难鸣",
+    "pinyin": "gu zhang nan ming",
+    "explanation": "比喻力量孤单，难以成事",
+    "source": "韩非子",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "瓜熟蒂落",
+    "pinyin": "gua shu di luo",
+    "explanation": "比喻条件成熟了，事情自然会成功",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "刮目相看",
+    "pinyin": "gua mu xiang kan",
+    "explanation": "比喻去掉旧印象，用新的眼光来看待",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "冠冕堂皇",
+    "pinyin": "guan mian tang huang",
+    "explanation": "形容外表庄严正大",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "管中窥豹",
+    "pinyin": "guan zhong kui bao",
+    "explanation": "比喻只看到事物的一部分",
+    "source": "晋书",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "光怪陆离",
+    "pinyin": "guang guai lu li",
+    "explanation": "形容形状怪异，色彩繁杂",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "鬼使神差",
+    "pinyin": "gui shi shen chai",
+    "explanation": "比喻事出意外，不由自主",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "神话传说"
+  },
+  {
+    "word": "过河拆桥",
+    "pinyin": "guo he chai qiao",
+    "explanation": "比喻达到目的后，就把帮助过自己的人一脚踢开",
+    "source": "元曲",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "骇人听闻",
+    "pinyin": "hai ren ting wen",
+    "explanation": "使人听了非常震惊",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "海枯石烂",
+    "pinyin": "hai ku shi lan",
+    "explanation": "比喻坚定的意志永远不变",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "含辛茹苦",
+    "pinyin": "han xin ru ku",
+    "explanation": "形容饱经忧患，也形容忍受辛苦",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "汗流浃背",
+    "pinyin": "han liu jia bei",
+    "explanation": "形容出汗很多，衣服都湿透了",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "好高骛远",
+    "pinyin": "hao gao wu yuan",
+    "explanation": "比喻不切实际地追求过高过远的目标",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "浩如烟海",
+    "pinyin": "hao ru yan hai",
+    "explanation": "形容典籍、图书等极为丰富",
+    "source": "史通",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "喝西北风",
+    "pinyin": "he xi bei feng",
+    "explanation": "指没有东西吃，空着肚子过日子",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "横征暴敛",
+    "pinyin": "heng zheng bao lian",
+    "explanation": "指向人民强迫征收苛捐杂税",
+    "source": "宋史",
+    "difficulty": 3,
+    "category": "历史典故"
+  },
+  {
+    "word": "鸿鹄之志",
+    "pinyin": "hong hu zhi zhi",
+    "explanation": "比喻远大的志向",
+    "source": "史记",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "厚古薄今",
+    "pinyin": "hou gu bo jin",
+    "explanation": "尊崇古代的，轻视当代的",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "虎口拔牙",
+    "pinyin": "hu kou ba ya",
+    "explanation": "比喻做十分危险的事情",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "动物成语"
+  },
+  {
+    "word": "花言巧语",
+    "pinyin": "hua yan qiao yu",
+    "explanation": "指虚假而动听的话",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "欢蹦乱跳",
+    "pinyin": "huan beng luan tiao",
+    "explanation": "形容健康、活泼、生命力旺盛",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": "缓不济急",
+    "pinyin": "huan bu ji ji",
+    "explanation": "形容办法太慢，赶不上应用",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "患得患失",
+    "pinyin": "huan de huan shi",
+    "explanation": "担心得不到，得到了又担心失去",
+    "source": "论语",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "焕然一新",
+    "pinyin": "huan ran yi xin",
+    "explanation": "形容出现了崭新的面貌",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "形容描写"
+  },
+  {
+    "word": "继往开来",
+    "pinyin": "ji wang kai lai",
+    "explanation": "继承前人的事业，开辟未来的道路",
+    "source": "宋史",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "兢兢业业",
+    "pinyin": "jing jing ye ye",
+    "explanation": "形容做事谨慎勤恳",
+    "source": "诗经",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "开源节流",
+    "pinyin": "kai yuan jie liu",
+    "explanation": "比喻增加收入，节省开支",
+    "source": "荀子",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "励精图治",
+    "pinyin": "li jing tu zhi",
+    "explanation": "振奋精神，想办法把国家治理好",
+    "source": "汉书",
+    "difficulty": 2,
+    "category": "历史典故"
+  },
+  {
+    "word": "埋头苦干",
+    "pinyin": "mai tou ku gan",
+    "explanation": "专心一意地刻苦工作",
+    "source": "现代",
+    "difficulty": 1,
+    "category": "道德修养"
+  },
+  {
+    "word": "凝神定气",
+    "pinyin": "ning shen ding qi",
+    "explanation": "聚精会神，平心静气",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "情感表达"
+  },
+  {
+    "word": "扑朔迷离",
+    "pinyin": "pu shuo mi li",
+    "explanation": "形容事情错综复杂，难以辨别清楚",
+    "source": "木兰诗",
+    "difficulty": 2,
+    "category": "寓言故事"
+  },
+  {
+    "word": "前仆后继",
+    "pinyin": "qian pu hou ji",
+    "explanation": "前面的倒下了，后面的紧跟上去",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "人物成语"
+  },
+  {
+    "word": "忍辱负重",
+    "pinyin": "ren ru fu zhong",
+    "explanation": "为了完成艰巨的任务，忍受屈辱，承担重任",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "舍生忘死",
+    "pinyin": "she sheng wang si",
+    "explanation": "不把个人的生死放在心上",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "推陈出新",
+    "pinyin": "tui chen chu xin",
+    "explanation": "去掉旧事物的糟粕，取其精华，并使它向新的方向发展",
+    "source": "现代",
+    "difficulty": 2,
+    "category": "形容描写"
+  },
+  {
+    "word": " Xiang风沐雨",
+    "pinyin": "xian feng mu yu",
+    "explanation": "以风寒风雨形容奔波劳苦",
+    "source": "庄子",
+    "difficulty": 2,
+    "category": "自然成语"
+  },
+  {
+    "word": "夜以续日",
+    "pinyin": "ye yi xu ri",
+    "explanation": "晚上连着白天，形容加紧工作或学习",
+    "source": "三国志",
+    "difficulty": 2,
+    "category": "道德修养"
+  },
+  {
+    "word": "再接再厉",
+    "pinyin": "zai jie zai li",
+    "explanation": "一次又一次地继续努力",
+    "source": "韩愈诗",
+    "difficulty": 1,
+    "category": "道德修养"
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storeFile": "/Users/zhangchengang/.ssh/zhangchg.p12",
+          "storePassword": "0000001B023F99813A1E5DE398D7196460D16664743D6C0FFBC3AFFB38CDA460FB66C61593E1BDB557131B",
+          "keyAlias": "zcg",
+          "keyPassword": "0000001B8FFA1830887B7D7F6668F050D43D1A36B8544081CBFE254E3FBE4E3C78E50940235E3855CCBDEF",
+          "signAlg": "SHA256withECDSA",
+          "profile": "/Users/zhangchengang/.ssh/prdRelease.p7b",
+          "certpath": "/Users/zhangchengang/.ssh/zhangchg.cer"
+        }
+      },
+      {
+        "name": "debug",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/zhangchengang/.ohos/config/debug_chengyu-game_rHRRxlJjFpdA3M9FdqBR00bzbwacaOfAGWL6vERZRuE=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B488504D5424281594A3A1F8CFEA05D659A0F8DC1BCB7BC9603544814203BE6443DCC859E3FBE13",
+          "profile": "/Users/zhangchengang/.ohos/config/debug_chengyu-game_rHRRxlJjFpdA3M9FdqBR00bzbwacaOfAGWL6vERZRuE=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/zhangchengang/.ohos/config/debug_chengyu-game_rHRRxlJjFpdA3M9FdqBR00bzbwacaOfAGWL6vERZRuE=.p12",
+          "storePassword": "0000001B33EF62D643E4BCF7E5CC16C2AA8A2ADEE514360F08FCDA56C6420DC090D3661402E3061A4F574A"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      "targetSdkVersion": "6.1.0(23)",
+      "compatibleSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS"
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

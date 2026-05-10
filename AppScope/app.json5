@@ -1,0 +1,12 @@
+{
+  "app": {
+    "bundleName": "cn.zhangchg.chengyugame",
+    "vendor": "example",
+    "versionCode": 1000001,
+    "versionName": "1.0.1",
+    "buildVersion": "2",
+    "icon": "$media:icon",
+    "label": "$string:app_name",
+    "distributedNotificationEnabled": false
+  }
+}

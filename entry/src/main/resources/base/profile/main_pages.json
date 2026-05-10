@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/HomePage",
+    "pages/GamePage",
+    "pages/ResultPage",
+    "pages/GameOverPage",
+    "pages/AchievementPage",
+    "pages/LearnPage",
+    "pages/StatsPage",
+    "pages/WrongBookPage",
+    "pages/DailyChallengePage",
+    "pages/AboutPage"
+  ]
+}

@@ -1,0 +1,8 @@
+# Obfuscation rules for release build
+# Add your obfuscation rules here
+
+# Keep all ArkUI components
+-keep file **/*.ets
+
+# Keep EntryAbility
+-keep class **.EntryAbility { *; }
