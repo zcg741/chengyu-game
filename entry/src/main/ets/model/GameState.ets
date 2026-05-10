@@ -11,6 +11,8 @@ export enum HintLevel {
 export interface GameRecord {
   // 当前题目索引
   currentIndex: number;
+  // 当前题型（explanation/pinyin/fill_blank/dragon）
+  questionType: string;
   // 当前成语
   currentChengyu: string;
   // 当前成语拼音

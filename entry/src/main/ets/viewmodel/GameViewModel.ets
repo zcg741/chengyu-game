@@ -1,12 +1,13 @@
 // GameViewModel.ets - 游戏核心逻辑ViewModel
 import { Chengyu } from '../model/ChengyuModel';
 import { GameSession, GameRecord, HintLevel } from '../model/GameState';
-import { GAME_CONFIG, GAME_MODE } from '../utils/Constants';
+import { GAME_CONFIG, GAME_MODE, QUESTION_TYPE } from '../utils/Constants';
 import { getPinyinInitials, generateHint, generatePinyinHint } from '../utils/PinyinUtil';
-import { loadChengyuData, getRandomChengyu } from '../service/ChengyuService';
+import { loadChengyuData, getRandomChengyu, getChengyuByFirstChar } from '../service/ChengyuService';
 import { saveNumber, getNumber } from '../service/StorageService';
 import { initAchievements, incrementAchievement, updateAchievementProgress } from '../service/AchievementService';
 import { Achievement } from '../model/AchievementModel';
+import { collect } from '../service/CollectionService';
 
 export class GameViewModel {
   private session: GameSession;
@@ -35,6 +36,7 @@ export class GameViewModel {
   }
   
   private currentCategory: string = '';
+  private prevChengyuLastChar: string = '';
 
   /**
    * 初始化游戏
@@ -83,30 +85,63 @@ export class GameViewModel {
    * 加载下一题
    */
   loadNextQuestion(): void {
-    const chengyuList = getRandomChengyu(1, this.session.usedIndices);
-    
+    // 随机选题型
+    const typeKeys = Object.values(QUESTION_TYPE);
+    const randomType = typeKeys[Math.floor(Math.random() * typeKeys.length)];
+
+    let chengyuList: Chengyu[] = [];
+
+    // 接龙模式：找首字匹配的成语
+    if (randomType === QUESTION_TYPE.DRAGON && this.prevChengyuLastChar) {
+      chengyuList = getChengyuByFirstChar(this.prevChengyuLastChar);
+      // 过滤已使用的
+      chengyuList = chengyuList.filter((_, idx) => !this.session.usedIndices.includes(idx));
+    }
+
+    // 接龙无匹配或不是接龙模式：随机取题
     if (chengyuList.length === 0) {
-      // 没有更多题目了
+      chengyuList = getRandomChengyu(1, this.session.usedIndices);
+    }
+
+    if (chengyuList.length === 0) {
       this.endGame();
       return;
     }
-    
+
     const chengyu = chengyuList[0];
+    let explanation = '';
+    if (randomType === QUESTION_TYPE.EXPLANATION) {
+      explanation = chengyu.explanation;
+    } else if (randomType === QUESTION_TYPE.PINYIN) {
+      explanation = chengyu.pinyin;
+    } else if (randomType === QUESTION_TYPE.FILL_BLANK) {
+      explanation = this.generateFillBlank(chengyu.word);
+    } else {
+      // 接龙模式：显示尾字提示
+      explanation = this.prevChengyuLastChar
+        ? `尾字「${this.prevChengyuLastChar}」，猜以它开头的成语！`
+        : chengyu.explanation;
+    }
+
     const record: GameRecord = {
       currentIndex: this.session.usedIndices.length,
+      questionType: randomType,
       currentChengyu: chengyu.word,
       currentPinyin: chengyu.pinyin,
-      currentExplanation: chengyu.explanation,
-      currentSource: chengyu.source || '',  // 添加出处
+      currentExplanation: explanation,
+      currentSource: chengyu.source || '',
       userAnswer: '',
-      hintLevel: 0,  // 初始只显示拼音首字母，不揭示汉字
+      hintLevel: 0,
       errorCount: 0,
       isCorrect: false,
       isAnswered: false
     };
-    
+
     this.session.records.push(record);
     this.session.usedIndices.push(record.currentIndex);
+
+    // 更新尾字（用于下一题接龙）
+    this.prevChengyuLastChar = chengyu.word ? chengyu.word.slice(-1) : '';
   }
   
   /**
@@ -166,7 +201,13 @@ export class GameViewModel {
     this.session.score += GAME_CONFIG.SCORE_PER_CORRECT;
     this.session.correctCount++;
     this.session.consecutiveCorrect++;
-    
+
+    // 收集成语（答对后自动收集）
+    const current = this.getCurrentQuestion();
+    if (current) {
+      await collect(current.currentChengyu);
+    }
+
     // 检查连胜成就
     await updateAchievementProgress('consecutive_correct', this.session.consecutiveCorrect);
     
@@ -234,13 +275,31 @@ export class GameViewModel {
     if (!current) {
       return '';
     }
-    
+
     // 如果已经答错到极限（闯关模式），直接显示答案
     if (current.errorCount >= GAME_CONFIG.MAX_ERROR_COUNT) {
       return current.currentChengyu;
     }
-    
+
     return generateHint(current.currentChengyu, current.hintLevel);
+  }
+
+  /**
+   * 生成填空版本成语（如"一心_意"）
+   */
+  private generateFillBlank(word: string): string {
+    if (!word || word.length < 4) return word;
+    const len = word.length;
+    // 随机隐藏 1~2 个字
+    const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
+    const indices = Array.from({ length: len }, (_, i) => i);
+    // 简单随机隐藏
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const hideIdx = new Set(indices.slice(0, hideCount));
+    return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');
   }
   
   /**

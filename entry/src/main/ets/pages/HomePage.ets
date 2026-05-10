@@ -3,18 +3,7 @@ import { GAME_MODE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getCategories } from '../service/ChengyuService';
 import { navigateTo, replaceTo } from '../utils/NavUtil';
-
-// 品牌色定义（便于统一修改）
-const BRAND_ORANGE: string = '#E85D26';
-const BRAND_TEAL: string = '#3BB18E';
-const BG_PAGE: string = '#FAFAF7';
-const BG_CARD: string = '#FFFFFF';
-const BORDER_COLOR: string = '#E8E6E1';
-const TEXT_PRIMARY: string = '#2C2C2C';
-const TEXT_SECONDARY: string = '#888888';
-const BG_ORANGE_LIGHT: string = '#FFF5F0';
-const BG_TEAL_LIGHT: string = '#F0FAF7';
-const BG_AMBER_LIGHT: string = '#FFF8F0';
+import { getCurrentTheme, getCurrentThemeId } from '../service/ThemeService';
 
 @Entry
 @Component
@@ -26,11 +15,32 @@ struct HomePage {
   @State categories: string[] = ['全部'];
   private gameViewModel: GameViewModel = new GameViewModel();
   @State currentTabIndex: number = 0;
+  @State brandColor: string = '#FF6B35';
+  @State bgPage: string = '#FAFAF7';
+  @State bgCard: string = '#FFFFFF';
+  @State borderColor: string = '#E8E6E1';
+  @State textPrimary: string = '#2C2C2C';
+  @State textSecondary: string = '#888888';
+  @State bgOrangeLight: string = '#FFF5F0';
+  @State bgTealLight: string = '#F0FAF7';
+  @State bgAmberLight: string = '#FFF8F0';
+  @State currentThemeId: string = getCurrentThemeId();
 
   async aboutToAppear() {
     this.highScore = await this.gameViewModel.getHighScore();
     this.totalGames = await this.gameViewModel.getTotalGames();
     await this.loadCategories();
+    // 重新加载主题（从主题页返回后刷新）
+    const theme = getCurrentTheme();
+    this.brandColor = theme.brand;
+    this.bgPage = theme.bgPage;
+    this.bgCard = theme.bgCard;
+    this.borderColor = theme.border;
+    this.textPrimary = theme.textPrimary;
+    this.textSecondary = theme.textSecondary;
+    this.bgOrangeLight = theme.bgLight;
+    this.bgTealLight = theme.bgLight;
+    this.bgAmberLight = theme.bgLight;
   }
 
   async loadCategories() {
@@ -73,7 +83,7 @@ struct HomePage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor(BG_PAGE)
+    .backgroundColor(this.bgPage)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 
@@ -88,7 +98,7 @@ struct HomePage {
           Text('妙语成语')
             .fontSize(28)
             .fontWeight(FontWeight.Bold)
-            .fontColor(BRAND_ORANGE);
+            .fontColor(this.brandColor);
           Text('Miaoyu Chengyu')
             .fontSize(11)
             .fontColor('#AAAAAA')
@@ -106,7 +116,7 @@ struct HomePage {
         .width(40)
         .height(40)
         .alignContent(Alignment.Center)
-        .backgroundColor(BG_ORANGE_LIGHT)
+        .backgroundColor(this.bgOrangeLight)
         .borderRadius(20)
         .onClick(() => {
           navigateTo('pages/AchievementPage');
@@ -136,14 +146,14 @@ struct HomePage {
         .margin({ bottom: 2 })
       Text(text)
         .fontSize(10)
-        .fontColor(this.currentTabIndex === tabIndex ? BRAND_ORANGE : '#AAAAAA')
+        .fontColor(this.currentTabIndex === tabIndex ? this.brandColor : '#AAAAAA')
     }
     .width('100%')
     .height(60)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .borderWidth({ top: this.currentTabIndex === tabIndex ? 2 : 0 })
-    .borderColor(BRAND_ORANGE)
+    .borderColor(this.brandColor)
   }
 
   // ========================
@@ -186,14 +196,14 @@ struct HomePage {
       Divider()
         .vertical(true)
         .strokeWidth(3)
-        .color(BRAND_ORANGE)
+        .color(this.brandColor)
         .height(16)
         .margin({ right: 8 })
 
       Text(title)
         .fontSize(15)
         .fontWeight(FontWeight.Medium)
-        .fontColor(TEXT_PRIMARY)
+        .fontColor(this.textPrimary)
     }
     .margin({ bottom: 14, top: 24 })
     .width('100%')
@@ -211,7 +221,7 @@ struct HomePage {
           Column()
             .width(4)
             .height(40)
-            .backgroundColor(BRAND_ORANGE)
+            .backgroundColor(this.brandColor)
             .borderRadius(2)
             .margin({ right: 14 })
 
@@ -219,11 +229,11 @@ struct HomePage {
             Text('计时模式')
               .fontSize(16)
               .fontWeight(FontWeight.Medium)
-              .fontColor(TEXT_PRIMARY)
+              .fontColor(this.textPrimary)
               .width('100%')
             Text('1分钟内尽可能多答题')
               .fontSize(11)
-              .fontColor(TEXT_SECONDARY)
+              .fontColor(this.textSecondary)
               .margin({ top: 2 })
               .width('100%')
           }
@@ -239,10 +249,10 @@ struct HomePage {
       }
       .width('100%')
       .height(68)
-      .backgroundColor(BG_ORANGE_LIGHT)
+      .backgroundColor(this.bgOrangeLight)
       .borderRadius(12)
       .borderWidth(0.5)
-      .borderColor(BORDER_COLOR)
+      .borderColor(this.borderColor)
       .margin({ bottom: 10 })
       .onClick(() => {
         this.startGame(GAME_MODE.TIMER);
@@ -254,7 +264,7 @@ struct HomePage {
           Column()
             .width(4)
             .height(40)
-            .backgroundColor(BRAND_TEAL)
+            .backgroundColor(this.brandColor)
             .borderRadius(2)
             .margin({ right: 14 })
 
@@ -262,11 +272,11 @@ struct HomePage {
             Text('闯关模式')
               .fontSize(16)
               .fontWeight(FontWeight.Medium)
-              .fontColor(TEXT_PRIMARY)
+              .fontColor(this.textPrimary)
               .width('100%')
             Text('连续答对5题即可通关')
               .fontSize(11)
-              .fontColor(TEXT_SECONDARY)
+              .fontColor(this.textSecondary)
               .margin({ top: 2 })
               .width('100%')
           }
@@ -282,10 +292,10 @@ struct HomePage {
       }
       .width('100%')
       .height(68)
-      .backgroundColor(BG_TEAL_LIGHT)
+      .backgroundColor(this.bgTealLight)
       .borderRadius(12)
       .borderWidth(0.5)
-      .borderColor(BORDER_COLOR)
+      .borderColor(this.borderColor)
       .onClick(() => {
         this.startGame(GAME_MODE.CHALLENGE);
       })
@@ -297,8 +307,8 @@ struct HomePage {
   @Builder
   buildDifficultyCard() {
     Row() {
-      this.buildChip('全部', 0, BRAND_ORANGE)
-      this.buildChip('简单', 1, BRAND_TEAL)
+      this.buildChip('全部', 0, this.brandColor)
+      this.buildChip('简单', 1, this.brandColor)
       this.buildChip('中等', 2, '#F5A623')
       this.buildChip('困难', 3, '#D94F4F')
     }
@@ -310,11 +320,11 @@ struct HomePage {
   buildChip(label: string, value: number, color: string) {
     Button(label)
       .height(34)
-      .backgroundColor(this.selectedDifficulty === value ? color : BG_CARD)
-      .fontColor(this.selectedDifficulty === value ? Color.White : TEXT_SECONDARY)
+      .backgroundColor(this.selectedDifficulty === value ? color : this.bgCard)
+      .fontColor(this.selectedDifficulty === value ? Color.White : this.textSecondary)
       .borderRadius(17)
       .borderWidth(this.selectedDifficulty === value ? 0 : 0.5)
-      .borderColor(BORDER_COLOR)
+      .borderColor(this.borderColor)
       .padding({ left: 14, right: 14 })
       .fontSize(13)
       .onClick(() => {
@@ -330,11 +340,11 @@ struct HomePage {
         ForEach(this.categories, (category: string) => {
           Button(category)
             .height(34)
-            .backgroundColor(this.selectedCategory === category ? BRAND_ORANGE : BG_CARD)
-            .fontColor(this.selectedCategory === category ? Color.White : TEXT_SECONDARY)
+            .backgroundColor(this.selectedCategory === category ? this.brandColor : this.bgCard)
+            .fontColor(this.selectedCategory === category ? Color.White : this.textSecondary)
             .borderRadius(17)
             .borderWidth(this.selectedCategory === category ? 0 : 0.5)
-            .borderColor(BORDER_COLOR)
+            .borderColor(this.borderColor)
             .padding({ left: 14, right: 14 })
             .fontSize(13)
             .margin({ right: 8 })
@@ -379,20 +389,57 @@ struct HomePage {
   buildLearnGrid() {
     Column() {
       Row() {
-        this.buildLearnCard('📚', '成语学习', BG_TEAL_LIGHT, BRAND_TEAL, 'pages/LearnPage')
+        this.buildLearnCard('📚', '成语学习', this.bgTealLight, this.brandColor, 'pages/LearnPage')
         Blank().width(12)
         this.buildLearnCard('📝', '错题本', '#FFF0F0', '#D94F4F', 'pages/WrongBookPage')
       }
       .margin({ bottom: 12 })
 
       Row() {
-        this.buildLearnCard('📊', '数据统计', '#F5F0FF', '#7C4DFF', 'pages/StatsPage')
+        this.buildLearnCard('📚', '数据统计', '#F5F0FF', '#7C4DFF', 'pages/StatsPage')
         Blank().width(12)
-        this.buildLearnCard('🎯', '每日挑战', BG_AMBER_LIGHT, '#F5A623', 'pages/DailyChallengePage')
+        this.buildLearnCard('🎯', '每日挑战', this.bgAmberLight, '#F5A623', 'pages/DailyChallengePage')
       }
+
+      // 成语图鉴入口（整行）
+      Row() {
+        this.buildLearnCardFull('📖', '成语图鉴', this.bgTealLight, this.brandColor, 'pages/CollectionPage')
+      }
+      .margin({ top: 12 })
     }
     .width('100%')
     .margin({ bottom: 16 })
+  }
+
+  @Builder
+  buildLearnCardFull(icon: string, label: string, bgColor: string, iconColor: string, pageUrl: string) {
+    Column() {
+      Row() {
+        Text(icon)
+          .fontSize(22)
+          .margin({ right: 12 })
+        Text(label)
+          .fontSize(14)
+          .fontColor(this.textPrimary)
+          .fontWeight(FontWeight.Medium)
+        Blank()
+        Text('→')
+          .fontSize(16)
+          .fontColor('#CCCCCC')
+      }
+      .width('100%')
+      .alignItems(VerticalAlign.Center)
+    }
+    .width('100%')
+    .padding({ top: 16, bottom: 16, left: 20, right: 20 })
+    .backgroundColor(bgColor)
+    .borderRadius(14)
+    .borderWidth(0.5)
+    .borderColor(this.borderColor)
+    .alignItems(HorizontalAlign.Start)
+    .onClick(() => {
+      navigateTo(pageUrl);
+    })
   }
 
   @Builder
@@ -403,7 +450,7 @@ struct HomePage {
         .margin({ bottom: 8 })
       Text(label)
         .fontSize(12)
-        .fontColor(TEXT_PRIMARY)
+        .fontColor(this.textPrimary)
         .fontWeight(FontWeight.Medium)
     }
     .width('48%')
@@ -411,7 +458,7 @@ struct HomePage {
     .backgroundColor(bgColor)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(BORDER_COLOR)
+    .borderColor(this.borderColor)
     .alignItems(HorizontalAlign.Center)
     .onClick(() => {
       navigateTo(pageUrl);
@@ -427,11 +474,11 @@ struct HomePage {
           Text('📅 每日挑战')
             .fontSize(16)
             .fontWeight(FontWeight.Medium)
-            .fontColor(TEXT_PRIMARY)
+            .fontColor(this.textPrimary)
             .width('100%')
           Text('每天5题，坚持打卡赢成就')
             .fontSize(11)
-            .fontColor(TEXT_SECONDARY)
+            .fontColor(this.textSecondary)
             .margin({ top: 2 })
             .width('100%')
         }
@@ -447,10 +494,10 @@ struct HomePage {
     }
     .width('100%')
     .height(68)
-    .backgroundColor(BG_AMBER_LIGHT)
+    .backgroundColor(this.bgAmberLight)
     .borderRadius(12)
     .borderWidth(0.5)
-    .borderColor(BORDER_COLOR)
+    .borderColor(this.borderColor)
     .onClick(() => {
       navigateTo('pages/DailyChallengePage');
     })
@@ -490,18 +537,18 @@ struct HomePage {
           Text(this.highScore.toString())
             .fontSize(42)
             .fontWeight(FontWeight.Bold)
-            .fontColor(BRAND_ORANGE)
+            .fontColor(this.brandColor)
         }
         .width(72)
         .height(72)
         .justifyContent(FlexAlign.Center)
-        .backgroundColor(BG_ORANGE_LIGHT)
+        .backgroundColor(this.bgOrangeLight)
         .borderRadius(36)
         .margin({ bottom: 8 })
 
         Text('最高分')
           .fontSize(12)
-          .fontColor(TEXT_SECONDARY)
+          .fontColor(this.textSecondary)
       }
       .layoutWeight(1)
       .alignItems(HorizontalAlign.Center)
@@ -519,28 +566,28 @@ struct HomePage {
           Text(this.totalGames.toString())
             .fontSize(42)
             .fontWeight(FontWeight.Bold)
-            .fontColor(BRAND_TEAL)
+            .fontColor(this.brandColor)
         }
         .width(72)
         .height(72)
         .justifyContent(FlexAlign.Center)
-        .backgroundColor(BG_TEAL_LIGHT)
+        .backgroundColor(this.bgTealLight)
         .borderRadius(36)
         .margin({ bottom: 8 })
 
         Text('游戏次数')
           .fontSize(12)
-          .fontColor(TEXT_SECONDARY)
+          .fontColor(this.textSecondary)
       }
       .layoutWeight(1)
       .alignItems(HorizontalAlign.Center)
     }
     .width('100%')
     .padding({ top: 24, bottom: 24 })
-    .backgroundColor(BG_CARD)
+    .backgroundColor(this.bgCard)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(BORDER_COLOR)
+    .borderColor(this.borderColor)
     .margin({ bottom: 16 })
   }
 
@@ -550,15 +597,17 @@ struct HomePage {
     Column() {
       this.buildMenuRow('🏆', '我的成就', 'pages/AchievementPage')
       Divider().color('#F5F5F5').strokeWidth(0.5)
+      this.buildMenuRow('🎨', '主题切换', 'pages/ThemePage')
+      Divider().color('#F5F5F5').strokeWidth(0.5)
       this.buildMenuRow('📊', '数据统计', 'pages/StatsPage')
       Divider().color('#F5F5F5').strokeWidth(0.5)
       this.buildMenuRow('❓', '关于游戏', 'pages/AboutPage')
     }
     .width('100%')
-    .backgroundColor(BG_CARD)
+    .backgroundColor(this.bgCard)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(BORDER_COLOR)
+    .borderColor(this.borderColor)
   }
 
   @Builder
@@ -571,7 +620,7 @@ struct HomePage {
 
         Text(title)
           .fontSize(15)
-          .fontColor(TEXT_PRIMARY)
+          .fontColor(this.textPrimary)
           .layoutWeight(1)
           .fontWeight(FontWeight.Medium)
 

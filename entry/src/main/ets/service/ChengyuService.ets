@@ -133,6 +133,24 @@ export function getChengyuByIndex(index: number): Chengyu | undefined {
 }
 
 /**
+ * 根据成语文本查找成语对象
+ * @param word 成语文本
+ * @returns 成语对象或 undefined
+ */
+export function getChengyuByWord(word: string): Chengyu | undefined {
+  return chengyuList.find(c => c.word === word);
+}
+
+/**
+ * 根据首字获取成语列表（用于接龙模式）
+ * @param firstChar 首字
+ * @returns 成语数组
+ */
+export function getChengyuByFirstChar(firstChar: string): Chengyu[] {
+  return chengyuList.filter(c => c.word && c.word.length > 0 && c.word[0] === firstChar);
+}
+
+/**
  * 获取总成语数量
  * @returns 数量
  */

@@ -26,6 +26,14 @@ interface GameMode {
   CHALLENGE: string;
 }
 
+// 题型接口
+interface QuestionType {
+  EXPLANATION: string;
+  PINYIN: string;
+  FILL_BLANK: string;
+  DRAGON: string;
+}
+
 export const GAME_CONFIG: GameConfig = {
   // 计时模式时长（秒）
   TIMER_MODE_DURATION: 60,
@@ -53,4 +61,11 @@ export const STORAGE_KEYS: StorageKeys = {
 export const GAME_MODE: GameMode = {
   TIMER: 'timer',
   CHALLENGE: 'challenge'
+};
+
+export const QUESTION_TYPE: QuestionType = {
+  EXPLANATION: 'explanation',
+  PINYIN: 'pinyin',
+  FILL_BLANK: 'fill_blank',
+  DRAGON: 'dragon'
 };

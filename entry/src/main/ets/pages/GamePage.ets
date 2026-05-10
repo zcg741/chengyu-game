@@ -1,5 +1,5 @@
 // GamePage.ets - 游戏主界面
-import { GAME_MODE, GAME_CONFIG } from '../utils/Constants';
+import { GAME_MODE, GAME_CONFIG, QUESTION_TYPE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { TimerViewModel, TimerCallback, TimerFinishCallback } from '../viewmodel/TimerViewModel';
 import { HintLevel } from '../model/GameState';
@@ -22,6 +22,7 @@ struct GamePage {
   @State isCorrect: boolean = false;
   @State showResult: boolean = false;
   @State gameMode: string = GAME_MODE.TIMER;
+  @State questionType: string = '';
 
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
@@ -69,6 +70,7 @@ struct GamePage {
     const question = this.gameViewModel.getCurrentQuestion();
     if (question) {
       this.currentExplanation = question.currentExplanation;
+      this.questionType = question.questionType || '';
       this.hintLevel = question.hintLevel;
       this.isAnswered = false;
       this.isCorrect = false;
@@ -81,6 +83,22 @@ struct GamePage {
   updateHintText() {
     // 统一使用 ViewModel 的 getCurrentHintText() 获取提示文本
     this.hintText = this.gameViewModel.getCurrentHintText();
+  }
+
+  getQuestionTypeLabel(): string {
+    const type = this.questionType;
+    if (type === QUESTION_TYPE.PINYIN) return '拼音';
+    if (type === QUESTION_TYPE.FILL_BLANK) return '填空';
+    if (type === QUESTION_TYPE.DRAGON) return '接龙';
+    return '释义';
+  }
+
+  getQuestionTypeIcon(): string {
+    const type = this.questionType;
+    if (type === QUESTION_TYPE.PINYIN) return '🔤';
+    if (type === QUESTION_TYPE.FILL_BLANK) return '✏️';
+    if (type === QUESTION_TYPE.DRAGON) return '🐉';
+    return '📖';
   }
 
   onAnswerSubmit() {
@@ -216,13 +234,13 @@ struct GamePage {
 
       Scroll() {
         Column() {
-          // 成语释义卡片
+          // 成语释义/拼音/填空/接龙 卡片
           Column() {
             Row() {
-              Text('📖')
+              Text(this.getQuestionTypeIcon())
                 .fontSize(20)
                 .margin({ right: 8 });
-              Text('释义')
+              Text(this.getQuestionTypeLabel())
                 .fontSize(14)
                 .fontColor('#666666')
                 .fontWeight(FontWeight.Medium);

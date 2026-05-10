@@ -10,6 +10,8 @@
     "pages/StatsPage",
     "pages/WrongBookPage",
     "pages/DailyChallengePage",
-    "pages/AboutPage"
+    "pages/AboutPage",
+    "pages/CollectionPage",
+    "pages/ThemePage"
   ]
 }
