@@ -1,5 +1,9 @@
 # 🏮 成语猜猜乐 - HarmonyOS 版
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Topics](https://img.shields.io/github/topics/zcg741/chengyu-game?label=topics)](https://github.com/zcg741/chengyu-game)
+[![Issues](https://img.shields.io/github/issues/zcg741/chengyu-game)](https://github.com/zcg741/chengyu-game/issues)
+
 一款基于 **ArkTS / ArkUI** 开发的鸿蒙生态成语猜谜游戏，支持手机、平板、折叠屏多端适配。
 
 ## ✨ 功能亮点
