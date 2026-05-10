@@ -1,9 +1,10 @@
 // DailyChallengePage.ets - 每日挑战页面
-import { loadChengyuData, getRandomChengyu } from '../service/ChengyuService';
+import { loadChengyuData, getRandomChengyu, getChengyuByFirstChar } from '../service/ChengyuService';
 import { Chengyu } from '../model/ChengyuModel';
-import { generatePinyinHint } from '../utils/PinyinUtil';
+import { generatePinyinHint, getPinyinInitials } from '../utils/PinyinUtil';
 import { saveNumber, getNumber, getString, saveString } from '../service/StorageService';
 import { navigateBack, replaceTo } from '../utils/NavUtil';
+import { QUESTION_TYPE } from '../utils/Constants';
 
 interface DailyQuestion {
   chengyu: Chengyu;
@@ -11,6 +12,8 @@ interface DailyQuestion {
   isCorrect: boolean;
   isAnswered: boolean;
   hintLevel: number;
+  questionType: string; // 题型
+  hint: string; // 提示内容（填空后的成语等）
 }
 
 @Entry
@@ -25,12 +28,29 @@ struct DailyChallengePage {
   @State correctCount: number = 0;
   @State dailyDate: string = '';
   @State isDailyDone: boolean = false;
+  @State todayType: string = QUESTION_TYPE.EXPLANATION; // 今日题型
+  @State todayTypeName: string = '释义猜词'; // 今日题型名称
+  @State todayTypeIcon: string = '📖'; // 今日题型图标
+
+  // 题型配置
+  private typeConfig: Record<string, { name: string; icon: string }> = {
+    [QUESTION_TYPE.EXPLANATION]: { name: '释义猜词', icon: '📖' },
+    [QUESTION_TYPE.PINYIN]: { name: '拼音猜词', icon: '🔤' },
+    [QUESTION_TYPE.FILL_BLANK]: { name: '填空挑战', icon: '✏️' },
+    [QUESTION_TYPE.DRAGON]: { name: '成语接龙', icon: '🐉' }
+  };
 
   async aboutToAppear() {
     const today = this.getTodayStr();
     this.dailyDate = today;
     const doneDate = await getString('daily_done_date', '');
     this.isDailyDone = (doneDate === today);
+
+    // 计算今日题型
+    this.todayType = this.getTodayQuestionType();
+    const config = this.typeConfig[this.todayType];
+    this.todayTypeName = config.name;
+    this.todayTypeIcon = config.icon;
 
     await loadChengyuData(0, '全部');
     this.generateDailyQuestions();
@@ -41,16 +61,55 @@ struct DailyChallengePage {
     return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
   }
 
+  // 根据日期计算今日题型（4种题型每日轮换）
+  getTodayQuestionType(): string {
+    const now = new Date();
+    const dayOfMonth = now.getDate();
+    const typeKeys = Object.values(QUESTION_TYPE);
+    return typeKeys[dayOfMonth % typeKeys.length];
+  }
+
   generateDailyQuestions() {
-    // 使用日期作为种子来生成固定的每日题目
     const list = getRandomChengyu(10, []);
-    this.questions = list.map((c: Chengyu): DailyQuestion => ({
-      chengyu: c,
-      userAnswer: '',
-      isCorrect: false,
-      isAnswered: false,
-      hintLevel: 2
-    }));
+    this.questions = list.map((c: Chengyu): DailyQuestion => {
+      // 根据今日题型生成提示
+      let hint = '';
+      if (this.todayType === QUESTION_TYPE.EXPLANATION) {
+        hint = c.explanation || '';
+      } else if (this.todayType === QUESTION_TYPE.PINYIN) {
+        hint = c.pinyin || '';
+      } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
+        hint = this.generateFillBlank(c.word);
+      } else if (this.todayType === QUESTION_TYPE.DRAGON) {
+        hint = c.explanation || '';
+      }
+
+      return {
+        chengyu: c,
+        userAnswer: '',
+        isCorrect: false,
+        isAnswered: false,
+        hintLevel: 2,
+        questionType: this.todayType,
+        hint: hint // 添加提示字段
+      };
+    });
+  }
+
+  // 生成填空版本成语（如"一心_意"）
+  generateFillBlank(word: string): string {
+    if (!word || word.length < 4) return word;
+    const len = word.length;
+    // 随机隐藏 1~2 个字
+    const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
+    const indices = Array.from({ length: len }, (_, i) => i);
+    // 简单随机隐藏
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const hideIdx = new Set(indices.slice(0, hideCount));
+    return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');
   }
 
   getCurrentQuestion(): DailyQuestion | null {
@@ -103,6 +162,33 @@ struct DailyChallengePage {
     }
   }
 
+  // 获取接龙模式提示（上一个成语的尾字）
+  getDragonHint(): string {
+    if (this.currentIndex === 0) {
+      // 第一题随机给一个字
+      const chars = this.getCurrentQuestion()?.chengyu.word || '';
+      return chars.length > 0 ? chars[0] : '';
+    }
+    // 上一题成语的尾字
+    const prevQuestion = this.questions[this.currentIndex - 1];
+    const prevWord = prevQuestion?.chengyu.word || '';
+    return prevWord.length > 0 ? prevWord[prevWord.length - 1] : '';
+  }
+
+  // 获取输入框提示文字
+  getInputPlaceholder(): string {
+    if (this.todayType === QUESTION_TYPE.EXPLANATION) {
+      return '请输入成语（根据释义猜测）';
+    } else if (this.todayType === QUESTION_TYPE.PINYIN) {
+      return '请输入成语（根据拼音猜测）';
+    } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
+      return '请输入完整成语（补全填空）';
+    } else if (this.todayType === QUESTION_TYPE.DRAGON) {
+      return '请输入成语（接龙模式）';
+    }
+    return '请输入成语';
+  }
+
   build() {
     Column() {
       // 顶部导航栏
@@ -138,26 +224,103 @@ struct DailyChallengePage {
         .backgroundColor('#F0F0F0')
         .padding({ left: 16, right: 16 })
 
+      // 今日题型标签
+      Row() {
+        Text(this.todayTypeIcon)
+          .fontSize(16)
+          .margin({ right: 6 })
+        Text(this.todayTypeName)
+          .fontSize(14)
+          .fontColor('#FF6B35')
+          .fontWeight(FontWeight.Medium)
+        Text('· 每日轮换')
+          .fontSize(12)
+          .fontColor('#999999')
+          .margin({ left: 6 })
+      }
+      .padding({ top: 8, bottom: 8 })
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+
       if (this.isCompleted) {
         // 完成页面
         Column() {
-          Text('🎉')
+          // 成就图标
+          Text(this.correctCount >= 8 ? '🏆' : this.correctCount >= 5 ? '🎉' : '💪')
             .fontSize(60)
             .margin({ bottom: 16 })
+
           Text('今日挑战完成！')
             .fontSize(24)
             .fontWeight(FontWeight.Bold)
             .fontColor('#333333')
             .margin({ bottom: 8 })
-          Text(`答对 ${this.correctCount}/${this.questions.length} 题`)
-            .fontSize(18)
+
+          // 成就评价
+          Text(this.correctCount >= 8 ? '太厉害了！你是成语大师！' : 
+               this.correctCount >= 5 ? '不错哦！继续加油！' : '还需努力，明天再来！')
+            .fontSize(16)
             .fontColor('#666666')
-            .margin({ bottom: 24 })
+            .margin({ bottom: 16 })
+
+          // 得分卡片
+          Row() {
+            Column() {
+              Text(this.correctCount.toString())
+                .fontSize(32)
+                .fontWeight(FontWeight.Bold)
+                .fontColor('#FF6B35')
+              Text('答对')
+                .fontSize(12)
+                .fontColor('#999999')
+            }
+            .layoutWeight(1)
+
+            Column() {
+              Text((this.questions.length - this.correctCount).toString())
+                .fontSize(32)
+                .fontWeight(FontWeight.Bold)
+                .fontColor('#999999')
+              Text('答错')
+                .fontSize(12)
+                .fontColor('#999999')
+            }
+            .layoutWeight(1)
+
+            Column() {
+              Text(Math.round(this.correctCount / this.questions.length * 100) + '%')
+                .fontSize(32)
+                .fontWeight(FontWeight.Bold)
+                .fontColor('#4ECDC4')
+              Text('正确率')
+                .fontSize(12)
+                .fontColor('#999999')
+            }
+            .layoutWeight(1)
+          }
+          .width('90%')
+          .padding(20)
+          .backgroundColor('#FFFFFF')
+          .borderRadius(16)
+          .margin({ bottom: 24 })
+          .shadow({ radius: 8, color: '#0000000D', offsetX: 0, offsetY: 4 })
 
           // 答题详情
           Column() {
-            ForEach(this.questions, (q: DailyQuestion) => {
+            Text('答题详情')
+              .fontSize(16)
+              .fontWeight(FontWeight.Medium)
+              .fontColor('#333333')
+              .margin({ bottom: 12 })
+              .width('100%')
+              .textAlign(TextAlign.Start)
+
+            ForEach(this.questions, (q: DailyQuestion, index: number) => {
               Row() {
+                Text((index + 1).toString())
+                  .fontSize(14)
+                  .fontColor('#999999')
+                  .width(24)
                 Text(q.isCorrect ? '✅' : '❌')
                   .fontSize(16)
                   .margin({ right: 8 })
@@ -171,17 +334,19 @@ struct DailyChallengePage {
                   .fontColor('#888888')
                   .maxLines(1)
                   .textOverflow({ overflow: TextOverflow.Ellipsis })
-                  .width('50%')
+                  .width('40%')
               }
               .width('100%')
-              .padding({ top: 6, bottom: 6 })
+              .padding({ top: 8, bottom: 8 })
+              .border({ width: { bottom: 1 }, color: '#F0F0F0' })
             })
           }
           .width('90%')
           .padding(16)
           .backgroundColor('#FFFFFF')
-          .borderRadius(12)
+          .borderRadius(16)
           .margin({ bottom: 24 })
+          .shadow({ radius: 8, color: '#0000000D', offsetX: 0, offsetY: 4 })
 
           Button('返回首页')
             .width('60%')
@@ -202,25 +367,61 @@ struct DailyChallengePage {
         Scroll() {
           Column() {
             if (this.getCurrentQuestion()) {
-              // 释义卡片
+              // 主提示卡片（根据题型显示不同内容）
               Column() {
                 Row() {
-                  Text('📖')
+                  Text(this.todayTypeIcon)
                     .fontSize(20)
                     .margin({ right: 8 })
-                  Text('释义')
+                  Text(this.todayTypeName)
                     .fontSize(14)
                     .fontColor('#888888')
                     .fontWeight(FontWeight.Medium)
                 }
                 .margin({ bottom: 12 })
 
-                Text(this.getCurrentQuestion()?.chengyu.explanation || '')
-                  .fontSize(22)
-                  .fontWeight(FontWeight.Medium)
-                  .textAlign(TextAlign.Center)
-                  .lineHeight(32)
-                  .fontColor('#333333')
+                // 根据题型显示不同提示内容
+                if (this.todayType === QUESTION_TYPE.EXPLANATION) {
+                  // 释义猜词：显示释义
+                  Text(this.getCurrentQuestion()?.chengyu.explanation || '')
+                    .fontSize(22)
+                    .fontWeight(FontWeight.Medium)
+                    .textAlign(TextAlign.Center)
+                    .lineHeight(32)
+                    .fontColor('#333333')
+                } else if (this.todayType === QUESTION_TYPE.PINYIN) {
+                  // 拼音猜词：显示拼音
+                  Text(this.getCurrentQuestion()?.chengyu.pinyin || '')
+                    .fontSize(28)
+                    .fontWeight(FontWeight.Bold)
+                    .textAlign(TextAlign.Center)
+                    .letterSpacing(4)
+                    .fontColor('#FF6B35')
+                } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
+                  // 填空挑战：显示填空后的成语
+                  Text(this.getCurrentQuestion()?.hint || '')
+                    .fontSize(42)
+                    .fontWeight(FontWeight.Bold)
+                    .textAlign(TextAlign.Center)
+                    .letterSpacing(8)
+                    .fontColor('#FF6B35')
+                } else if (this.todayType === QUESTION_TYPE.DRAGON) {
+                  // 成语接龙：显示上一个成语的尾字提示
+                  Column() {
+                    Text('上一个成语的尾字是：')
+                      .fontSize(14)
+                      .fontColor('#888888')
+                      .margin({ bottom: 8 })
+                    Text(this.getDragonHint())
+                      .fontSize(48)
+                      .fontWeight(FontWeight.Bold)
+                      .fontColor('#FF6B35')
+                    Text('请猜以这个字开头的成语！')
+                      .fontSize(14)
+                      .fontColor('#888888')
+                      .margin({ top: 8 })
+                  }
+                }
               }
               .width('90%')
               .padding(24)
@@ -242,14 +443,44 @@ struct DailyChallengePage {
                 }
                 .margin({ bottom: 12 })
 
-                Text(generatePinyinHint(
-                  this.getCurrentQuestion()?.chengyu.word || '',
-                  this.getCurrentQuestion()?.hintLevel || 2
-                ))
-                  .fontSize(36)
-                  .fontWeight(FontWeight.Bold)
-                  .fontColor('#FF6B35')
-                  .letterSpacing(8)
+                // 根据题型显示不同提示
+                if (this.todayType === QUESTION_TYPE.EXPLANATION) {
+                  // 释义猜词：显示拼音提示
+                  Text(generatePinyinHint(
+                    this.getCurrentQuestion()?.chengyu.word || '',
+                    this.getCurrentQuestion()?.hintLevel || 2
+                  ))
+                    .fontSize(36)
+                    .fontWeight(FontWeight.Bold)
+                    .fontColor('#FF6B35')
+                    .letterSpacing(8)
+                } else if (this.todayType === QUESTION_TYPE.PINYIN) {
+                  // 拼音猜词：显示释义提示
+                  Text(this.getCurrentQuestion()?.chengyu.explanation || '')
+                    .fontSize(18)
+                    .fontWeight(FontWeight.Medium)
+                    .textAlign(TextAlign.Center)
+                    .lineHeight(28)
+                    .fontColor('#333333')
+                } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
+                  // 填空挑战：显示释义提示
+                  Text(this.getCurrentQuestion()?.chengyu.explanation || '')
+                    .fontSize(18)
+                    .fontWeight(FontWeight.Medium)
+                    .textAlign(TextAlign.Center)
+                    .lineHeight(28)
+                    .fontColor('#333333')
+                } else if (this.todayType === QUESTION_TYPE.DRAGON) {
+                  // 成语接龙：显示拼音提示
+                  Text(generatePinyinHint(
+                    this.getCurrentQuestion()?.chengyu.word || '',
+                    this.getCurrentQuestion()?.hintLevel || 2
+                  ))
+                    .fontSize(36)
+                    .fontWeight(FontWeight.Bold)
+                    .fontColor('#FF6B35')
+                    .letterSpacing(8)
+                }
               }
               .width('90%')
               .padding(24)
@@ -261,7 +492,10 @@ struct DailyChallengePage {
               // 输入和结果
               if (!this.showResult) {
                 Column() {
-                  TextInput({ placeholder: '请输入成语', text: this.userAnswer })
+                  TextInput({ 
+                    placeholder: this.getInputPlaceholder(), 
+                    text: this.userAnswer 
+                  })
                     .width('100%')
                     .height(52)
                     .backgroundColor(Color.White)
