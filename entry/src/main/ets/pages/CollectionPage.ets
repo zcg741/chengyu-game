@@ -3,6 +3,8 @@ import { getCollectedList, getCollectedChengyuList, getCollectedCount } from '..
 import { Chengyu } from '../model/ChengyuModel';
 import { getTotalCount } from '../service/ChengyuService';
 import { navigateTo } from '../utils/NavUtil';
+import { getCurrentTheme } from '../service/ThemeService';
+import { Theme } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -13,7 +15,24 @@ struct CollectionPage {
   @State selectedChengyu: Chengyu | undefined = undefined;
   @State showDetail: boolean = false;
 
+  // 主题颜色状态
+  @State brandColor: string = '#FF6B35';
+  @State bgPage: string = '#F5F5F5';
+  @State bgCard: string = '#FFFFFF';
+  @State borderColor: string = '#E0E0E0';
+  @State textPrimary: string = '#333333';
+  @State textSecondary: string = '#666666';
+
   async aboutToAppear() {
+    // 加载主题
+    const theme = getCurrentTheme();
+    this.brandColor = theme.brand;
+    this.bgPage = theme.bgPage;
+    this.bgCard = theme.bgCard;
+    this.borderColor = theme.border;
+    this.textPrimary = theme.textPrimary;
+    this.textSecondary = theme.textSecondary;
+
     await this.loadCollection();
   }
 
@@ -49,7 +68,7 @@ struct CollectionPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor(this.bgPage)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 
@@ -60,11 +79,11 @@ struct CollectionPage {
       Button({ type: ButtonType.Normal }) {
         Text('←')
           .fontSize(18)
-          .fontColor('#333333');
+          .fontColor(this.textPrimary);
       }
       .width(40)
       .height(40)
-      .backgroundColor(Color.White)
+      .backgroundColor(this.bgCard)
       .borderRadius(20)
       .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
       .onClick(() => {
@@ -76,7 +95,7 @@ struct CollectionPage {
       Text('成语图鉴')
         .fontSize(18)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#333333');
+        .fontColor(this.textPrimary);
 
       Blank()
 
@@ -87,7 +106,7 @@ struct CollectionPage {
     }
     .width('100%')
     .padding({ left: 20, right: 20, top: 16, bottom: 12 })
-    .backgroundColor(Color.White)
+    .backgroundColor(this.bgCard)
     .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
   }
 
@@ -96,23 +115,23 @@ struct CollectionPage {
     Row() {
       Text(`已收集：${this.totalCollected} / ${this.totalCount}`)
         .fontSize(13)
-        .fontColor('#666666');
+        .fontColor(this.textSecondary);
       Blank();
       Stack() {
         Progress({ value: this.totalCollected, total: this.totalCount, type: ProgressType.Ring })
           .width(32)
           .height(32)
-          .color('#FF6B35')
-          .backgroundColor('#E0E0E0');
+          .color(this.brandColor)
+          .backgroundColor(this.borderColor);
         Text(`${Math.round(this.totalCollected / this.totalCount * 100)}%`)
           .fontSize(8)
-          .fontColor('#FF6B35')
+          .fontColor(this.brandColor)
           .fontWeight(FontWeight.Bold);
       }
     }
     .width('90%')
     .padding({ left: 16, right: 16, top: 10, bottom: 10 })
-    .backgroundColor(Color.White)
+    .backgroundColor(this.bgCard)
     .borderRadius(12)
     .margin({ top: 16, bottom: 12 })
     .alignSelf(ItemAlign.Center)
