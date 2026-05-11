@@ -4,7 +4,16 @@ import { saveString, getString } from './StorageService';
 
 const STORAGE_KEY = 'current_theme';
 
-let currentTheme: Theme = THEMES['classic'];
+// 根据 themeId 获取主题（避免索引访问）
+function getThemeById(themeId: string): Theme {
+  if (themeId === 'classic') return THEMES.classic;
+  if (themeId === 'green') return THEMES.green;
+  if (themeId === 'blue') return THEMES.blue;
+  if (themeId === 'dark') return THEMES.dark;
+  return THEMES.classic; // 默认
+}
+
+let currentTheme: Theme = THEMES.classic;
 
 /**
  * 初始化主题（App 启动时调用）
@@ -12,12 +21,10 @@ let currentTheme: Theme = THEMES['classic'];
 export async function initTheme(): Promise<void> {
   try {
     const themeId = await getString(STORAGE_KEY, 'classic');
-    if (THEMES[themeId]) {
-      currentTheme = THEMES[themeId];
-    }
+    currentTheme = getThemeById(themeId);
   } catch (error) {
     console.error('ThemeService.initTheme error:', error);
-    currentTheme = THEMES['classic'];
+    currentTheme = THEMES.classic;
   }
 }
 
@@ -38,7 +45,7 @@ export async function setTheme(themeId: string): Promise<void> {
     console.error('ThemeService.setTheme: unknown theme', themeId);
     return;
   }
-  currentTheme = THEMES[themeId];
+  currentTheme = getThemeById(themeId);
   try {
     await saveString(STORAGE_KEY, themeId);
   } catch (error) {
@@ -51,7 +58,7 @@ export async function setTheme(themeId: string): Promise<void> {
  * @returns 主题数组
  */
 export function getThemeList(): Theme[] {
-  return Object.values(THEMES);
+  return [THEMES.classic, THEMES.green, THEMES.blue, THEMES.dark];
 }
 
 /**
