@@ -207,9 +207,7 @@ struct CollectionPage {
       ].join('\n'),
       confirm: {
         value: '关闭',
-        action: () => {
-          this.showDetail = false;
-        }
+        action: () => {}
       }
     });
   }
