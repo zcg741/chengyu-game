@@ -21,9 +21,10 @@ async function loadChengyuFromRawFile(): Promise<Chengyu[]> {
     console.error('ChengyuService: 无法获取上下文');
     return getBuiltInFallbackData();
   }
-  try {
+   try {
     const fileData: Uint8Array = await context.resourceManager.getRawFileContent('chengyu_data.json');
-    const jsonStr = String.fromCharCode(...Array.from(fileData));
+    // 使用 TextDecoder 正确解码 UTF-8（String.fromCharCode 会导致中文/拼音乱码）
+    const jsonStr = new TextDecoder('utf-8').decode(fileData);
     const data = JSON.parse(jsonStr) as Chengyu[];
     console.log(`ChengyuService: 从 JSON 加载了 ${data.length} 条成语`);
     return data;
