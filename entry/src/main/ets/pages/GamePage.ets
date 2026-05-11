@@ -44,6 +44,11 @@ struct GamePage {
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
   private storyTimerId: number = 0; // 故事弹窗定时器ID
+  
+  // 故事弹窗状态
+  @State showStoryDialog: boolean = false;
+  @State storyChengyu: string = '';
+  @State storySource: string = '';
 
   async aboutToAppear() {
     // 加载主题
@@ -179,14 +184,10 @@ struct GamePage {
       if (question && question.currentSource) {
         this.storyTimerId = setTimeout(() => {
           this.storyTimerId = 0;
-          AlertDialog.show({
-            title: '📖 成语故事',
-            message: `${question.currentChengyu}\n\n${question.currentSource}`,
-            confirm: {
-              value: '知道了',
-              action: () => {}
-            }
-          });
+          // 设置故事弹窗状态
+          this.storyChengyu = question.currentChengyu || '';
+          this.storySource = question.currentSource || '';
+          this.showStoryDialog = true;
         }, 500) as number;
       }
     } else {
@@ -570,5 +571,19 @@ struct GamePage {
     .height('100%')
     .backgroundColor(this.bgPage)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
+
+    // 故事弹窗
+    if (this.showStoryDialog) {
+      AlertDialog({
+        title: '📖 成语故事',
+        message: `${this.storyChengyu}\n\n${this.storySource}`,
+        confirm: {
+          value: '知道了',
+          action: () => {
+            this.showStoryDialog = false;
+          }
+        }
+      })
+    }
   }
 }

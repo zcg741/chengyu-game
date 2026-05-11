@@ -200,9 +200,9 @@ struct CollectionPage {
     .border({ width: 1, color: '#EEEEEE' })
   }
 
-  @Builder
+  // 详情弹窗 - 在 build() 中直接调用
   buildDetailDialog() {
-    AlertDialog.show({
+    AlertDialog({
       title: this.selectedChengyu!.word,
       message: [
         `拼音：${this.selectedChengyu!.pinyin}`,
@@ -217,7 +217,7 @@ struct CollectionPage {
           this.showDetail = false;
         }
       }
-    });
+    })
   }
 
   /**

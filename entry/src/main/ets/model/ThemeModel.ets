@@ -18,7 +18,15 @@ export interface Theme {
   bgLight: string;
 }
 
-export const THEMES: Record<string, Theme> = {
+// 显式定义主题键值接口（ArkTS 严格模式要求）
+export interface ThemesMap {
+  classic: Theme;
+  green: Theme;
+  blue: Theme;
+  dark: Theme;
+}
+
+export const THEMES: ThemesMap = {
   classic: {
     id: 'classic',
     name: '经典橙',
