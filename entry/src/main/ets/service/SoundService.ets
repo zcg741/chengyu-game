@@ -2,6 +2,7 @@
 import media from '@ohos.multimedia.media';
 import common from '@ohos.app.ability.common';
 import { getAppContext } from '../utils/ContextManager';
+import { getBoolean } from './StorageService';
 
 let audioPlayer: media.AVPlayer | null = null;
 
@@ -22,6 +23,13 @@ function getSoundFile(soundType: string): string {
  */
 export async function playSound(soundType: string): Promise<void> {
   try {
+    // 检查音效开关
+    const soundEnabled = await getBoolean('sound_enabled', true);
+    if (!soundEnabled) {
+      console.info('Sound is disabled by user');
+      return;
+    }
+    
     // 停止当前播放的音效
     await stopSound();
     

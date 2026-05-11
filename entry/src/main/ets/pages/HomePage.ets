@@ -3,6 +3,7 @@ import { GAME_MODE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getCategories } from '../service/ChengyuService';
 import { navigateTo, replaceTo } from '../utils/NavUtil';
+import { getBoolean, saveBoolean } from '../service/StorageService';
 import { getCurrentTheme, getCurrentThemeId } from '../service/ThemeService';
 
 @Entry
@@ -15,6 +16,7 @@ struct HomePage {
   @State categories: string[] = ['全部'];
   private gameViewModel: GameViewModel = new GameViewModel();
   @State currentTabIndex: number = 0;
+  @State soundEnabled: boolean = true; // 音效开关
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#FAFAF7';
   @State bgCard: string = '#FFFFFF';
@@ -41,6 +43,7 @@ struct HomePage {
     this.bgOrangeLight = theme.bgLight;
     this.bgTealLight = theme.bgLight;
     this.bgAmberLight = theme.bgLight;
+    this.soundEnabled = await getBoolean('sound_enabled', true);
   }
 
   async loadCategories() {
@@ -513,6 +516,9 @@ struct HomePage {
         this.buildSectionTitle('我的数据')
         this.buildStatsCard()
 
+        this.buildSectionTitle('设置')
+        this.buildSettingsCard()
+
         this.buildSectionTitle('更多')
         this.buildProfileMenu()
 
@@ -591,6 +597,20 @@ struct HomePage {
     .margin({ bottom: 16 })
   }
 
+  @Builder
+  buildSettingsCard() {
+    this.buildToggleRow('🔊', '游戏音效', this.soundEnabled, (value: boolean) => {
+      this.soundEnabled = value;
+      saveBoolean('sound_enabled', value);
+    })
+  }
+  .width('100%')
+  .backgroundColor(this.bgCard)
+  .borderRadius(14)
+  .borderWidth(0.5)
+  .borderColor(this.borderColor)
+  .margin({ bottom: 16 })
+
   // 菜单列表
   @Builder
   buildProfileMenu() {
@@ -641,6 +661,29 @@ struct HomePage {
     .onClick(() => {
       navigateTo(pageUrl);
     })
+  }
+
+  @Builder
+  buildToggleRow(icon: string, title: string, isOn: boolean, onChange: (value: boolean) => void) {
+    Row() {
+      Text(icon)
+        .fontSize(18)
+        .margin({ right: 14 });
+
+      Text(title)
+        .fontSize(15)
+        .fontColor(this.textPrimary)
+        .layoutWeight(1);
+
+      Toggle({ type: ToggleType.Switch, isOn: isOn })
+        .onChange((value: boolean) => {
+          onChange(value);
+        })
+    }
+    .width('100%')
+    .height(52)
+    .padding({ left: 16, right: 16 })
+    .backgroundColor(Color.Transparent);
   }
 
   // ========================
