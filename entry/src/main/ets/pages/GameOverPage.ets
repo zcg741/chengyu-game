@@ -289,7 +289,7 @@ struct GameOverPage {
    */
   async shareScore() {
     try {
-      const shareText = `我在「妙语成语」中获得了 ${this.score} 分，答对了 ${this.correctCount} 题！快来挑战吧！`;
+      const shareText = `【妙语成语】挑战结束！\n🏆 最终得分：${this.score} 分\n✅ 答对：${this.correctCount} 题\n📊 正确率：${this.accuracy}%\n\n💪 快来和我一起玩「妙语成语」吧！`;
       // 使用剪贴板复制分享内容
       const pasteboard = await import('@ohos.pasteboard');
       const systemPasteboard = pasteboard.default.getSystemPasteboard();
