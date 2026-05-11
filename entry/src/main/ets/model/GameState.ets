@@ -46,6 +46,8 @@ export interface GameSession {
   consecutiveCorrect: number;
   // 当前关卡（闯关模式）
   currentLevel: number;
+  // 生命值（闯关模式）
+  lives: number;
   // 剩余时间（计时模式，秒）
   remainingTime: number;
   // 是否游戏中

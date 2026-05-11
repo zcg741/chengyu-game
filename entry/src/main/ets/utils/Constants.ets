@@ -4,6 +4,7 @@
 interface GameConfig {
   TIMER_MODE_DURATION: number;
   CHALLENGE_MODE_COUNT: number;
+  MAX_LIVES: number;
   HINT_NONE: number;
   HINT_FIRST: number;
   HINT_SECOND: number;
@@ -39,6 +40,8 @@ export const GAME_CONFIG: GameConfig = {
   TIMER_MODE_DURATION: 60,
   // 闯关模式需要连续答对的题目数
   CHALLENGE_MODE_COUNT: 5,
+  // 闯关模式最大生命值
+  MAX_LIVES: 3,
   // 提示等级
   HINT_NONE: 0,
   HINT_FIRST: 1,

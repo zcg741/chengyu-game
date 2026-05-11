@@ -24,6 +24,7 @@ struct GamePage {
   @State isCorrect: boolean = false;
   @State showResult: boolean = false;
   @State gameMode: string = GAME_MODE.TIMER;
+  @State lives: number = 3; // 生命值（闯关模式）
   @State questionType: string = '';
 
   // 主题颜色状态
@@ -54,11 +55,30 @@ struct GamePage {
     this.textSecondary = theme.textSecondary;
     this.bgLight = theme.bgLight;
 
-    // 初始化游戏（默认计时模式）
-    await this.gameViewModel.initGame(GAME_MODE.TIMER);
-    this.gameMode = GAME_MODE.TIMER;
+    // 读取路由参数
+    const params = getRouteParams();
+    let mode = GAME_MODE.TIMER;
+    let difficulty = 0;
+    let category = '';
+
+    if (params) {
+      mode = params['mode'] as string || GAME_MODE.TIMER;
+      difficulty = params['difficulty'] as number || 0;
+      category = params['category'] as string || '';
+    }
+
+    // 初始化游戏
+    await this.gameViewModel.initGame(mode, difficulty, category);
+    this.gameMode = mode;
     this.loadQuestion();
-    this.startTimer();
+
+    // 读取生命值（闯关模式）
+    this.lives = this.gameViewModel.getLives();
+
+    // 计时模式启动计时器
+    if (mode === GAME_MODE.TIMER) {
+      this.startTimer();
+    }
   }
 
   startTimer() {
@@ -138,6 +158,9 @@ struct GamePage {
     this.showResult = true;
     this.score = this.gameViewModel.getScore();
     this.correctCount = this.gameViewModel.getCorrectCount();
+    
+    // 更新生命值（闯关模式）
+    this.lives = this.gameViewModel.getLives();
 
     // 触发结果图标缩放动画
     this.resultScale = 1.5;
@@ -166,6 +189,12 @@ struct GamePage {
         // 2秒后隐藏结果提示
         setTimeout(() => {
           this.showResult = false;
+          
+          // 闯关模式下生命值耗尽，游戏结束
+          if (this.gameMode === GAME_MODE.CHALLENGE && this.lives <= 0) {
+            this.gameViewModel.endGame();
+            this.navigateToGameOver();
+          }
         }, 2000);
       } else {
         this.updateHintText();
@@ -270,6 +299,16 @@ struct GamePage {
               .fontSize(22)
               .fontWeight(FontWeight.Bold)
               .fontColor('#4ECDC4');
+
+            // 生命值显示
+            Row() {
+              ForEach([1, 2, 3], (item: number) => {
+                Text(item <= this.lives ? '❤️' : '🖤')
+                  .fontSize(16)
+                  .margin({ right: 2 });
+              }, (item: number) => item.toString());
+            }
+            .margin({ top: 4 })
           }
         }
       }

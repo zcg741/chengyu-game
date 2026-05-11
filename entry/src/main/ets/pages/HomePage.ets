@@ -647,7 +647,11 @@ struct HomePage {
   async startGame(mode: string) {
     try {
       await this.gameViewModel.initGame(mode, this.selectedDifficulty, this.selectedCategory);
-      replaceTo('pages/GamePage');
+      const paramsMap: Record<string, Object> = {};
+      paramsMap['mode'] = mode;
+      paramsMap['difficulty'] = this.selectedDifficulty;
+      paramsMap['category'] = this.selectedCategory;
+      replaceToWithParams('pages/GamePage', paramsMap);
     } catch (error) {
       console.error('Failed to start game:', error);
     }

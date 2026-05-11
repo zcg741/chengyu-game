@@ -27,6 +27,7 @@ export class GameViewModel {
       wrongCount: 0,
       consecutiveCorrect: 0,
       currentLevel: 1,
+      lives: 0,
       remainingTime: GAME_CONFIG.TIMER_MODE_DURATION,
       isPlaying: false,
       isGameOver: false,
@@ -57,6 +58,7 @@ export class GameViewModel {
       wrongCount: empty.wrongCount,
       consecutiveCorrect: empty.consecutiveCorrect,
       currentLevel: empty.currentLevel,
+      lives: mode === GAME_MODE.CHALLENGE ? GAME_CONFIG.MAX_LIVES : 0,
       remainingTime: GAME_CONFIG.TIMER_MODE_DURATION,
       isPlaying: true,
       isGameOver: false,
@@ -217,6 +219,10 @@ export class GameViewModel {
         // 通关
         this.session.currentLevel++;
         this.session.consecutiveCorrect = 0;
+        // 通关后奖励1条命
+        if (this.session.lives < GAME_CONFIG.MAX_LIVES) {
+          this.session.lives++;
+        }
       }
     }
   }
@@ -227,6 +233,11 @@ export class GameViewModel {
   private handleWrongAnswer(): void {
     this.session.wrongCount++;
     this.session.consecutiveCorrect = 0;
+
+    // 闯关模式下扣除生命值
+    if (this.session.mode === GAME_MODE.CHALLENGE) {
+      this.session.lives--;
+    }
     
     const current = this.getCurrentQuestion();
     if (current) {
@@ -427,6 +438,13 @@ export class GameViewModel {
    */
   getCurrentLevel(): number {
     return this.session.currentLevel;
+  }
+
+  /**
+   * 获取当前生命值（闯关模式）
+   */
+  getLives(): number {
+    return this.session.lives || 0;
   }
   
   /**
