@@ -35,6 +35,11 @@ struct GamePage {
   @State textSecondary: string = '#666666';
   @State bgLight: string = '#FFF8F5';
 
+  // 动画状态
+  @State resultScale: number = 1; // 结果图标缩放
+  @State hintOpacity: number = 1; // 提示文字透明度
+  @State cardTranslateX: number = 0; // 卡片平移动画
+
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
 
@@ -134,6 +139,12 @@ struct GamePage {
     this.score = this.gameViewModel.getScore();
     this.correctCount = this.gameViewModel.getCorrectCount();
 
+    // 触发结果图标缩放动画
+    this.resultScale = 1.5;
+    setTimeout(() => {
+      this.resultScale = 1;
+    }, 300);
+
     if (correct) {
       playSound('correct');
     } else {
@@ -147,6 +158,11 @@ struct GamePage {
         // 答错后清空输入框，直接显示更新后的提示（更多字母揭晓）
         this.userAnswer = '';
         this.updateHintText();
+        // 触发提示文字淡入动画
+        this.hintOpacity = 0.5;
+        setTimeout(() => {
+          this.hintOpacity = 1;
+        }, 100);
         // 2秒后隐藏结果提示
         setTimeout(() => {
           this.showResult = false;
@@ -175,8 +191,17 @@ struct GamePage {
   }
 
   onNextQuestion() {
-    this.gameViewModel.nextQuestion();
-    this.loadQuestion();
+    // 卡片滑出动画
+    this.cardTranslateX = -100;
+    setTimeout(() => {
+      this.gameViewModel.nextQuestion();
+      this.loadQuestion();
+      // 卡片滑入动画
+      this.cardTranslateX = 100;
+      setTimeout(() => {
+        this.cardTranslateX = 0;
+      }, 50);
+    }, 300);
   }
 
   aboutToDisappear() {
@@ -280,7 +305,14 @@ struct GamePage {
           .backgroundColor(this.bgCard)
           .borderRadius(20)
           .shadow({ radius: 12, color: '#0000001A', offsetX: 0, offsetY: 6 })
-          .margin({ top: 24, bottom: 20 });
+          .margin({ top: 24, bottom: 20 })
+          .translate({ x: this.cardTranslateX })
+          .animation({
+            duration: 300,
+            curve: Curve.EaseOut,
+            iterations: 1,
+            playMode: PlayMode.Normal
+          });
 
           // 提示区域
           Column() {
@@ -347,7 +379,14 @@ struct GamePage {
               Row() {
                 Text(this.isCorrect ? '✅' : '❌')
                   .fontSize(24)
-                  .margin({ right: 8 });
+                  .margin({ right: 8 })
+                  .scale({ x: this.resultScale, y: this.resultScale })
+                  .animation({
+                    duration: 300,
+                    curve: Curve.EaseOut,
+                    iterations: 1,
+                    playMode: PlayMode.Normal
+                  });
                 Text(this.isCorrect ? '回答正确！' : '回答错误')
                   .fontSize(22)
                   .fontWeight(FontWeight.Bold)
@@ -366,6 +405,13 @@ struct GamePage {
             .padding(20)
             .backgroundColor(this.isCorrect ? '#E8F5E9' : '#FFEBEE')
             .borderRadius(16)
+            .opacity(this.hintOpacity)
+            .animation({
+              duration: 500,
+              curve: Curve.EaseInOut,
+              iterations: 1,
+              playMode: PlayMode.Normal
+            })
             .margin({ bottom: 24 });
           }
 
