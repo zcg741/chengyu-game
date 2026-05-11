@@ -164,8 +164,8 @@ export class GameViewModel {
     const recent = this.recentResults;
     if (recent.length === 0) {
       // 没有历史记录，随机选题
-      const typeKeys = Object.values(QUESTION_TYPE);
-      return typeKeys[Math.floor(Math.random() * typeKeys.length)];
+      const allTypes: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK, QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
+      return allTypes[Math.floor(Math.random() * allTypes.length)];
     }
 
     const correctCount = recent.filter(r => r).length;
@@ -174,9 +174,9 @@ export class GameViewModel {
     // 题型权重配置
     // 简单题型：PINYIN, FILL_BLANK
     // 困难题型：EXPLANATION, DRAGON
-    const EASY_TYPES = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK];
-    const HARD_TYPES = [QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
-    const ALL_TYPES = Object.values(QUESTION_TYPE);
+    const EASY_TYPES: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK];
+    const HARD_TYPES: string[] = [QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
+    const ALL_TYPES: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK, QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
 
     if (correctRate >= 0.6) {
       // 表现好：70% 困难题型，30% 简单题型
@@ -367,11 +367,16 @@ export class GameViewModel {
     const len = word.length;
     // 随机隐藏 1~2 个字
     const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
-    const indices = Array.from({ length: len }, (_, i) => i);
+    const indices: number[] = [];
+    for (let i = 0; i < len; i++) {
+      indices.push(i);
+    }
     // 简单随机隐藏
     for (let i = indices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [indices[i], indices[j]] = [indices[j], indices[i]];
+      const temp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = temp;
     }
     const hideIdx = new Set(indices.slice(0, hideCount));
     return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');
@@ -467,6 +472,7 @@ export class GameViewModel {
       remainingTime: this.session.remainingTime,
       isPlaying: this.session.isPlaying,
       isGameOver: this.session.isGameOver,
+      lives: this.session.lives,
       records: this.session.records,
       usedIndices: this.session.usedIndices
     };

@@ -3,7 +3,7 @@ import { GAME_MODE, GAME_CONFIG, QUESTION_TYPE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { TimerViewModel, TimerCallback, TimerFinishCallback } from '../viewmodel/TimerViewModel';
 import { HintLevel } from '../model/GameState';
-import { replaceTo, replaceToWithParams } from '../utils/NavUtil';
+import { replaceTo, replaceToWithParams, getRouteParams } from '../utils/NavUtil';
 import { playSound, stopSound } from '../service/SoundService';
 import { getCurrentTheme } from '../service/ThemeService';
 import { Theme } from '../model/ThemeModel';
@@ -31,7 +31,7 @@ struct GamePage {
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#F5F5F5';
   @State bgCard: string = '#FFFFFF';
-  @State borderColor: string = '#E0E0E0';
+  @State borderColr: string = '#E0E0E0';
   @State textPrimary: string = '#333333';
   @State textSecondary: string = '#666666';
   @State bgLight: string = '#FFF8F5';
@@ -51,7 +51,7 @@ struct GamePage {
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;
-    this.borderColor = theme.border;
+    this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
     this.bgLight = theme.bgLight;
@@ -401,7 +401,7 @@ struct GamePage {
           .padding(24)
           .backgroundColor(this.bgLight)
           .borderRadius(20)
-          .border({ width: 2, color: this.borderColor })
+          .border({ width: 2, color: this.borderColr })
           .margin({ bottom: 24 });
 
           // 答案输入
@@ -412,7 +412,7 @@ struct GamePage {
                 .height(52)
                 .backgroundColor(this.bgCard)
                 .borderRadius(26)
-                .border({ width: 2, color: this.borderColor })
+                .border({ width: 2, color: this.borderColr })
                 .padding({ left: 24, right: 24 })
                 .fontSize(18)
                 .onChange((value: string) => {
@@ -532,7 +532,7 @@ struct GamePage {
             .height(52)
             .backgroundColor(this.bgCard)
             .borderRadius(26)
-            .border({ width: 2, color: this.borderColor })
+            .border({ width: 2, color: this.borderColr })
             .margin({ left: 12 })
             .onClick(() => {
               this.gameViewModel.endGame();

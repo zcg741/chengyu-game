@@ -16,6 +16,11 @@ interface DailyQuestion {
   hint: string; // 提示内容（填空后的成语等）
 }
 
+interface TypeConfigItem {
+  name: string;
+  icon: string;
+}
+
 @Entry
 @Component
 struct DailyChallengePage {
@@ -32,19 +37,20 @@ struct DailyChallengePage {
   @State todayTypeName: string = '释义猜词'; // 今日题型名称
   @State todayTypeIcon: string = '📖'; // 今日题型图标
 
-  // 题型配置
-  private typeConfig: Record<string, { name: string; icon: string }> = {
-    [QUESTION_TYPE.EXPLANATION]: { name: '释义猜词', icon: '📖' },
-    [QUESTION_TYPE.PINYIN]: { name: '拼音猜词', icon: '🔤' },
-    [QUESTION_TYPE.FILL_BLANK]: { name: '填空挑战', icon: '✏️' },
-    [QUESTION_TYPE.DRAGON]: { name: '成语接龙', icon: '🐉' }
-  };
+  // 题型配置（使用接口定义）
+  private typeConfig: Record<string, TypeConfigItem> = {};
 
   async aboutToAppear() {
     const today = this.getTodayStr();
     this.dailyDate = today;
     const doneDate = await getString('daily_done_date', '');
     this.isDailyDone = (doneDate === today);
+
+    // 初始化题型配置
+    this.typeConfig[QUESTION_TYPE.EXPLANATION] = { name: '释义猜词', icon: '📖' };
+    this.typeConfig[QUESTION_TYPE.PINYIN] = { name: '拼音猜词', icon: '🔤' };
+    this.typeConfig[QUESTION_TYPE.FILL_BLANK] = { name: '填空挑战', icon: '✏️' };
+    this.typeConfig[QUESTION_TYPE.DRAGON] = { name: '成语接龙', icon: '🐉' };
 
     // 计算今日题型
     this.todayType = this.getTodayQuestionType();
@@ -65,7 +71,7 @@ struct DailyChallengePage {
   getTodayQuestionType(): string {
     const now = new Date();
     const dayOfMonth = now.getDate();
-    const typeKeys = Object.values(QUESTION_TYPE);
+    const typeKeys: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK, QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
     return typeKeys[dayOfMonth % typeKeys.length];
   }
 
@@ -102,11 +108,16 @@ struct DailyChallengePage {
     const len = word.length;
     // 随机隐藏 1~2 个字
     const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
-    const indices = Array.from({ length: len }, (_, i) => i);
+    const indices: number[] = [];
+    for (let i = 0; i < len; i++) {
+      indices.push(i);
+    }
     // 简单随机隐藏
     for (let i = indices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [indices[i], indices[j]] = [indices[j], indices[i]];
+      const temp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = temp;
     }
     const hideIdx = new Set(indices.slice(0, hideCount));
     return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');

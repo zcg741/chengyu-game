@@ -19,7 +19,7 @@ struct CollectionPage {
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#F5F5F5';
   @State bgCard: string = '#FFFFFF';
-  @State borderColor: string = '#E0E0E0';
+  @State borderColr: string = '#E0E0E0';
   @State textPrimary: string = '#333333';
   @State textSecondary: string = '#666666';
 
@@ -29,7 +29,7 @@ struct CollectionPage {
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;
-    this.borderColor = theme.border;
+    this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
 
@@ -122,7 +122,7 @@ struct CollectionPage {
           .width(32)
           .height(32)
           .color(this.brandColor)
-          .backgroundColor(this.borderColor);
+          .backgroundColor(this.borderColr);
         Text(`${Math.round(this.totalCollected / this.totalCount * 100)}%`)
           .fontSize(8)
           .fontColor(this.brandColor)

@@ -2,7 +2,7 @@
 import { GAME_MODE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getCategories } from '../service/ChengyuService';
-import { navigateTo, replaceTo } from '../utils/NavUtil';
+import { navigateTo, replaceTo, replaceToWithParams } from '../utils/NavUtil';
 import { getBoolean, saveBoolean } from '../service/StorageService';
 import { getCurrentTheme, getCurrentThemeId } from '../service/ThemeService';
 
@@ -20,7 +20,7 @@ struct HomePage {
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#FAFAF7';
   @State bgCard: string = '#FFFFFF';
-  @State borderColor: string = '#E8E6E1';
+  @State borderColr: string = '#E8E6E1';
   @State textPrimary: string = '#2C2C2C';
   @State textSecondary: string = '#888888';
   @State bgOrangeLight: string = '#FFF5F0';
@@ -37,7 +37,7 @@ struct HomePage {
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;
-    this.borderColor = theme.border;
+    this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
     this.bgOrangeLight = theme.bgLight;
@@ -255,7 +255,7 @@ struct HomePage {
       .backgroundColor(this.bgOrangeLight)
       .borderRadius(12)
       .borderWidth(0.5)
-      .borderColor(this.borderColor)
+      .borderColor(this.borderColr)
       .margin({ bottom: 10 })
       .onClick(() => {
         this.startGame(GAME_MODE.TIMER);
@@ -298,7 +298,7 @@ struct HomePage {
       .backgroundColor(this.bgTealLight)
       .borderRadius(12)
       .borderWidth(0.5)
-      .borderColor(this.borderColor)
+      .borderColor(this.borderColr)
       .onClick(() => {
         this.startGame(GAME_MODE.CHALLENGE);
       })
@@ -327,7 +327,7 @@ struct HomePage {
       .fontColor(this.selectedDifficulty === value ? Color.White : this.textSecondary)
       .borderRadius(17)
       .borderWidth(this.selectedDifficulty === value ? 0 : 0.5)
-      .borderColor(this.borderColor)
+      .borderColor(this.borderColr)
       .padding({ left: 14, right: 14 })
       .fontSize(13)
       .onClick(() => {
@@ -347,7 +347,7 @@ struct HomePage {
             .fontColor(this.selectedCategory === category ? Color.White : this.textSecondary)
             .borderRadius(17)
             .borderWidth(this.selectedCategory === category ? 0 : 0.5)
-            .borderColor(this.borderColor)
+            .borderColor(this.borderColr)
             .padding({ left: 14, right: 14 })
             .fontSize(13)
             .margin({ right: 8 })
@@ -438,7 +438,7 @@ struct HomePage {
     .backgroundColor(bgColor)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(this.borderColor)
+    .borderColor(this.borderColr)
     .alignItems(HorizontalAlign.Start)
     .onClick(() => {
       navigateTo(pageUrl);
@@ -461,7 +461,7 @@ struct HomePage {
     .backgroundColor(bgColor)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(this.borderColor)
+    .borderColor(this.borderColr)
     .alignItems(HorizontalAlign.Center)
     .onClick(() => {
       navigateTo(pageUrl);
@@ -500,7 +500,7 @@ struct HomePage {
     .backgroundColor(this.bgAmberLight)
     .borderRadius(12)
     .borderWidth(0.5)
-    .borderColor(this.borderColor)
+    .borderColor(this.borderColr)
     .onClick(() => {
       navigateTo('pages/DailyChallengePage');
     })
@@ -593,23 +593,25 @@ struct HomePage {
     .backgroundColor(this.bgCard)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(this.borderColor)
+    .borderColor(this.borderColr)
     .margin({ bottom: 16 })
   }
 
   @Builder
   buildSettingsCard() {
-    this.buildToggleRow('🔊', '游戏音效', this.soundEnabled, (value: boolean) => {
-      this.soundEnabled = value;
-      saveBoolean('sound_enabled', value);
-    })
+    Column() {
+      this.buildToggleRow('🔊', '游戏音效', this.soundEnabled, (value: boolean) => {
+        this.soundEnabled = value;
+        saveBoolean('sound_enabled', value);
+      })
+    }
+    .width('100%')
+    .backgroundColor(this.bgCard)
+    .borderRadius(14)
+    .borderWidth(0.5)
+    .borderColor(this.borderColr)
+    .margin({ bottom: 16 })
   }
-  .width('100%')
-  .backgroundColor(this.bgCard)
-  .borderRadius(14)
-  .borderWidth(0.5)
-  .borderColor(this.borderColor)
-  .margin({ bottom: 16 })
 
   // 菜单列表
   @Builder
@@ -629,7 +631,7 @@ struct HomePage {
     .backgroundColor(this.bgCard)
     .borderRadius(14)
     .borderWidth(0.5)
-    .borderColor(this.borderColor)
+    .borderColor(this.borderColr)
   }
 
   @Builder

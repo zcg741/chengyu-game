@@ -22,7 +22,7 @@ struct GameOverPage {
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#F5F5F5';
   @State bgCard: string = '#FFFFFF';
-  @State borderColor: string = '#E0E0E0';
+  @State borderColr: string = '#E0E0E0';
   @State textPrimary: string = '#333333';
   @State textSecondary: string = '#666666';
 
@@ -34,7 +34,7 @@ struct GameOverPage {
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;
-    this.borderColor = theme.border;
+    this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
 
@@ -276,7 +276,7 @@ struct GameOverPage {
             .height(52)
             .backgroundColor(this.bgCard)
             .borderRadius(26)
-            .border({ width: 2, color: this.borderColor })
+            .border({ width: 2, color: this.borderColr })
             .onClick(() => {
               replaceTo('pages/HomePage');
             });
