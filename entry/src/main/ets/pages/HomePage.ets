@@ -601,7 +601,9 @@ struct HomePage {
       Divider().color('#F5F5F5').strokeWidth(0.5)
       this.buildMenuRow('📊', '数据统计', 'pages/StatsPage')
       Divider().color('#F5F5F5').strokeWidth(0.5)
-      this.buildMenuRow('❓', '关于游戏', 'pages/AboutPage')
+      this.buildMenuRow('❓', '游戏帮助', 'pages/HelpPage')
+      Divider().color('#F5F5F5').strokeWidth(0.5)
+      this.buildMenuRow('📄', '关于游戏', 'pages/AboutPage')
     }
     .width('100%')
     .backgroundColor(this.bgCard)
