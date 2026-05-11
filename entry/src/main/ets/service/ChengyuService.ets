@@ -13,6 +13,47 @@ function getUIContext(): common.UIAbilityContext | null {
 }
 
 /**
+ * 手动 UTF-8 解码（ArkTS 不支持 TextDecoder）
+ * 将 Uint8Array（UTF-8 字节）正确解码为字符串
+ */
+function utf8ArrayToString(uint8Array: Uint8Array): string {
+  let result = '';
+  let i = 0;
+  while (i < uint8Array.length) {
+    const c = uint8Array[i];
+    if (c < 0x80) {
+      // 1字节 ASCII (0x00-0x7F)
+      result += String.fromCharCode(c);
+      i++;
+    } else if (c < 0xE0) {
+      // 2字节序列 (0xC0-0xDF)
+      const c2 = uint8Array[i + 1];
+      result += String.fromCharCode(((c & 0x1F) << 6) | (c2 & 0x3F));
+      i += 2;
+    } else if (c < 0xF0) {
+      // 3字节序列 (0xE0-0xEF) - 包含大部分中文字符
+      const c2 = uint8Array[i + 1];
+      const c3 = uint8Array[i + 2];
+      result += String.fromCharCode(((c & 0x0F) << 12) | ((c2 & 0x3F) << 6) | (c3 & 0x3F));
+      i += 3;
+    } else {
+      // 4字节序列 (0xF0-0xF7) - 表情符号等
+      const c2 = uint8Array[i + 1];
+      const c3 = uint8Array[i + 2];
+      const c4 = uint8Array[i + 3];
+      const codePoint = ((c & 0x07) << 18) | ((c2 & 0x3F) << 12) | ((c3 & 0x3F) << 6) | (c4 & 0x3F);
+      // 使用代理对表示 BMP 之外的字符
+      result += String.fromCharCode(
+        0xD800 + ((codePoint - 0x10000) >> 10),
+        0xDC00 + ((codePoint - 0x10000) & 0x3FF)
+      );
+      i += 4;
+    }
+  }
+  return result;
+}
+
+/**
  * 从 rawfile/chengyu_data.json 加载成语数据
  */
 async function loadChengyuFromRawFile(): Promise<Chengyu[]> {
@@ -23,9 +64,9 @@ async function loadChengyuFromRawFile(): Promise<Chengyu[]> {
   }
    try {
     const fileData: Uint8Array = await context.resourceManager.getRawFileContent('chengyu_data.json');
-    // 使用 TextDecoder 正确解码 UTF-8（String.fromCharCode 会导致中文/拼音乱码）
-    const jsonStr = new TextDecoder('utf-8').decode(fileData);
-    const data = JSON.parse(jsonStr) as Chengyu[];
+    // 使用手动 UTF-8 解码（ArkTS 不支持 TextDecoder）
+    const jsonStr = utf8ArrayToString(fileData);
+    const data: Chengyu[] = JSON.parse(jsonStr);
     console.log(`ChengyuService: 从 JSON 加载了 ${data.length} 条成语`);
     return data;
   } catch (e) {
