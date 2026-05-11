@@ -1,6 +1,8 @@
 // ResultPage.ets - 答题结果页
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { replaceTo } from '../utils/NavUtil';
+import { getCurrentTheme } from '../service/ThemeService';
+import { Theme } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -10,6 +12,23 @@ struct ResultPage {
   @State correctAnswer: string = '';
   @State explanation: string = '';
   @State score: number = 0;
+
+  // 主题颜色状态
+  @State brandColor: string = '#FF6B35';
+  @State bgPage: string = '#F5F5F5';
+  @State bgCard: string = '#FFFFFF';
+  @State textPrimary: string = '#333333';
+  @State textSecondary: string = '#666666';
+
+  aboutToAppear() {
+    // 加载主题
+    const theme = getCurrentTheme();
+    this.brandColor = theme.brand;
+    this.bgPage = theme.bgPage;
+    this.bgCard = theme.bgCard;
+    this.textPrimary = theme.textPrimary;
+    this.textSecondary = theme.textSecondary;
+  }
 
   build() {
     Column() {
@@ -30,27 +49,27 @@ struct ResultPage {
         if (!this.isCorrect) {
           Text('正确答案')
             .fontSize(14)
-            .fontColor('#666666')
+            .fontColor(this.textSecondary)
             .margin({ bottom: 8 });
         }
 
         Text(this.isCorrect ? '太棒了！' : this.correctAnswer)
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
-          .fontColor(this.isCorrect ? '#2E7D32' : '#333333')
+          .fontColor(this.isCorrect ? '#2E7D32' : this.textPrimary)
           .margin({ bottom: 12 });
 
         // 释义
         Text(this.explanation)
           .fontSize(16)
-          .fontColor('#555555')
+          .fontColor(this.textSecondary)
           .textAlign(TextAlign.Center)
           .lineHeight(24)
           .margin({ bottom: 20 });
       }
       .width('85%')
       .padding(20)
-      .backgroundColor(Color.White)
+      .backgroundColor(this.bgCard)
       .borderRadius(16)
       .shadow({ radius: 8, color: '#0000001A', offsetX: 0, offsetY: 4 })
       .margin({ bottom: 40 });
@@ -60,18 +79,18 @@ struct ResultPage {
         Text('+10 分')
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
-          .fontColor('#FF6B35')
+          .fontColor(this.brandColor)
           .margin({ bottom: 8 });
       } else {
         Text('继续加油！')
           .fontSize(20)
-          .fontColor('#666666')
+          .fontColor(this.textSecondary)
           .margin({ bottom: 8 });
       }
 
       Text(`当前得分: ${this.score}`)
         .fontSize(16)
-        .fontColor('#555555')
+        .fontColor(this.textSecondary)
         .margin({ bottom: 40 });
 
       // 按钮
@@ -88,7 +107,7 @@ struct ResultPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor(this.bgPage)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])

@@ -2,6 +2,8 @@
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getNumber } from '../service/StorageService';
 import { replaceTo, getRouteParams } from '../utils/NavUtil';
+import { getCurrentTheme } from '../service/ThemeService';
+import { Theme } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -15,9 +17,26 @@ struct GameOverPage {
   @State accuracy: string = '0';
   @State showShareToast: boolean = false;
 
+  // 主题颜色状态
+  @State brandColor: string = '#FF6B35';
+  @State bgPage: string = '#F5F5F5';
+  @State bgCard: string = '#FFFFFF';
+  @State borderColor: string = '#E0E0E0';
+  @State textPrimary: string = '#333333';
+  @State textSecondary: string = '#666666';
+
   private gameViewModel: GameViewModel = new GameViewModel();
 
   async aboutToAppear() {
+    // 加载主题
+    const theme = getCurrentTheme();
+    this.brandColor = theme.brand;
+    this.bgPage = theme.bgPage;
+    this.bgCard = theme.bgCard;
+    this.borderColor = theme.border;
+    this.textPrimary = theme.textPrimary;
+    this.textSecondary = theme.textSecondary;
+
     // 从路由参数中获取游戏数据
     const params = getRouteParams();
     if (params) {
@@ -69,7 +88,7 @@ struct GameOverPage {
       }
       .width('100%')
       .padding({ top: 48, bottom: 32 })
-      .backgroundColor('#FF6B35');
+      .backgroundColor(this.brandColor);
 
       Scroll() {
         Column() {
@@ -77,13 +96,13 @@ struct GameOverPage {
           Column() {
             Text('最终得分')
               .fontSize(14)
-              .fontColor('#666666')
+              .fontColor(this.textSecondary)
               .margin({ bottom: 12 });
 
             Text(this.score.toString())
               .fontSize(64)
               .fontWeight(FontWeight.Bold)
-              .fontColor('#FF6B35')
+              .fontColor(this.brandColor)
               .margin({ bottom: 24 });
 
             // 统计数据
@@ -95,7 +114,7 @@ struct GameOverPage {
                   .fontColor('#2E7D32');
                 Text('答对')
                   .fontSize(12)
-                  .fontColor('#666666')
+                  .fontColor(this.textSecondary)
                   .margin({ top: 4 });
               }
               .width('25%')
@@ -108,7 +127,7 @@ struct GameOverPage {
                   .fontColor('#D32F2F');
                 Text('答错')
                   .fontSize(12)
-                  .fontColor('#666666')
+                  .fontColor(this.textSecondary)
                   .margin({ top: 4 });
               }
               .width('25%')
@@ -121,7 +140,7 @@ struct GameOverPage {
                   .fontColor('#5C6BC0');
                 Text('总题')
                   .fontSize(12)
-                  .fontColor('#666666')
+                  .fontColor(this.textSecondary)
                   .margin({ top: 4 });
               }
               .width('25%')
@@ -134,7 +153,7 @@ struct GameOverPage {
                   .fontColor('#E65100');
                 Text('正确率')
                   .fontSize(12)
-                  .fontColor('#666666')
+                  .fontColor(this.textSecondary)
                   .margin({ top: 4 });
               }
               .width('25%')
@@ -145,7 +164,7 @@ struct GameOverPage {
           }
           .width('90%')
           .padding(24)
-          .backgroundColor(Color.White)
+          .backgroundColor(this.bgCard)
           .borderRadius(24)
           .shadow({ radius: 16, color: '#0000001A', offsetX: 0, offsetY: 8 })
           .margin({ top: -20, bottom: 16 });
@@ -159,18 +178,18 @@ struct GameOverPage {
             Column() {
               Text('历史最高分')
                 .fontSize(14)
-                .fontColor('#666666')
+                .fontColor(this.textSecondary)
                 .margin({ bottom: 4 });
               Text(this.highScore.toString())
                 .fontSize(24)
                 .fontWeight(FontWeight.Bold)
-                .fontColor('#FF6B35');
+                .fontColor(this.brandColor);
             }
             .alignItems(HorizontalAlign.Start);
           }
           .width('90%')
           .padding(20)
-          .backgroundColor(Color.White)
+          .backgroundColor(this.bgCard)
           .borderRadius(16)
           .shadow({ radius: 8, color: '#0000000D', offsetX: 0, offsetY: 4 })
           .margin({ bottom: 24 });
@@ -210,7 +229,7 @@ struct GameOverPage {
             }
             .width('85%')
             .height(52)
-            .backgroundColor('#FF6B35')
+            .backgroundColor(this.brandColor)
             .borderRadius(26)
             .margin({ bottom: 12 })
             .onClick(() => {
@@ -225,14 +244,14 @@ struct GameOverPage {
                   .margin({ right: 8 });
                 Text('返回首页')
                   .fontSize(16)
-                  .fontColor('#333333');
+                  .fontColor(this.textPrimary);
               }
             }
             .width('85%')
             .height(52)
-            .backgroundColor(Color.White)
+            .backgroundColor(this.bgCard)
             .borderRadius(26)
-            .border({ width: 2, color: '#E0E0E0' })
+            .border({ width: 2, color: this.borderColor })
             .onClick(() => {
               replaceTo('pages/HomePage');
             });
@@ -260,7 +279,7 @@ struct GameOverPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor(this.bgPage)
     .alignItems(HorizontalAlign.Center)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }

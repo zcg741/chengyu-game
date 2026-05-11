@@ -5,6 +5,8 @@ import { TimerViewModel, TimerCallback, TimerFinishCallback } from '../viewmodel
 import { HintLevel } from '../model/GameState';
 import { replaceTo, replaceToWithParams } from '../utils/NavUtil';
 import { playSound, stopSound } from '../service/SoundService';
+import { getCurrentTheme } from '../service/ThemeService';
+import { Theme } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -24,10 +26,29 @@ struct GamePage {
   @State gameMode: string = GAME_MODE.TIMER;
   @State questionType: string = '';
 
+  // 主题颜色状态
+  @State brandColor: string = '#FF6B35';
+  @State bgPage: string = '#F5F5F5';
+  @State bgCard: string = '#FFFFFF';
+  @State borderColor: string = '#E0E0E0';
+  @State textPrimary: string = '#333333';
+  @State textSecondary: string = '#666666';
+  @State bgLight: string = '#FFF8F5';
+
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
 
   async aboutToAppear() {
+    // 加载主题
+    const theme = getCurrentTheme();
+    this.brandColor = theme.brand;
+    this.bgPage = theme.bgPage;
+    this.bgCard = theme.bgCard;
+    this.borderColor = theme.border;
+    this.textPrimary = theme.textPrimary;
+    this.textSecondary = theme.textSecondary;
+    this.bgLight = theme.bgLight;
+
     // 初始化游戏（默认计时模式）
     await this.gameViewModel.initGame(GAME_MODE.TIMER);
     this.gameMode = GAME_MODE.TIMER;
@@ -171,11 +192,11 @@ struct GamePage {
         Button({ type: ButtonType.Normal }) {
           Text('←')
             .fontSize(18)
-            .fontColor('#333333');
+            .fontColor(this.textPrimary);
         }
         .width(40)
         .height(40)
-        .backgroundColor(Color.White)
+        .backgroundColor(this.bgCard)
         .borderRadius(20)
         .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
         .onClick(() => {
@@ -187,12 +208,12 @@ struct GamePage {
         Column() {
           Text('得分')
             .fontSize(11)
-            .fontColor('#666666')
+            .fontColor(this.textSecondary)
             .margin({ bottom: 2 });
           Text(this.score.toString())
             .fontSize(22)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#FF6B35');
+            .fontColor(this.brandColor);
         }
         .flexGrow(1)
         .alignItems(HorizontalAlign.Center);
@@ -202,7 +223,7 @@ struct GamePage {
           Column() {
             Text('剩余时间')
               .fontSize(11)
-              .fontColor('#666666')
+              .fontColor(this.textSecondary)
               .margin({ bottom: 2 });
             Row() {
               Text(this.remainingTime <= 10 ? '⚠️' : '⏱️')
@@ -211,14 +232,14 @@ struct GamePage {
               Text(`${this.remainingTime}s`)
                 .fontSize(22)
                 .fontWeight(FontWeight.Bold)
-                .fontColor(this.remainingTime <= 10 ? '#D32F2F' : '#333333');
+                .fontColor(this.remainingTime <= 10 ? '#D32F2F' : this.textPrimary);
             }
           }
         } else {
           Column() {
             Text('当前关卡')
               .fontSize(11)
-              .fontColor('#666666')
+              .fontColor(this.textSecondary)
               .margin({ bottom: 2 });
             Text(`第${this.gameViewModel.getCurrentLevel()}关`)
               .fontSize(22)
@@ -229,7 +250,7 @@ struct GamePage {
       }
       .width('100%')
       .padding({ left: 20, right: 20, top: 16, bottom: 16 })
-      .backgroundColor(Color.White)
+      .backgroundColor(this.bgCard)
       .shadow({ radius: 8, color: '#0000000D', offsetX: 0, offsetY: 4 });
 
       Scroll() {
@@ -242,7 +263,7 @@ struct GamePage {
                 .margin({ right: 8 });
               Text(this.getQuestionTypeLabel())
                 .fontSize(14)
-                .fontColor('#666666')
+                .fontColor(this.textSecondary)
                 .fontWeight(FontWeight.Medium);
             }
             .margin({ bottom: 12 });
@@ -252,11 +273,11 @@ struct GamePage {
               .fontWeight(FontWeight.Medium)
               .textAlign(TextAlign.Center)
               .lineHeight(32)
-              .fontColor('#333333');
+              .fontColor(this.textPrimary);
           }
           .width('90%')
           .padding(24)
-          .backgroundColor(Color.White)
+          .backgroundColor(this.bgCard)
           .borderRadius(20)
           .shadow({ radius: 12, color: '#0000001A', offsetX: 0, offsetY: 6 })
           .margin({ top: 24, bottom: 20 });
@@ -269,7 +290,7 @@ struct GamePage {
                 .margin({ right: 8 });
               Text('提示')
                 .fontSize(14)
-                .fontColor('#D84315')
+                .fontColor(this.brandColor)
                 .fontWeight(FontWeight.Medium);
             }
             .margin({ bottom: 12 });
@@ -277,14 +298,14 @@ struct GamePage {
             Text(this.hintText)
               .fontSize(36)
               .fontWeight(FontWeight.Bold)
-              .fontColor('#D84315')
+              .fontColor(this.brandColor)
               .letterSpacing(8);
           }
           .width('90%')
           .padding(24)
-          .backgroundColor('#FFF8F5')
+          .backgroundColor(this.bgLight)
           .borderRadius(20)
-          .border({ width: 2, color: '#FFE0D5' })
+          .border({ width: 2, color: this.borderColor })
           .margin({ bottom: 24 });
 
           // 答案输入
@@ -293,9 +314,9 @@ struct GamePage {
               TextInput({ placeholder: '请输入成语', text: this.userAnswer })
                 .width('100%')
                 .height(52)
-                .backgroundColor(Color.White)
+                .backgroundColor(this.bgCard)
                 .borderRadius(26)
-                .border({ width: 2, color: '#E0E0E0' })
+                .border({ width: 2, color: this.borderColor })
                 .padding({ left: 24, right: 24 })
                 .fontSize(18)
                 .onChange((value: string) => {
@@ -310,7 +331,7 @@ struct GamePage {
               }
               .width('100%')
               .height(52)
-              .backgroundColor('#FF6B35')
+              .backgroundColor(this.brandColor)
               .borderRadius(26)
               .margin({ top: 12 })
               .onClick(() => this.onAnswerSubmit());
@@ -393,15 +414,15 @@ struct GamePage {
                   .margin({ right: 8 });
                 Text('结束')
                   .fontSize(16)
-                  .fontColor('#333333')
+                  .fontColor(this.textPrimary)
                   .fontWeight(FontWeight.Medium);
               }
             }
             .layoutWeight(1)
             .height(52)
-            .backgroundColor(Color.White)
+            .backgroundColor(this.bgCard)
             .borderRadius(26)
-            .border({ width: 2, color: '#E0E0E0' })
+            .border({ width: 2, color: this.borderColor })
             .margin({ left: 12 })
             .onClick(() => {
               this.gameViewModel.endGame();
@@ -417,14 +438,14 @@ struct GamePage {
           Row() {
             Text('📊 答对: ')
               .fontSize(14)
-              .fontColor('#666666');
+              .fontColor(this.textSecondary);
             Text(this.correctCount.toString())
               .fontSize(18)
               .fontWeight(FontWeight.Bold)
               .fontColor('#2E7D32');
             Text(' 题')
               .fontSize(14)
-              .fontColor('#666666');
+              .fontColor(this.textSecondary);
           }
           .margin({ top: 24, bottom: 16 });
         }
@@ -437,7 +458,7 @@ struct GamePage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor(this.bgPage)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 }
