@@ -1,6 +1,6 @@
 // ReviewPage.ets - 游戏回顾页面
 import { GameRecord } from '../model/GameState';
-import { getRouteParams } from '../utils/NavUtil';
+import { getRouteParams, navigateBack } from '../utils/NavUtil';
 import { getCurrentTheme } from '../service/ThemeService';
 import { QUESTION_TYPE } from '../utils/Constants';
 
@@ -78,15 +78,8 @@ struct ReviewPage {
       .borderRadius(20)
       .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
       .onClick(() => {
-        // 返回游戏结束页
-        const params = getRouteParams();
-        if (params && params['from'] === 'gameover') {
-          const router = require('@ohos.router');
-          router.back();
-        } else {
-          const { replaceTo } = require('../utils/NavUtil');
-          replaceTo('pages/GameOverPage');
-        }
+        // 统一返回上一页（GameOverPage）
+        navigateBack();
       });
 
       Blank()

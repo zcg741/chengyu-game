@@ -15,6 +15,17 @@ export function navigateTo(url: string): void {
 }
 
 /**
+ * 导航到指定页面（带参数）
+ */
+export function navigateToWithParams(url: string, params: Record<string, Object>): void {
+  try {
+    router.pushUrl({ url: url, params: params });
+  } catch (error) {
+    console.error('Navigation failed:', error);
+  }
+}
+
+/**
  * 替换当前页面
  */
 export function replaceTo(url: string): void {

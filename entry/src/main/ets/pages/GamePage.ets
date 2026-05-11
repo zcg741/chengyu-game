@@ -43,6 +43,7 @@ struct GamePage {
 
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
+  private storyTimerId: number = 0; // 故事弹窗定时器ID
 
   async aboutToAppear() {
     // 加载主题
@@ -176,7 +177,8 @@ struct GamePage {
       // 答对后展示成语故事/出处
       const question = this.gameViewModel.getCurrentQuestion();
       if (question && question.currentSource) {
-        setTimeout(() => {
+        this.storyTimerId = setTimeout(() => {
+          this.storyTimerId = 0;
           AlertDialog.show({
             title: '📖 成语故事',
             message: `${question.currentChengyu}\n\n${question.currentSource}`,
@@ -185,7 +187,7 @@ struct GamePage {
               action: () => {}
             }
           });
-        }, 500);
+        }, 500) as number;
       }
     } else {
       playSound('wrong');
@@ -237,6 +239,12 @@ struct GamePage {
   }
 
   onNextQuestion() {
+    // 取消未弹出的故事弹窗
+    if (this.storyTimerId) {
+      clearTimeout(this.storyTimerId);
+      this.storyTimerId = 0;
+    }
+
     // 卡片滑出动画
     this.cardTranslateX = -100;
     setTimeout(() => {

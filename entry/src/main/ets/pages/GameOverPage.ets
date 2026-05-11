@@ -1,7 +1,7 @@
 // GameOverPage.ets - 游戏结束页
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getNumber } from '../service/StorageService';
-import { replaceTo, getRouteParams } from '../utils/NavUtil';
+import { replaceTo, navigateToWithParams, getRouteParams } from '../utils/NavUtil';
 import { getCurrentTheme } from '../service/ThemeService';
 import { Theme } from '../model/ThemeModel';
 
@@ -317,7 +317,7 @@ struct GameOverPage {
       const paramsMap: Record<string, Object> = {};
       paramsMap['records'] = this.recordsJson;
       paramsMap['from'] = 'gameover';
-      replaceToWithParams('pages/ReviewPage', paramsMap);
+      navigateToWithParams('pages/ReviewPage', paramsMap);
     } catch (error) {
       console.error('Failed to navigate to review:', error);
     }
