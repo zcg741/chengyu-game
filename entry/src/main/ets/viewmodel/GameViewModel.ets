@@ -4,7 +4,7 @@ import { GameSession, GameRecord, HintLevel } from '../model/GameState';
 import { GAME_CONFIG, GAME_MODE, QUESTION_TYPE } from '../utils/Constants';
 import { getPinyinInitials, generateHint, generatePinyinHint } from '../utils/PinyinUtil';
 import { loadChengyuData, getRandomChengyu, getChengyuByFirstChar } from '../service/ChengyuService';
-import { saveNumber, getNumber } from '../service/StorageService';
+import { saveNumber, getNumber, saveString, getString } from '../service/StorageService';
 import { initAchievements, incrementAchievement, updateAchievementProgress } from '../service/AchievementService';
 import { Achievement } from '../model/AchievementModel';
 import { collect } from '../service/CollectionService';
@@ -50,6 +50,13 @@ export class GameViewModel {
     await loadChengyuData(difficulty, category);
     await initAchievements(); // 初始化成就
     
+    // 加载已玩成语记录
+    const playedStr = await getString('played_idioms', '[]');
+    let playedIndices: number[] = [];
+    try {
+      playedIndices = JSON.parse(playedStr);
+    } catch (e) {}
+    
     const empty = this.createEmptySession();
     this.session = {
       mode: mode,
@@ -63,7 +70,7 @@ export class GameViewModel {
       isPlaying: true,
       isGameOver: false,
       records: empty.records,
-      usedIndices: empty.usedIndices
+      usedIndices: playedIndices
     };
     
     // 更新成就：首次游戏、游戏模式
@@ -382,6 +389,9 @@ export class GameViewModel {
     await saveNumber('total_score', totalScore + this.session.score);
     const totalScoreResult = await updateAchievementProgress('total_score', totalScore + this.session.score);
     unlockedAchievements.push(...totalScoreResult);
+    
+    // 保存已玩成语记录
+    await saveString('played_idioms', JSON.stringify(this.session.usedIndices));
     
     return unlockedAchievements;
   }
