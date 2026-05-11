@@ -1,14 +1,12 @@
 // NavUtil.ets - 导航工具类（封装 router API）
-// 注意：本文件内部使用已弃用的 router API 是封装目的，编译警告是预期行为
-// 未来迁移到 Navigation 组件后可消除这些警告
-import router from '@ohos.router';
+import { router } from '@kit.ArkUI';
 
 /**
  * 导航到指定页面
  */
 export function navigateTo(url: string): void {
   try {
-    router.pushUrl({ url: url });
+    router.push({ url: url });
   } catch (error) {
     console.error('Navigation failed:', error);
   }
@@ -19,7 +17,7 @@ export function navigateTo(url: string): void {
  */
 export function navigateToWithParams(url: string, params: Record<string, Object>): void {
   try {
-    router.pushUrl({ url: url, params: params });
+    router.push({ url: url, params: params });
   } catch (error) {
     console.error('Navigation failed:', error);
   }
@@ -30,7 +28,7 @@ export function navigateToWithParams(url: string, params: Record<string, Object>
  */
 export function replaceTo(url: string): void {
   try {
-    router.replaceUrl({ url: url });
+    router.replace({ url: url });
   } catch (error) {
     console.error('Navigation failed:', error);
   }
@@ -41,7 +39,7 @@ export function replaceTo(url: string): void {
  */
 export function replaceToWithParams(url: string, params: Record<string, Object>): void {
   try {
-    router.replaceUrl({ url: url, params: params });
+    router.replace({ url: url, params: params });
   } catch (error) {
     console.error('Navigation failed:', error);
   }
@@ -52,7 +50,7 @@ export function replaceToWithParams(url: string, params: Record<string, Object>)
  */
 export function navigateBack(): void {
   try {
-    router.back();
+    router.backUrl();
   } catch (error) {
     console.error('Navigation failed:', error);
   }
