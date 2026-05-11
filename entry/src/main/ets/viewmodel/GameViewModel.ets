@@ -38,6 +38,8 @@ export class GameViewModel {
   
   private currentCategory: string = '';
   private prevChengyuLastChar: string = '';
+  private recentResults: boolean[] = []; // 最近答题结果（用于动态难度调整）
+  private readonly RECENT_RESULTS_MAX: number = 5; // 保留最近5题的结果
 
   /**
    * 初始化游戏
@@ -91,12 +93,11 @@ export class GameViewModel {
   }
   
   /**
-   * 加载下一题
+   * 加载下一题（动态难度调整）
    */
   loadNextQuestion(): void {
-    // 随机选题型
-    const typeKeys = Object.values(QUESTION_TYPE);
-    const randomType = typeKeys[Math.floor(Math.random() * typeKeys.length)];
+    // 根据最近答题表现动态选题型
+    const randomType = this.getDynamicQuestionType();
 
     let chengyuList: Chengyu[] = [];
 
@@ -153,6 +154,50 @@ export class GameViewModel {
     this.prevChengyuLastChar = chengyu.word ? chengyu.word.slice(-1) : '';
   }
   
+  /**
+   * 根据最近答题表现动态调整题型
+   * 表现好（正确率≥60%）：更高概率选择困难题型（释义、接龙）
+   * 表现差（正确率≤40%）：更高概率选择简单题型（拼音、填空）
+   * 其他情况：均衡随机
+   */
+  private getDynamicQuestionType(): string {
+    const recent = this.recentResults;
+    if (recent.length === 0) {
+      // 没有历史记录，随机选题
+      const typeKeys = Object.values(QUESTION_TYPE);
+      return typeKeys[Math.floor(Math.random() * typeKeys.length)];
+    }
+
+    const correctCount = recent.filter(r => r).length;
+    const correctRate = correctCount / recent.length;
+
+    // 题型权重配置
+    // 简单题型：PINYIN, FILL_BLANK
+    // 困难题型：EXPLANATION, DRAGON
+    const EASY_TYPES = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK];
+    const HARD_TYPES = [QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
+    const ALL_TYPES = Object.values(QUESTION_TYPE);
+
+    if (correctRate >= 0.6) {
+      // 表现好：70% 困难题型，30% 简单题型
+      if (Math.random() < 0.7) {
+        return HARD_TYPES[Math.floor(Math.random() * HARD_TYPES.length)];
+      } else {
+        return EASY_TYPES[Math.floor(Math.random() * EASY_TYPES.length)];
+      }
+    } else if (correctRate <= 0.4) {
+      // 表现差：70% 简单题型，30% 困难题型
+      if (Math.random() < 0.7) {
+        return EASY_TYPES[Math.floor(Math.random() * EASY_TYPES.length)];
+      } else {
+        return HARD_TYPES[Math.floor(Math.random() * HARD_TYPES.length)];
+      }
+    } else {
+      // 表现中等：均衡随机
+      return ALL_TYPES[Math.floor(Math.random() * ALL_TYPES.length)];
+    }
+  }
+
   /**
    * 获取当前题目
    */
@@ -211,6 +256,12 @@ export class GameViewModel {
     this.session.correctCount++;
     this.session.consecutiveCorrect++;
 
+    // 记录答题结果（用于动态难度调整）
+    this.recentResults.push(true);
+    if (this.recentResults.length > this.RECENT_RESULTS_MAX) {
+      this.recentResults.shift();
+    }
+
     // 收集成语（答对后自动收集）
     const current = this.getCurrentQuestion();
     if (current) {
@@ -240,6 +291,12 @@ export class GameViewModel {
   private handleWrongAnswer(): void {
     this.session.wrongCount++;
     this.session.consecutiveCorrect = 0;
+
+    // 记录答题结果（用于动态难度调整）
+    this.recentResults.push(false);
+    if (this.recentResults.length > this.RECENT_RESULTS_MAX) {
+      this.recentResults.shift();
+    }
 
     // 闯关模式下扣除生命值
     if (this.session.mode === GAME_MODE.CHALLENGE) {

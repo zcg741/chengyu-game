@@ -99,6 +99,8 @@ struct GamePage {
     const correctCount = this.gameViewModel.getCorrectCount();
     const wrongCount = this.gameViewModel.getWrongCount();
     const totalQuestions = this.gameViewModel.getTotalQuestions();
+    const session = this.gameViewModel.getSession();
+    const recordsJson = JSON.stringify(session.records || []);
 
     try {
       const paramsMap: Record<string, Object> = {};
@@ -106,6 +108,7 @@ struct GamePage {
       paramsMap['correctCount'] = correctCount;
       paramsMap['wrongCount'] = wrongCount;
       paramsMap['totalQuestions'] = totalQuestions;
+      paramsMap['records'] = recordsJson;
       replaceToWithParams('pages/GameOverPage', paramsMap);
     } catch (error) {
       console.error('Failed to navigate:', error);
@@ -170,6 +173,20 @@ struct GamePage {
 
     if (correct) {
       playSound('correct');
+      // 答对后展示成语故事/出处
+      const question = this.gameViewModel.getCurrentQuestion();
+      if (question && question.currentSource) {
+        setTimeout(() => {
+          AlertDialog.show({
+            title: '📖 成语故事',
+            message: `${question.currentChengyu}\n\n${question.currentSource}`,
+            confirm: {
+              value: '知道了',
+              action: () => {}
+            }
+          });
+        }, 500);
+      }
     } else {
       playSound('wrong');
     }

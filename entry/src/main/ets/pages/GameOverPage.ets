@@ -16,6 +16,7 @@ struct GameOverPage {
   @State isNewRecord: boolean = false;
   @State accuracy: string = '0';
   @State showShareToast: boolean = false;
+  @State recordsJson: string = '';
 
   // 主题颜色状态
   @State brandColor: string = '#FF6B35';
@@ -44,10 +45,14 @@ struct GameOverPage {
       const correctVal = params['correctCount'];
       const wrongVal = params['wrongCount'];
       const totalVal = params['totalQuestions'];
+      const recordsVal = params['records'];
       this.score = (scoreVal !== undefined && scoreVal !== null) ? Number(scoreVal) : 0;
       this.correctCount = (correctVal !== undefined && correctVal !== null) ? Number(correctVal) : 0;
       this.wrongCount = (wrongVal !== undefined && wrongVal !== null) ? Number(wrongVal) : 0;
       this.totalQuestions = (totalVal !== undefined && totalVal !== null) ? Number(totalVal) : 0;
+      if (recordsVal) {
+        this.recordsJson = String(recordsVal);
+      }
 
       // 计算正确率
       if (this.totalQuestions > 0) {
@@ -216,6 +221,26 @@ struct GameOverPage {
               this.shareScore();
             });
 
+            // 回顾题目按钮
+            Button({ type: ButtonType.Normal }) {
+              Row() {
+                Text('📝')
+                  .fontSize(20)
+                  .margin({ right: 8 });
+                Text('回顾题目')
+                  .fontSize(16)
+                  .fontColor(Color.White);
+              }
+            }
+            .width('85%')
+            .height(52)
+            .backgroundColor('#7C4DFF')
+            .borderRadius(26)
+            .margin({ bottom: 12 })
+            .onClick(() => {
+              this.goToReview();
+            });
+
             // 再来一局按钮
             Button({ type: ButtonType.Normal }) {
               Row() {
@@ -282,6 +307,20 @@ struct GameOverPage {
     .backgroundColor(this.bgPage)
     .alignItems(HorizontalAlign.Center)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
+  }
+
+  /**
+   * 跳转到回顾页面
+   */
+  goToReview() {
+    try {
+      const paramsMap: Record<string, Object> = {};
+      paramsMap['records'] = this.recordsJson;
+      paramsMap['from'] = 'gameover';
+      replaceToWithParams('pages/ReviewPage', paramsMap);
+    } catch (error) {
+      console.error('Failed to navigate to review:', error);
+    }
   }
 
   /**
