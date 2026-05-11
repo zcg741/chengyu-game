@@ -1,7 +1,7 @@
 // HelpPage.ets - 游戏帮助页面
 import { replaceTo, getRouteParams } from '../utils/NavUtil';
-import { getCurrentTheme } from '../service/ThemeService';
-import { GAME_MODE, QUESTION_TYPE } from '../utils/Constants';
+import { getCurrentTheme, setTheme } from '../service/ThemeService';
+import { Theme, THEMES } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -9,16 +9,28 @@ struct HelpPage {
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#FAFAF7';
   @State bgCard: string = '#FFFFFF';
-  @State borderColor: string = '#E8E6E1';
+  @State borderColr: string = '#E8E6E1'; // 注意：不能用 borderColor（与内置属性冲突）
   @State textPrimary: string = '#2C2C2C';
   @State textSecondary: string = '#888888';
 
+  // 使用 @StorageLink 监听主题变化（全局同步）
+  @StorageLink('current_theme_id') themeId: string = 'classic';
+
+  // 根据 themeId 获取主题对象（避免索引访问）
+  getThemeByID(themeId: string): Theme {
+    if (themeId === 'classic') return THEMES.classic;
+    if (themeId === 'green') return THEMES.green;
+    if (themeId === 'blue') return THEMES.blue;
+    if (themeId === 'dark') return THEMES.dark;
+    return THEMES.classic;
+  }
+
   aboutToAppear() {
-    const theme = getCurrentTheme();
+    const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;
-    this.borderColor = theme.border;
+    this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
   }

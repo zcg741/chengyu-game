@@ -1,8 +1,8 @@
 // ResultPage.ets - 答题结果页
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { replaceTo } from '../utils/NavUtil';
-import { getCurrentTheme } from '../service/ThemeService';
-import { Theme } from '../model/ThemeModel';
+import { getCurrentTheme, setTheme } from '../service/ThemeService';
+import { Theme, THEMES } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -13,6 +13,9 @@ struct ResultPage {
   @State explanation: string = '';
   @State score: number = 0;
 
+  // 使用 @StorageLink 监听主题变化（全局同步）
+  @StorageLink('current_theme_id') themeId: string = 'classic';
+
   // 主题颜色状态
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#F5F5F5';
@@ -20,9 +23,18 @@ struct ResultPage {
   @State textPrimary: string = '#333333';
   @State textSecondary: string = '#666666';
 
+  // 根据 themeId 获取主题对象（避免索引访问）
+  getThemeByID(themeId: string): Theme {
+    if (themeId === 'classic') return THEMES.classic;
+    if (themeId === 'green') return THEMES.green;
+    if (themeId === 'blue') return THEMES.blue;
+    if (themeId === 'dark') return THEMES.dark;
+    return THEMES.classic;
+  }
+
   aboutToAppear() {
     // 加载主题
-    const theme = getCurrentTheme();
+    const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;

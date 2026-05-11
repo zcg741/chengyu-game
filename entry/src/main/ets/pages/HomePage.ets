@@ -4,7 +4,8 @@ import { GameViewModel } from '../viewmodel/GameViewModel';
 import { getCategories } from '../service/ChengyuService';
 import { navigateTo, replaceTo, replaceToWithParams } from '../utils/NavUtil';
 import { getBoolean, saveBoolean } from '../service/StorageService';
-import { getCurrentTheme, getCurrentThemeId } from '../service/ThemeService';
+import { getCurrentTheme, getCurrentThemeId, setTheme } from '../service/ThemeService';
+import { Theme, THEMES } from '../model/ThemeModel';
 
 @Entry
 @Component
@@ -17,6 +18,8 @@ struct HomePage {
   private gameViewModel: GameViewModel = new GameViewModel();
   @State currentTabIndex: number = 0;
   @State soundEnabled: boolean = true; // 音效开关
+  // 使用 @StorageLink 监听主题变化（全局同步）
+  @StorageLink('current_theme_id') themeId: string = 'classic';
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#FAFAF7';
   @State bgCard: string = '#FFFFFF';
@@ -26,14 +29,22 @@ struct HomePage {
   @State bgOrangeLight: string = '#FFF5F0';
   @State bgTealLight: string = '#F0FAF7';
   @State bgAmberLight: string = '#FFF8F0';
-  @State currentThemeId: string = getCurrentThemeId();
+
+  // 根据 themeId 获取主题对象（避免索引访问）
+  getThemeByID(themeId: string): Theme {
+    if (themeId === 'classic') return THEMES.classic;
+    if (themeId === 'green') return THEMES.green;
+    if (themeId === 'blue') return THEMES.blue;
+    if (themeId === 'dark') return THEMES.dark;
+    return THEMES.classic;
+  }
 
   async aboutToAppear() {
     this.highScore = await this.gameViewModel.getHighScore();
     this.totalGames = await this.gameViewModel.getTotalGames();
     await this.loadCategories();
-    // 重新加载主题（从主题页返回后刷新）
-    const theme = getCurrentTheme();
+    // 从 AppStorage 读取主题 ID 并应用
+    const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
     this.bgCard = theme.bgCard;

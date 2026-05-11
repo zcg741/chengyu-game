@@ -3,6 +3,7 @@ import { THEMES, Theme } from '../model/ThemeModel';
 import { saveString, getString } from './StorageService';
 
 const STORAGE_KEY = 'current_theme';
+const APP_STORAGE_KEY = 'current_theme_id'; // AppStorage 键
 
 // 根据 themeId 获取主题（避免索引访问）
 function getThemeById(themeId: string): Theme {
@@ -22,9 +23,12 @@ export async function initTheme(): Promise<void> {
   try {
     const themeId = await getString(STORAGE_KEY, 'classic');
     currentTheme = getThemeById(themeId);
+    // 同步到 AppStorage（供所有页面监听）
+    AppStorage.setOrCreate(APP_STORAGE_KEY, themeId);
   } catch (error) {
     console.error('ThemeService.initTheme error:', error);
     currentTheme = THEMES.classic;
+    AppStorage.setOrCreate(APP_STORAGE_KEY, 'classic');
   }
 }
 
@@ -47,6 +51,8 @@ export async function setTheme(themeId: string): Promise<void> {
     return;
   }
   currentTheme = theme;
+  // 同步到 AppStorage（触发所有页面刷新）
+  AppStorage.setOrCreate(APP_STORAGE_KEY, themeId);
   try {
     await saveString(STORAGE_KEY, themeId);
   } catch (error) {
