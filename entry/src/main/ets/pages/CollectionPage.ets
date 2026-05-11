@@ -13,7 +13,6 @@ struct CollectionPage {
   @State totalCollected: number = 0;
   @State totalCount: number = 0;
   @State selectedChengyu: Chengyu | undefined = undefined;
-  @State showDetail: boolean = false;
 
   // 主题颜色状态
   @State brandColor: string = '#FF6B35';
@@ -59,11 +58,6 @@ struct CollectionPage {
         this.buildEmptyState()
       } else {
         this.buildCollectionGrid()
-      }
-
-      // 详情弹窗
-      if (this.showDetail && this.selectedChengyu) {
-        this.buildDetailDialog();
       }
     }
     .width('100%')
@@ -166,7 +160,7 @@ struct CollectionPage {
         }
         .onClick(() => {
           this.selectedChengyu = item;
-          this.showDetail = true;
+          this.showDetailDialog();
         })
       }, (item: Chengyu) => item.word)
     }
@@ -200,8 +194,8 @@ struct CollectionPage {
     .border({ width: 1, color: '#EEEEEE' })
   }
 
-  @Builder
-  buildDetailDialog() {
+  // 显示详情弹窗
+  showDetailDialog() {
     AlertDialog.show({
       title: this.selectedChengyu!.word,
       message: [

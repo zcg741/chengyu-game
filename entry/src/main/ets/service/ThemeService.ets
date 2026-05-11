@@ -41,11 +41,12 @@ export function getCurrentTheme(): Theme {
  * @param themeId 主题 ID
  */
 export async function setTheme(themeId: string): Promise<void> {
-  if (!THEMES[themeId]) {
+  const theme = getThemeById(themeId);
+  if (theme === THEMES.classic && themeId !== 'classic') {
     console.error('ThemeService.setTheme: unknown theme', themeId);
     return;
   }
-  currentTheme = getThemeById(themeId);
+  currentTheme = theme;
   try {
     await saveString(STORAGE_KEY, themeId);
   } catch (error) {
