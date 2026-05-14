@@ -1,8 +1,8 @@
 // WrongBookPage.ets - 错题本页面（精致设计版）
-import { getNumber, saveNumber, getString, saveString } from '../service/StorageService';
-import { getChengyuByDifficulty } from '../service/ChengyuService';
+import { getChengyuByDifficulty, loadChengyuData } from '../service/ChengyuService';
 import { Chengyu } from '../model/ChengyuModel';
-import { navigateBack } from '../utils/NavUtil';
+import { navigateBack, navigateToWithParams } from '../utils/NavUtil';
+import { clearWrongBook, getWrongBookRecords, recordReviewResult, WrongBookRecord } from '../service/WrongBookService';
 
 const BG_PAGE: string = '#FAFAF7';
 const BG_CARD: string = '#FFFFFF';
@@ -14,27 +14,57 @@ const BRAND_ORANGE: string = '#E85D26';
 @Entry
 @Component
 struct WrongBookPage {
-  @State wrongWords: string[] = [];
   @State wrongChengyuList: Chengyu[] = [];
+  @State wrongRecords: WrongBookRecord[] = [];
   @State showAnswer: string = '';
+  @State showMastered: boolean = false;
+  @State pendingCount: number = 0;
+  @State masteredCount: number = 0;
 
   async aboutToAppear() {
     await this.loadWrongWords();
   }
 
   async loadWrongWords() {
-    const wrongStr = await getString('wrong_words', '');
-    if (wrongStr) {
-      this.wrongWords = wrongStr.split(',').filter(w => w.length > 0);
-    }
+    await loadChengyuData(0, '全部');
+    this.wrongRecords = await getWrongBookRecords(this.showMastered);
+    const allRecords = await getWrongBookRecords(true);
+    this.masteredCount = allRecords.filter(record => record.mastered).length;
+    this.pendingCount = allRecords.length - this.masteredCount;
+
+    const wrongWords = this.wrongRecords.map(record => record.word);
     const allChengyu = getChengyuByDifficulty(0, '全部');
-    this.wrongChengyuList = allChengyu.filter(c => this.wrongWords.includes(c.word));
+    this.wrongChengyuList = allChengyu.filter(c => wrongWords.includes(c.word));
   }
 
   async clearWrongBook() {
-    this.wrongWords = [];
+    this.wrongRecords = [];
     this.wrongChengyuList = [];
-    await saveString('wrong_words', '');
+    this.pendingCount = 0;
+    this.masteredCount = 0;
+    await clearWrongBook();
+  }
+
+  getRecord(word: string): WrongBookRecord | undefined {
+    return this.wrongRecords.find(record => record.word === word);
+  }
+
+  async markReview(item: Chengyu, isCorrect: boolean) {
+    await recordReviewResult(item.word, isCorrect);
+    await this.loadWrongWords();
+  }
+
+  getReviewStatusText(word: string): string {
+    const record = this.getRecord(word);
+    if (record && record.mastered) {
+      return '已掌握';
+    }
+    return `错 ${record ? record.wrongCount : 1} 次 · 连对 ${record ? record.reviewCorrectStreak : 0}/3`;
+  }
+
+  getReviewStatusColor(word: string): string {
+    const record = this.getRecord(word);
+    return record && record.mastered ? '#2E7D32' : TEXT_SECONDARY;
   }
 
   build() {
@@ -109,12 +139,42 @@ struct WrongBookPage {
   @Builder
   buildWrongList() {
     Column() {
-      Text(`${this.wrongChengyuList.length} 个错题`)
-        .fontSize(12)
-        .fontColor(TEXT_SECONDARY)
-        .margin({ top: 14, bottom: 6 })
-        .padding({ left: 20 })
-        .width('100%')
+      Row() {
+        Text(`待复习 ${this.pendingCount}`)
+          .fontSize(12)
+          .fontColor(BRAND_ORANGE)
+        Text(`已掌握 ${this.masteredCount}`)
+          .fontSize(12)
+          .fontColor(TEXT_SECONDARY)
+          .margin({ left: 12 })
+        Blank()
+        Text(this.showMastered ? '隐藏已掌握' : '显示已掌握')
+          .fontSize(12)
+          .fontColor(BRAND_ORANGE)
+          .onClick(() => {
+            this.showMastered = !this.showMastered;
+            this.loadWrongWords();
+          })
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 14, bottom: 6 })
+
+      if (this.pendingCount > 0) {
+        Button('开始错题复习')
+          .width('90%')
+          .height(44)
+          .fontSize(15)
+          .fontColor(Color.White)
+          .backgroundColor(BRAND_ORANGE)
+          .borderRadius(22)
+          .margin({ top: 8, bottom: 8 })
+          .alignSelf(ItemAlign.Center)
+          .onClick(() => {
+            const params: Record<string, Object> = {};
+            params['mode'] = 'wrongbook';
+            navigateToWithParams('pages/ReviewPage', params);
+          })
+      }
 
       List() {
         ForEach(this.wrongChengyuList, (item: Chengyu) => {
@@ -168,6 +228,38 @@ struct WrongBookPage {
           .border({ width: { top: 0.5 }, color: '#F0F0F0' })
           .padding({ top: 6 })
       }
+
+      Row() {
+        Text(this.getReviewStatusText(item.word))
+          .fontSize(11)
+          .fontColor(this.getReviewStatusColor(item.word))
+          .layoutWeight(1)
+
+        Button('答对一次')
+          .height(28)
+          .fontSize(11)
+          .fontColor(Color.White)
+          .backgroundColor('#2E7D32')
+          .borderRadius(14)
+          .padding({ left: 10, right: 10 })
+          .onClick(() => {
+            this.markReview(item, true);
+          })
+
+        Button('仍不会')
+          .height(28)
+          .fontSize(11)
+          .fontColor('#D32F2F')
+          .backgroundColor('#FDF2F2')
+          .borderRadius(14)
+          .padding({ left: 10, right: 10 })
+          .margin({ left: 8 })
+          .onClick(() => {
+            this.markReview(item, false);
+          })
+      }
+      .width('100%')
+      .margin({ top: 10 })
     }
     .width('100%')
     .padding(14)

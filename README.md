@@ -37,12 +37,12 @@ chengyu-game/
 
 ## 📊 成语数据
 
-- **总计 510 条**成语，覆盖 9 大分类：
+- **总计 510 条**成语，覆盖 10 大分类：
   - 数字成语、自然成语、动物成语、形容描写
   - 情感表达、道德修养、人物成语、历史典故
   - 寓言故事、神话传说
 
-- 每条数据包含：`word`（成语）、`pinyin`（拼音）、`explanation`（释义）、`source`（出处）、`difficulty`（难度 1-5）、`category`（分类）
+- 每条数据包含：`word`（成语）、`pinyin`（拼音）、`explanation`（释义）、`source`（出处）、`difficulty`（难度 1-3）、`category`（分类）
 
 ## 🛠 技术栈
 

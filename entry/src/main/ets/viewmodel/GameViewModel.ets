@@ -1,13 +1,14 @@
 // GameViewModel.ets - 游戏核心逻辑ViewModel
-import { Chengyu } from '../model/ChengyuModel';
-import { GameSession, GameRecord, HintLevel } from '../model/GameState';
+import { ChengyuWithIndex } from '../model/ChengyuModel';
+import { GameSession, GameRecord } from '../model/GameState';
 import { GAME_CONFIG, GAME_MODE, QUESTION_TYPE } from '../utils/Constants';
-import { getPinyinInitials, generateHint, generatePinyinHint } from '../utils/PinyinUtil';
 import { loadChengyuData, getRandomChengyu, getChengyuByFirstChar } from '../service/ChengyuService';
 import { saveNumber, getNumber, saveString, getString } from '../service/StorageService';
 import { initAchievements, incrementAchievement, updateAchievementProgress } from '../service/AchievementService';
 import { Achievement } from '../model/AchievementModel';
 import { collect } from '../service/CollectionService';
+import { recordWrongAnswer } from '../service/WrongBookService';
+import { getHintText, getQuestionPrompt, isAnswerCorrect, pickDynamicQuestionType } from '../service/QuestionService';
 
 export class GameViewModel {
   private session: GameSession;
@@ -40,6 +41,7 @@ export class GameViewModel {
   private prevChengyuLastChar: string = '';
   private recentResults: boolean[] = []; // 最近答题结果（用于动态难度调整）
   private readonly RECENT_RESULTS_MAX: number = 5; // 保留最近5题的结果
+  private totalGamesBeforeStart: number = 0;
 
   /**
    * 初始化游戏
@@ -51,6 +53,7 @@ export class GameViewModel {
     this.currentCategory = category;
     await loadChengyuData(difficulty, category);
     await initAchievements(); // 初始化成就
+    this.totalGamesBeforeStart = await getNumber('total_games', 0);
     
     // 加载已玩成语记录
     const playedStr = await getString('played_idioms', '[]');
@@ -97,15 +100,15 @@ export class GameViewModel {
    */
   loadNextQuestion(): void {
     // 根据最近答题表现动态选题型
-    const randomType = this.getDynamicQuestionType();
+    const randomType = pickDynamicQuestionType(this.recentResults, this.totalGamesBeforeStart);
 
-    let chengyuList: Chengyu[] = [];
+    let chengyuList: ChengyuWithIndex[] = [];
 
     // 接龙模式：找首字匹配的成语
     if (randomType === QUESTION_TYPE.DRAGON && this.prevChengyuLastChar) {
-      chengyuList = getChengyuByFirstChar(this.prevChengyuLastChar);
+      const allMatches = getChengyuByFirstChar(this.prevChengyuLastChar);
       // 过滤已使用的
-      chengyuList = chengyuList.filter((_, idx) => !this.session.usedIndices.includes(idx));
+      chengyuList = allMatches.filter(item => !this.session.usedIndices.includes(item.originalIndex));
     }
 
     // 接龙无匹配或不是接龙模式：随机取题
@@ -118,23 +121,13 @@ export class GameViewModel {
       return;
     }
 
-    const chengyu = chengyuList[0];
-    let explanation = '';
-    if (randomType === QUESTION_TYPE.EXPLANATION) {
-      explanation = chengyu.explanation;
-    } else if (randomType === QUESTION_TYPE.PINYIN) {
-      explanation = chengyu.pinyin;
-    } else if (randomType === QUESTION_TYPE.FILL_BLANK) {
-      explanation = this.generateFillBlank(chengyu.word);
-    } else {
-      // 接龙模式：显示尾字提示
-      explanation = this.prevChengyuLastChar
-        ? `尾字「${this.prevChengyuLastChar}」，猜以它开头的成语！`
-        : chengyu.explanation;
-    }
+    const item = chengyuList[0];
+    const chengyu = item.chengyu;
+    const originalIndex = item.originalIndex;
+    const explanation = getQuestionPrompt(chengyu, randomType, this.prevChengyuLastChar);
 
     const record: GameRecord = {
-      currentIndex: this.session.usedIndices.length,
+      currentIndex: originalIndex,  // ✅ 使用真实的原始索引
       questionType: randomType,
       currentChengyu: chengyu.word,
       currentPinyin: chengyu.pinyin,
@@ -148,56 +141,12 @@ export class GameViewModel {
     };
 
     this.session.records.push(record);
-    this.session.usedIndices.push(record.currentIndex);
+    this.session.usedIndices.push(originalIndex);  // ✅ 推送正确的索引
 
     // 更新尾字（用于下一题接龙）
     this.prevChengyuLastChar = chengyu.word ? chengyu.word.slice(-1) : '';
   }
   
-  /**
-   * 根据最近答题表现动态调整题型
-   * 表现好（正确率≥60%）：更高概率选择困难题型（释义、接龙）
-   * 表现差（正确率≤40%）：更高概率选择简单题型（拼音、填空）
-   * 其他情况：均衡随机
-   */
-  private getDynamicQuestionType(): string {
-    const recent = this.recentResults;
-    if (recent.length === 0) {
-      // 没有历史记录，随机选题
-      const allTypes: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK, QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
-      return allTypes[Math.floor(Math.random() * allTypes.length)];
-    }
-
-    const correctCount = recent.filter(r => r).length;
-    const correctRate = correctCount / recent.length;
-
-    // 题型权重配置
-    // 简单题型：PINYIN, FILL_BLANK
-    // 困难题型：EXPLANATION, DRAGON
-    const EASY_TYPES: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK];
-    const HARD_TYPES: string[] = [QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
-    const ALL_TYPES: string[] = [QUESTION_TYPE.PINYIN, QUESTION_TYPE.FILL_BLANK, QUESTION_TYPE.EXPLANATION, QUESTION_TYPE.DRAGON];
-
-    if (correctRate >= 0.6) {
-      // 表现好：70% 困难题型，30% 简单题型
-      if (Math.random() < 0.7) {
-        return HARD_TYPES[Math.floor(Math.random() * HARD_TYPES.length)];
-      } else {
-        return EASY_TYPES[Math.floor(Math.random() * EASY_TYPES.length)];
-      }
-    } else if (correctRate <= 0.4) {
-      // 表现差：70% 简单题型，30% 困难题型
-      if (Math.random() < 0.7) {
-        return EASY_TYPES[Math.floor(Math.random() * EASY_TYPES.length)];
-      } else {
-        return HARD_TYPES[Math.floor(Math.random() * HARD_TYPES.length)];
-      }
-    } else {
-      // 表现中等：均衡随机
-      return ALL_TYPES[Math.floor(Math.random() * ALL_TYPES.length)];
-    }
-  }
-
   /**
    * 获取当前题目
    */
@@ -212,7 +161,7 @@ export class GameViewModel {
    * 获取当前成语出处
    */
   getCurrentSource(): string {
-    const current = this.getCurrentQuestion();
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (!current) {
       return '';
     }
@@ -224,25 +173,23 @@ export class GameViewModel {
    * @param answer 用户答案
    * @returns 是否正确
    */
-  submitAnswer(answer: string): boolean {
-    const current = this.getCurrentQuestion();
+  async submitAnswer(answer: string): Promise<boolean> {
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (!current || current.isAnswered) {
       return false;
     }
     
     current.userAnswer = answer.trim();
     
-    // 过滤标点符号后比较（忽略 !！,，。.、?？;；:：""''（）()\s 等）
-    const normalize = (str: string) => str.replace(/[！!，,。.\、?？;；:：""''（）()\s]/g, '');
-    const isCorrect = normalize(current.userAnswer) === normalize(current.currentChengyu);
+    const isCorrect = isAnswerCorrect(current.userAnswer, current.currentChengyu);
     
     current.isCorrect = isCorrect;
 
     if (isCorrect) {
       current.isAnswered = true;
-      this.handleCorrectAnswer();
+      await this.handleCorrectAnswer();
     } else {
-      this.handleWrongAnswer();
+      await this.handleWrongAnswer();
     }
     
     return isCorrect;
@@ -263,7 +210,7 @@ export class GameViewModel {
     }
 
     // 收集成语（答对后自动收集）
-    const current = this.getCurrentQuestion();
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (current) {
       await collect(current.currentChengyu);
     }
@@ -288,7 +235,7 @@ export class GameViewModel {
   /**
    * 处理错误答案
    */
-  private handleWrongAnswer(): void {
+  private async handleWrongAnswer(): Promise<void> {
     this.session.wrongCount++;
     this.session.consecutiveCorrect = 0;
 
@@ -303,7 +250,7 @@ export class GameViewModel {
       this.session.lives--;
     }
     
-    const current = this.getCurrentQuestion();
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (current) {
       current.errorCount++;
       // 答错后提升提示等级，最多到 wordLen-1（此时 generateHint 会返回完整答案）
@@ -314,6 +261,7 @@ export class GameViewModel {
       
       // 扣分
       this.session.score = Math.max(0, this.session.score - GAME_CONFIG.SCORE_PENALTY_HINT);
+      await recordWrongAnswer(current.currentChengyu);
     }
   }
   
@@ -323,7 +271,7 @@ export class GameViewModel {
    * @returns 提示文本
    */
   getHint(): string {
-    const current = this.getCurrentQuestion();
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (!current || current.isAnswered) {
       return '';
     }
@@ -338,15 +286,15 @@ export class GameViewModel {
     // 扣分
     this.session.score = Math.max(0, this.session.score - GAME_CONFIG.SCORE_PENALTY_HINT);
     
-    // 根据 hintLevel 生成提示文本（generateHint 内部会判断是否需要显示完整答案）
-    return generateHint(current.currentChengyu, current.hintLevel);
+    // 优先使用题库拼音字段生成首字母，避免汉字映射表误差。
+    return getHintText(current.currentChengyu, current.currentPinyin, current.hintLevel);
   }
   
   /**
    * 获取当前提示文本
    */
   getCurrentHintText(): string {
-    const current = this.getCurrentQuestion();
+    const current: GameRecord | null = this.getCurrentQuestion();
     if (!current) {
       return '';
     }
@@ -356,30 +304,7 @@ export class GameViewModel {
       return current.currentChengyu;
     }
 
-    return generateHint(current.currentChengyu, current.hintLevel);
-  }
-
-  /**
-   * 生成填空版本成语（如"一心_意"）
-   */
-  private generateFillBlank(word: string): string {
-    if (!word || word.length < 4) return word;
-    const len = word.length;
-    // 随机隐藏 1~2 个字
-    const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
-    const indices: number[] = [];
-    for (let i = 0; i < len; i++) {
-      indices.push(i);
-    }
-    // 简单随机隐藏
-    for (let i = indices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = indices[i];
-      indices[i] = indices[j];
-      indices[j] = temp;
-    }
-    const hideIdx = new Set(indices.slice(0, hideCount));
-    return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');
+    return getHintText(current.currentChengyu, current.currentPinyin, current.hintLevel);
   }
   
   /**
@@ -387,7 +312,7 @@ export class GameViewModel {
    */
   canContinue(): boolean {
     if (this.session.mode === GAME_MODE.CHALLENGE) {
-      const current = this.getCurrentQuestion();
+      const current: GameRecord | null = this.getCurrentQuestion();
       if (current && !current.isCorrect && current.errorCount >= GAME_CONFIG.MAX_ERROR_COUNT) {
         return false;
       }
@@ -409,6 +334,10 @@ export class GameViewModel {
    * 结束游戏
    */
   async endGame(): Promise<Achievement[]> {
+    if (this.session.isGameOver) {
+      return [];
+    }
+
     this.session.isPlaying = false;
     this.session.isGameOver = true;
     
@@ -418,6 +347,9 @@ export class GameViewModel {
     
     const totalCorrect = await getNumber('total_correct', 0);
     await saveNumber('total_correct', totalCorrect + this.session.correctCount);
+
+    const totalWrong = await getNumber('total_wrong', 0);
+    await saveNumber('total_wrong', totalWrong + this.session.wrongCount);
     
     const highScore = await getNumber('high_score', 0);
     const isNewRecord = this.session.score > highScore;

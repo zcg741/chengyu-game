@@ -1,10 +1,12 @@
 // Index.ets - 应用入口页，重定向到首页
 import { replaceTo } from '../utils/NavUtil';
+import { initTheme } from '../service/ThemeService';
 
 @Entry
 @Component
 struct Index {
-  aboutToAppear() {
+  async aboutToAppear() {
+    await initTheme();
     // 延迟一下确保页面加载完成
     setTimeout(() => {
       replaceTo('pages/HomePage');

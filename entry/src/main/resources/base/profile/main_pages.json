@@ -5,12 +5,14 @@
     "pages/GamePage",
     "pages/ResultPage",
     "pages/GameOverPage",
+    "pages/ReviewPage",
     "pages/AchievementPage",
     "pages/LearnPage",
     "pages/StatsPage",
     "pages/WrongBookPage",
     "pages/DailyChallengePage",
     "pages/AboutPage",
+    "pages/HelpPage",
     "pages/CollectionPage",
     "pages/ThemePage"
   ]

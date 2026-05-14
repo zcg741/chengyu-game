@@ -39,3 +39,9 @@ export interface ChengyuHint {
   // 当前显示的提示文本
   hintText: string;
 }
+
+// 带索引的成语（用于不重复选题）
+export interface ChengyuWithIndex {
+  chengyu: Chengyu;
+  originalIndex: number;
+}

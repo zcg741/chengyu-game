@@ -1,7 +1,12 @@
 // HelpPage.ets - 游戏帮助页面
-import { replaceTo, getRouteParams } from '../utils/NavUtil';
-import { getCurrentTheme, setTheme } from '../service/ThemeService';
+import { navigateBack } from '../utils/NavUtil';
 import { Theme, THEMES } from '../model/ThemeModel';
+
+interface HelpItem {
+  title: string;
+  desc: string;
+  icon?: string;
+}
 
 @Entry
 @Component
@@ -12,6 +17,7 @@ struct HelpPage {
   @State borderColr: string = '#E8E6E1'; // 注意：不能用 borderColor（与内置属性冲突）
   @State textPrimary: string = '#2C2C2C';
   @State textSecondary: string = '#888888';
+  @StorageProp('status_bar_height') statusBarHeight: number = 0;
 
   // 使用 @StorageLink 监听主题变化（全局同步）
   @StorageLink('current_theme_id') themeId: string = 'classic';
@@ -43,7 +49,7 @@ struct HelpPage {
     .width('100%')
     .height('100%')
     .backgroundColor(this.bgPage)
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 
   @Builder
@@ -60,7 +66,7 @@ struct HelpPage {
       .borderRadius(20)
       .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
       .onClick(() => {
-        replaceTo('pages/HomePage');
+        navigateBack();
       });
 
       Blank()
@@ -75,7 +81,7 @@ struct HelpPage {
       Column().width(40).height(40)
     }
     .width('100%')
-    .padding({ left: 20, right: 20, top: 16, bottom: 12 })
+    .padding({ left: 20, right: 20, top: this.statusBarHeight + 10, bottom: 12 })
     .backgroundColor(this.bgCard)
     .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
   }
@@ -136,7 +142,7 @@ struct HelpPage {
   }
 
   @Builder
-  buildSection(title: string, items: Array<{ title: string, desc: string, icon?: string }>) {
+  buildSection(title: string, items: HelpItem[]) {
     Column() {
       // 区块标题
       Row() {
@@ -155,7 +161,7 @@ struct HelpPage {
 
       // 内容卡片
       Column() {
-        ForEach(items, (item: { title: string, desc: string, icon?: string }, index: number) => {
+        ForEach(items, (item: HelpItem, index: number) => {
           Column() {
             Row() {
               if (item.icon) {
@@ -186,13 +192,13 @@ struct HelpPage {
               .color('#F5F5F5')
               .strokeWidth(0.5);
           }
-        }, (item: any) => item.title)
+        }, (item: HelpItem) => item.title)
       }
       .width('100%')
       .backgroundColor(this.bgCard)
       .borderRadius(12)
       .borderWidth(0.5)
-      .borderColor(this.borderColor)
+      .borderColor(this.borderColr)
     }
     .width('100%')
   }

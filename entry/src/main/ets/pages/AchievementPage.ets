@@ -1,7 +1,8 @@
 // AchievementPage.ets - 成就展示页面（精致设计版）
 import { navigateBack } from '../utils/NavUtil';
 import { getBoolean, getNumber } from '../service/StorageService';
-import { Achievement, AchievementLevel, AchievementType, AchievementCondition } from '../model/AchievementModel';
+import { getAllAchievements } from '../service/AchievementService';
+import { Achievement, AchievementLevel } from '../model/AchievementModel';
 
 const BG_PAGE: string = '#FAFAF7';
 const BG_CARD: string = '#FFFFFF';
@@ -9,22 +10,7 @@ const BORDER_COLOR: string = '#E8E6E1';
 const TEXT_PRIMARY: string = '#2C2C2C';
 const TEXT_SECONDARY: string = '#888888';
 
-const ACHIEVEMENTS: Achievement[] = [
-  { id: 'first_game', name: '初出茅庐', description: '完成第一次游戏', icon: '🎮', level: AchievementLevel.BRONZE, condition: { type: AchievementType.FIRST_GAME, target: 1, current: 0 } as AchievementCondition, reward: 10 },
-  { id: 'play_10_games', name: '常客', description: '累计游玩10次', icon: '🎯', level: AchievementLevel.BRONZE, condition: { type: AchievementType.TOTAL_GAMES, target: 10, current: 0 } as AchievementCondition, reward: 20 },
-  { id: 'correct_50', name: '小有成就', description: '累计答对50题', icon: '✅', level: AchievementLevel.SILVER, condition: { type: AchievementType.TOTAL_CORRECT, target: 50, current: 0 } as AchievementCondition, reward: 50 },
-  { id: 'correct_100', name: '百发百中', description: '累计答对100题', icon: '🎯', level: AchievementLevel.SILVER, condition: { type: AchievementType.TOTAL_CORRECT, target: 100, current: 0 } as AchievementCondition, reward: 100 },
-  { id: 'score_100', name: '百分达人', description: '单局得分超过100分', icon: '💯', level: AchievementLevel.GOLD, condition: { type: AchievementType.MAX_SCORE, target: 100, current: 0 } as AchievementCondition, reward: 50 },
-  { id: 'score_300', name: '高分王者', description: '单局得分超过300分', icon: '🏆', level: AchievementLevel.GOLD, condition: { type: AchievementType.MAX_SCORE, target: 300, current: 0 } as AchievementCondition, reward: 150 },
-  { id: 'streak_5', name: '连胜将军', description: '连续答对5题', icon: '🔥', level: AchievementLevel.GOLD, condition: { type: AchievementType.CONSECUTIVE_CORRECT, target: 5, current: 0 } as AchievementCondition, reward: 30 },
-  { id: 'streak_10', name: '不败传说', description: '连续答对10题', icon: '⚡', level: AchievementLevel.DIAMOND, condition: { type: AchievementType.CONSECUTIVE_CORRECT, target: 10, current: 0 } as AchievementCondition, reward: 100 },
-  { id: 'play_timer', name: '与时间赛跑', description: '玩过计时模式', icon: '⏱️', level: AchievementLevel.BRONZE, condition: { type: AchievementType.TIMER_MODE_PLAYED, target: 1, current: 0 } as AchievementCondition, reward: 10 },
-  { id: 'play_challenge', name: '挑战者', description: '玩过闯关模式', icon: '🎪', level: AchievementLevel.BRONZE, condition: { type: AchievementType.CHALLENGE_MODE_PLAYED, target: 1, current: 0 } as AchievementCondition, reward: 10 },
-  { id: 'play_diff_2', name: '进阶玩家', description: '玩过中等难度', icon: '⭐', level: AchievementLevel.SILVER, condition: { type: AchievementType.PLAY_DIFFICULTY_2, target: 1, current: 0 } as AchievementCondition, reward: 20 },
-  { id: 'play_diff_3', name: '高手无敌', description: '玩过困难难度', icon: '💎', level: AchievementLevel.GOLD, condition: { type: AchievementType.PLAY_DIFFICULTY_3, target: 1, current: 0 } as AchievementCondition, reward: 50 },
-  { id: 'perfect', name: '完美通关', description: '闯关模式无错通关', icon: '👑', level: AchievementLevel.DIAMOND, condition: { type: AchievementType.PERFECT_GAME, target: 1, current: 0 } as AchievementCondition, reward: 200 },
-  { id: 'total_score', name: '积分达人', description: '累计获得1000积分', icon: '🌟', level: AchievementLevel.SILVER, condition: { type: AchievementType.TOTAL_SCORE, target: 1000, current: 0 } as AchievementCondition, reward: 50 }
-];
+const ACHIEVEMENTS: Achievement[] = getAllAchievements();
 
 @Entry
 @Component

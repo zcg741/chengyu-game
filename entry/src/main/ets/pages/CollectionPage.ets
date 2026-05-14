@@ -1,18 +1,27 @@
 // CollectionPage.ets - 成语图鉴/收集系统
 import { getCollectedList, getCollectedChengyuList, getCollectedCount } from '../service/CollectionService';
 import { Chengyu } from '../model/ChengyuModel';
-import { getTotalCount } from '../service/ChengyuService';
-import { navigateTo } from '../utils/NavUtil';
+import { getCategories, getChengyuByDifficulty, getTotalCount, loadChengyuData } from '../service/ChengyuService';
+import { navigateBack } from '../utils/NavUtil';
 import { getCurrentTheme, setTheme } from '../service/ThemeService';
 import { Theme, THEMES } from '../model/ThemeModel';
+import { getInitialLettersFromPinyin } from '../utils/PinyinUtil';
+import { InfoDialogOptions, showInfoDialog } from '../utils/DialogUtil';
 
 @Entry
 @Component
 struct CollectionPage {
   @State collectedList: Chengyu[] = [];
+  @State allChengyuList: Chengyu[] = [];
+  @State displayList: Chengyu[] = [];
+  @State collectedWords: string[] = [];
   @State totalCollected: number = 0;
   @State totalCount: number = 0;
   @State selectedChengyu: Chengyu | undefined = undefined;
+  @State selectedCategory: string = '全部';
+  @State selectedDifficulty: number = 0;
+  @State categories: string[] = ['全部'];
+  @StorageProp('status_bar_height') statusBarHeight: number = 0;
 
   // 使用 @StorageLink 监听主题变化（全局同步）
   @StorageLink('current_theme_id') themeId: string = 'classic';
@@ -49,12 +58,32 @@ struct CollectionPage {
 
   async loadCollection() {
     try {
+      await loadChengyuData(0, '全部');
+      this.categories = getCategories();
+      this.allChengyuList = getChengyuByDifficulty(0, '全部');
+      this.collectedWords = await getCollectedList();
       this.collectedList = await getCollectedChengyuList();
       this.totalCollected = await getCollectedCount();
       this.totalCount = getTotalCount();
+      this.refreshDisplayList();
     } catch (error) {
       console.error('CollectionPage load error:', error);
     }
+  }
+
+  refreshDisplayList() {
+    let result = this.allChengyuList;
+    if (this.selectedDifficulty > 0) {
+      result = result.filter(item => item.difficulty === this.selectedDifficulty);
+    }
+    if (this.selectedCategory !== '全部') {
+      result = result.filter(item => item.category === this.selectedCategory);
+    }
+    this.displayList = result;
+  }
+
+  isCollected(word: string): boolean {
+    return this.collectedWords.includes(word);
   }
 
   build() {
@@ -65,8 +94,10 @@ struct CollectionPage {
       // 统计栏
       this.buildStatsBar()
 
+      this.buildFilterBar()
+
       // 图鉴网格
-      if (this.collectedList.length === 0) {
+      if (this.displayList.length === 0) {
         this.buildEmptyState()
       } else {
         this.buildCollectionGrid()
@@ -75,7 +106,7 @@ struct CollectionPage {
     .width('100%')
     .height('100%')
     .backgroundColor(this.bgPage)
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 
   @Builder
@@ -93,7 +124,7 @@ struct CollectionPage {
       .borderRadius(20)
       .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
       .onClick(() => {
-        navigateTo('pages/HomePage');
+        navigateBack();
       });
 
       Blank()
@@ -111,7 +142,7 @@ struct CollectionPage {
         .height(40)
     }
     .width('100%')
-    .padding({ left: 20, right: 20, top: 16, bottom: 12 })
+    .padding({ left: 20, right: 20, top: this.statusBarHeight + 10, bottom: 12 })
     .backgroundColor(this.bgCard)
     .shadow({ radius: 4, color: '#0000000D', offsetX: 0, offsetY: 2 })
   }
@@ -119,10 +150,18 @@ struct CollectionPage {
   @Builder
   buildStatsBar() {
     Row() {
-      Text(`已收集：${this.totalCollected} / ${this.totalCount}`)
-        .fontSize(13)
-        .fontColor(this.textSecondary);
-      Blank();
+      Column() {
+        Text(`已收集：${this.totalCollected} / ${this.totalCount}`)
+          .fontSize(13)
+          .fontColor(this.textSecondary)
+        Text(this.selectedCategory === '全部' ? '全部分类' : this.selectedCategory)
+          .fontSize(11)
+          .fontColor(this.brandColor)
+          .margin({ top: 3 })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .layoutWeight(1)
+
       Stack() {
         Progress({ value: this.totalCollected, total: this.totalCount, type: ProgressType.Ring })
           .width(32)
@@ -144,15 +183,74 @@ struct CollectionPage {
   }
 
   @Builder
+  buildFilterBar() {
+    Column() {
+      Scroll() {
+        Row() {
+          ForEach(this.categories, (category: string) => {
+            Button(category)
+              .height(30)
+              .backgroundColor(this.selectedCategory === category ? this.brandColor : this.bgCard)
+              .fontColor(this.selectedCategory === category ? Color.White : this.textSecondary)
+              .borderRadius(15)
+              .borderWidth(this.selectedCategory === category ? 0 : 0.5)
+              .borderColor(this.borderColr)
+              .fontSize(12)
+              .padding({ left: 12, right: 12 })
+              .margin({ right: 8 })
+              .onClick(() => {
+                this.selectedCategory = category;
+                this.refreshDisplayList();
+              })
+          })
+        }
+      }
+      .scrollable(ScrollDirection.Horizontal)
+      .scrollBar(BarState.Off)
+      .width('100%')
+
+      Row() {
+        this.buildDifficultyChip('全部', 0)
+        this.buildDifficultyChip('简单', 1)
+        this.buildDifficultyChip('中等', 2)
+        this.buildDifficultyChip('困难', 3)
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.SpaceBetween)
+      .margin({ top: 10 })
+    }
+    .width('90%')
+    .alignSelf(ItemAlign.Center)
+    .margin({ bottom: 10 })
+  }
+
+  @Builder
+  buildDifficultyChip(label: string, value: number) {
+    Button(label)
+      .height(30)
+      .backgroundColor(this.selectedDifficulty === value ? this.brandColor : this.bgCard)
+      .fontColor(this.selectedDifficulty === value ? Color.White : this.textSecondary)
+      .borderRadius(15)
+      .borderWidth(this.selectedDifficulty === value ? 0 : 0.5)
+      .borderColor(this.borderColr)
+      .fontSize(12)
+      .padding({ left: 12, right: 12 })
+      .onClick(() => {
+        this.selectedDifficulty = value;
+        this.refreshDisplayList();
+      })
+  }
+
+  @Builder
   buildEmptyState() {
     Column() {
       Text('📚')
         .fontSize(64)
         .margin({ bottom: 16 });
-      Text('暂无收集')
+      Text('暂无成语')
         .fontSize(16)
         .fontColor('#999999');
-      Text('答对成语即可自动收集到这里')
+      Text('换个分类或难度看看')
         .fontSize(12)
         .fontColor('#BBBBBB')
         .margin({ top: 6 });
@@ -166,18 +264,21 @@ struct CollectionPage {
   @Builder
   buildCollectionGrid() {
     Grid() {
-      ForEach(this.collectedList, (item: Chengyu) => {
+      ForEach(this.displayList, (item: Chengyu) => {
         GridItem() {
           this.buildChengyuCard(item)
         }
         .onClick(() => {
-          this.selectedChengyu = item;
-          this.showDetailDialog();
+          if (this.isCollected(item.word)) {
+            this.selectedChengyu = item;
+            this.showDetailDialog();
+          }
         })
       }, (item: Chengyu) => item.word)
     }
     .columnsTemplate('1fr 1fr 1fr')
-    .rowsTemplate(`repeat(${Math.ceil(this.collectedList.length / 3)}, 1fr)`)
+    .rowsGap(8)
+    .columnsGap(8)
     .width('94%')
     .layoutWeight(1)
     .margin({ left: '3%', right: '3%' })
@@ -188,27 +289,41 @@ struct CollectionPage {
   @Builder
   buildChengyuCard(item: Chengyu) {
     Column() {
-      Text(item.word)
-        .fontSize(18)
+      Text(this.isCollected(item.word) ? item.word : '未收集')
+        .fontSize(16)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#333333')
-        .margin({ bottom: 4 });
-      Text(this.getPinyinInitials(item.pinyin))
+        .fontColor(this.isCollected(item.word) ? '#333333' : '#BBBBBB')
+        .margin({ bottom: 4 })
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis });
+
+      Text(this.isCollected(item.word) ? this.getPinyinInitials(item.pinyin) : `${item.category} · ${this.getDifficultyText(item.difficulty)}`)
         .fontSize(10)
-        .fontColor('#999999');
+        .fontColor('#999999')
+        .margin({ bottom: 4 })
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis });
+
+      Text(this.isCollected(item.word) ? item.explanation : '答对后点亮')
+        .fontSize(9)
+        .fontColor(this.isCollected(item.word) ? '#666666' : '#AAAAAA')
+        .maxLines(2)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+        .width('90%')
     }
     .width('100%')
     .aspectRatio(1)
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .backgroundColor(Color.White)
+    .backgroundColor(this.isCollected(item.word) ? Color.White : '#F4F4F4')
     .borderRadius(12)
     .border({ width: 1, color: '#EEEEEE' })
+    .padding({ left: 4, right: 4 })
   }
 
   // 显示详情弹窗
   showDetailDialog() {
-    AlertDialog.show({
+    const options: InfoDialogOptions = {
       title: this.selectedChengyu!.word,
       message: [
         `拼音：${this.selectedChengyu!.pinyin}`,
@@ -217,11 +332,9 @@ struct CollectionPage {
         ``,
         this.selectedChengyu!.source ? `出处：${this.selectedChengyu!.source}` : ''
       ].join('\n'),
-      confirm: {
-        value: '关闭',
-        action: () => {}
-      }
-    });
+      confirmText: '关闭'
+    };
+    showInfoDialog(options);
   }
 
   /**
@@ -229,6 +342,13 @@ struct CollectionPage {
    */
   getPinyinInitials(pinyin: string): string {
     if (!pinyin) return '';
-    return pinyin.split(' ').map(p => p[0]?.toUpperCase() || '').join(' ');
+    return getInitialLettersFromPinyin(pinyin).join(' ');
+  }
+
+  getDifficultyText(difficulty: number): string {
+    if (difficulty === 1) return '简单';
+    if (difficulty === 2) return '中等';
+    if (difficulty === 3) return '困难';
+    return '全部';
   }
 }

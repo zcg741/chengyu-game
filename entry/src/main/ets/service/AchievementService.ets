@@ -142,11 +142,78 @@ const ACHIEVEMENTS: Achievement[] = [
     level: AchievementLevel.SILVER,
     condition: { type: AchievementType.TOTAL_SCORE, target: 1000, current: 0 },
     reward: 50
+  },
+  
+  // 每日挑战成就
+  {
+    id: 'daily_challenge_first',
+    name: '挑战新手',
+    description: '第一次完成每日挑战',
+    icon: '📅',
+    level: AchievementLevel.BRONZE,
+    condition: { type: AchievementType.DAILY_CHALLENGE_FIRST, target: 1, current: 0 },
+    reward: 20
+  },
+  {
+    id: 'daily_streak_3',
+    name: '坚持不懈',
+    description: '连续3天完成每日挑战',
+    icon: '🔥',
+    level: AchievementLevel.SILVER,
+    condition: { type: AchievementType.DAILY_STREAK, target: 3, current: 0 },
+    reward: 50
+  },
+  {
+    id: 'daily_streak_7',
+    name: '一周达人',
+    description: '连续7天完成每日挑战',
+    icon: '🏆',
+    level: AchievementLevel.GOLD,
+    condition: { type: AchievementType.DAILY_STREAK, target: 7, current: 0 },
+    reward: 100
+  },
+  
+  // 收藏成就
+  {
+    id: 'collect_10',
+    name: '初识成语',
+    description: '收藏10个成语',
+    icon: '📚',
+    level: AchievementLevel.BRONZE,
+    condition: { type: AchievementType.COLLECT, target: 10, current: 0 },
+    reward: 20
+  },
+  {
+    id: 'collect_50',
+    name: '成语达人',
+    description: '收藏50个成语',
+    icon: '📖',
+    level: AchievementLevel.SILVER,
+    condition: { type: AchievementType.COLLECT, target: 50, current: 0 },
+    reward: 50
   }
 ];
 
 // 用户成就缓存
 let userAchievements: Map<string, UserAchievement> = new Map();
+
+async function ensureUserAchievement(achievement: Achievement): Promise<UserAchievement> {
+  const cached = userAchievements.get(achievement.id);
+  if (cached) {
+    return cached;
+  }
+
+  const key = `achievement_${achievement.id}`;
+  const isUnlocked = await getBoolean(`${key}_unlocked`, false);
+  const state: UserAchievement = {
+    achievementId: achievement.id,
+    isUnlocked: isUnlocked,
+    progress: isUnlocked ? achievement.condition.target : await getNumber(`${key}_progress`, 0),
+    unlockedAt: isUnlocked ? await getString(`${key}_time`, '') : undefined
+  };
+  userAchievements.set(achievement.id, state);
+  return state;
+}
 
 /**
  * 初始化成就数据
@@ -205,7 +272,7 @@ export async function updateAchievementProgress(type: string, value: number): Pr
       continue;
     }
     
-    const ua = userAchievements.get(achievement.id)!;
+    const ua = await ensureUserAchievement(achievement);
     
     // 如果已解锁，跳过
     if (ua.isUnlocked) {
@@ -251,7 +318,7 @@ export async function incrementAchievement(type: string, increment: number = 1):
       continue;
     }
     
-    const ua = userAchievements.get(achievement.id)!;
+    const ua = await ensureUserAchievement(achievement);
     
     if (ua.isUnlocked) {
       continue;

@@ -47,6 +47,13 @@ export enum AchievementType {
   FIRST_GAME = 'first_game',           // 首次游戏
   PERFECT_GAME = 'perfect_game',     // 完美通关（闯关模式全对）
   SPEED_ANSWER = 'speed_answer',     // 快速答题（3秒内）
+  
+  // 每日挑战相关
+  DAILY_CHALLENGE_FIRST = 'daily_challenge_first',     // 第一次完成每日挑战
+  DAILY_STREAK = 'daily_streak',               // 每日挑战连续打卡天数
+  
+  // 收藏相关
+  COLLECT = 'collect',         // 收藏成语数量
 }
 
 // 用户成就状态

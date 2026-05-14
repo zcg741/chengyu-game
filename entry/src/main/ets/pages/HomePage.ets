@@ -1,11 +1,13 @@
 // HomePage.ets - 首页（精致设计版）
 import { GAME_MODE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
-import { getCategories } from '../service/ChengyuService';
-import { navigateTo, replaceTo, replaceToWithParams } from '../utils/NavUtil';
+import { getCategories, loadChengyuData } from '../service/ChengyuService';
+import { navigateTo, navigateToWithParams, replaceTo, replaceToWithParams } from '../utils/NavUtil';
 import { getBoolean, saveBoolean } from '../service/StorageService';
 import { getCurrentTheme, getCurrentThemeId, setTheme } from '../service/ThemeService';
 import { Theme, THEMES } from '../model/ThemeModel';
+import { getDailyChallengeSummary } from '../service/DailyChallengeService';
+import { getWrongBookStats } from '../service/WrongBookService';
 
 @Entry
 @Component
@@ -19,7 +21,7 @@ struct HomePage {
   @State currentTabIndex: number = 0;
   @State soundEnabled: boolean = true; // 音效开关
   // 使用 @StorageLink 监听主题变化（全局同步）
-  @StorageLink('current_theme_id') themeId: string = 'classic';
+  @StorageLink('current_theme_id') @Watch('onThemeIdChange') themeId: string = 'classic';
   @State brandColor: string = '#FF6B35';
   @State bgPage: string = '#FAFAF7';
   @State bgCard: string = '#FFFFFF';
@@ -29,6 +31,9 @@ struct HomePage {
   @State bgOrangeLight: string = '#FFF5F0';
   @State bgTealLight: string = '#F0FAF7';
   @State bgAmberLight: string = '#FFF8F0';
+  @State dailyCompleted: boolean = false;
+  @State dailyStreak: number = 0;
+  @State pendingWrongCount: number = 0;
 
   // 根据 themeId 获取主题对象（避免索引访问）
   getThemeByID(themeId: string): Theme {
@@ -39,11 +44,7 @@ struct HomePage {
     return THEMES.classic;
   }
 
-  async aboutToAppear() {
-    this.highScore = await this.gameViewModel.getHighScore();
-    this.totalGames = await this.gameViewModel.getTotalGames();
-    await this.loadCategories();
-    // 从 AppStorage 读取主题 ID 并应用
+  applyTheme() {
     const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
@@ -54,11 +55,27 @@ struct HomePage {
     this.bgOrangeLight = theme.bgLight;
     this.bgTealLight = theme.bgLight;
     this.bgAmberLight = theme.bgLight;
+  }
+
+  onThemeIdChange() {
+    this.applyTheme();
+  }
+
+  async aboutToAppear() {
+    this.applyTheme();
+    this.highScore = await this.gameViewModel.getHighScore();
+    this.totalGames = await this.gameViewModel.getTotalGames();
+    await this.loadCategories();
     this.soundEnabled = await getBoolean('sound_enabled', true);
+    const dailySummary = await getDailyChallengeSummary();
+    this.dailyCompleted = dailySummary.todayCompleted;
+    this.dailyStreak = dailySummary.streak;
+    const wrongStats = await getWrongBookStats();
+    this.pendingWrongCount = wrongStats.pending;
   }
 
   async loadCategories() {
-    await this.gameViewModel.initGame(GAME_MODE.TIMER, 0);
+    await loadChengyuData(0);
     this.categories = getCategories();
   }
 
@@ -146,7 +163,7 @@ struct HomePage {
         .margin({ top: 16, bottom: 0 })
     }
     .padding({ top: 44 })
-    .backgroundColor(Color.White)
+    .backgroundColor(this.bgCard)
   }
 
   // ========================
@@ -177,6 +194,13 @@ struct HomePage {
   buildGameTab() {
     Scroll() {
       Column() {
+        // 今日挑战入口（任务6：首页默认入口优化）
+        this.buildDailyChallengeEntry()
+
+        if (this.pendingWrongCount > 0) {
+          this.buildWrongReviewEntry()
+        }
+
         // 游戏模式
         this.buildSectionTitle('游戏模式')
         this.buildGameModeCard()
@@ -189,10 +213,15 @@ struct HomePage {
         this.buildSectionTitle('选择分类')
         this.buildCategoryCard()
 
-        Text('纯离线游戏 · 无需联网')
+        Text(this.pendingWrongCount > 0 ? `还有 ${this.pendingWrongCount} 个错题待复习` : '纯离线游戏 · 无需联网')
           .fontSize(11)
-          .fontColor('#BBBBBB')
+          .fontColor(this.pendingWrongCount > 0 ? this.brandColor : '#BBBBBB')
           .margin({ top: 28, bottom: 40 })
+          .onClick(() => {
+            if (this.pendingWrongCount > 0) {
+              navigateTo('pages/WrongBookPage');
+            }
+          })
       }
       .width('100%')
       .padding({ left: 20, right: 20 })
@@ -202,7 +231,91 @@ struct HomePage {
     .scrollBar(BarState.Off)
   }
 
+  // ========================
+  // 今日挑战入口（游戏Tab顶部）
+  // ========================
+  @Builder
+  buildDailyChallengeEntry() {
+    Button() {
+      Row() {
+        Column() {
+          Text(this.dailyCompleted ? '✅ 今日挑战已完成' : '📅 今日挑战')
+            .fontSize(15)
+            .fontWeight(FontWeight.Medium)
+            .fontColor(this.textPrimary)
+            .width('100%')
+          Text(this.dailyCompleted ? `连续打卡 ${this.dailyStreak} 天，明天继续！` : '每天10题，坚持打卡赢成就')
+            .fontSize(11)
+            .fontColor(this.textSecondary)
+            .margin({ top: 2 })
+            .width('100%')
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+
+        Text(this.dailyCompleted ? '✅' : '开始 →')
+          .fontSize(this.dailyCompleted ? 18 : 13)
+          .fontColor(this.dailyCompleted ? '#4CAF50' : this.brandColor)
+      }
+      .width('100%')
+      .alignItems(VerticalAlign.Center)
+    }
+    .width('100%')
+    .height(64)
+    .backgroundColor(this.bgAmberLight)
+    .borderRadius(12)
+    .borderWidth(0.5)
+    .borderColor(this.borderColr)
+    .margin({ bottom: 16 })
+    .onClick(() => {
+      navigateTo('pages/DailyChallengePage');
+    })
+  }
+
+  @Builder
+  buildWrongReviewEntry() {
+    Button() {
+      Row() {
+        Column() {
+          Text('继续复习错题')
+            .fontSize(15)
+            .fontWeight(FontWeight.Medium)
+            .fontColor(this.textPrimary)
+            .width('100%')
+          Text(`待掌握 ${this.pendingWrongCount} 个，连续答对 3 次后点亮`)
+            .fontSize(11)
+            .fontColor(this.textSecondary)
+            .margin({ top: 2 })
+            .width('100%')
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+
+        Text('复习 →')
+          .fontSize(13)
+          .fontColor(this.brandColor)
+      }
+      .width('100%')
+      .alignItems(VerticalAlign.Center)
+    }
+    .width('100%')
+    .height(64)
+    .backgroundColor(this.bgCard)
+    .borderRadius(12)
+    .borderWidth(1)
+    .borderColor(this.brandColor)
+    .margin({ bottom: 16 })
+    .onClick(() => {
+      const params: Record<string, Object> = {};
+      params['mode'] = 'wrongbook';
+      params['from'] = 'home';
+      navigateToWithParams('pages/ReviewPage', params);
+    })
+  }
+
+  // ========================
   // 区块标题
+  // ========================
   @Builder
   buildSectionTitle(title: string) {
     Row() {
@@ -224,7 +337,9 @@ struct HomePage {
     .alignItems(VerticalAlign.Center)
   }
 
+  // ========================
   // 游戏模式卡片（浅底+左侧色条设计）
+  // ========================
   @Builder
   buildGameModeCard() {
     Column() {
@@ -365,7 +480,7 @@ struct HomePage {
             .onClick(() => {
               this.selectedCategory = category;
             })
-        })
+        }, (category: string) => category)
       }
       .padding({ right: 20 })
     }
@@ -410,7 +525,7 @@ struct HomePage {
       .margin({ bottom: 12 })
 
       Row() {
-        this.buildLearnCard('📚', '数据统计', '#F5F0FF', '#7C4DFF', 'pages/StatsPage')
+        this.buildLearnCard('📊', '数据统计', '#F5F0FF', '#7C4DFF', 'pages/StatsPage')
         Blank().width(12)
         this.buildLearnCard('🎯', '每日挑战', this.bgAmberLight, '#F5A623', 'pages/DailyChallengePage')
       }
@@ -485,12 +600,12 @@ struct HomePage {
     Button() {
       Row() {
         Column() {
-          Text('📅 每日挑战')
+          Text(this.dailyCompleted ? '✅ 今日已完成' : '📅 每日挑战')
             .fontSize(16)
             .fontWeight(FontWeight.Medium)
             .fontColor(this.textPrimary)
             .width('100%')
-          Text('每天5题，坚持打卡赢成就')
+          Text(this.dailyStreak > 0 ? `连续打卡 ${this.dailyStreak} 天` : '每天10题，坚持打卡赢成就')
             .fontSize(11)
             .fontColor(this.textSecondary)
             .margin({ top: 2 })

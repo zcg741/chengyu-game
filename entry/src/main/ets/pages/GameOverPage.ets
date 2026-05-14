@@ -4,6 +4,8 @@ import { getNumber } from '../service/StorageService';
 import { replaceTo, navigateToWithParams, getRouteParams } from '../utils/NavUtil';
 import { getCurrentTheme, setTheme } from '../service/ThemeService';
 import { Theme, THEMES } from '../model/ThemeModel';
+import { shareScore as copyScoreShare } from '../service/ShareService';
+import { getWrongBookStats } from '../service/WrongBookService';
 
 @Entry
 @Component
@@ -16,10 +18,12 @@ struct GameOverPage {
   @State isNewRecord: boolean = false;
   @State accuracy: string = '0';
   @State showShareToast: boolean = false;
+  @State shareToastText: string = '分享内容已复制到剪贴板';
   @State recordsJson: string = '';
+  @State pendingWrongCount: number = 0;
 
   // 使用 @StorageLink 监听主题变化（全局同步）
-  @StorageLink('current_theme_id') themeId: string = 'classic';
+  @StorageLink('current_theme_id') @Watch('onThemeIdChange') themeId: string = 'classic';
 
   // 主题颜色状态
   @State brandColor: string = '#FF6B35';
@@ -40,8 +44,7 @@ struct GameOverPage {
     return THEMES.classic;
   }
 
-  async aboutToAppear() {
-    // 加载主题
+  applyTheme() {
     const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
@@ -49,6 +52,14 @@ struct GameOverPage {
     this.borderColr = theme.border;
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
+  }
+
+  onThemeIdChange() {
+    this.applyTheme();
+  }
+
+  async aboutToAppear() {
+    this.applyTheme();
 
     // 从路由参数中获取游戏数据
     const params = getRouteParams();
@@ -75,14 +86,17 @@ struct GameOverPage {
     // 获取历史最高分
     this.highScore = await getNumber('high_score', 0);
     this.isNewRecord = this.score >= this.highScore && this.score > 0;
+
+    const wrongStats = await getWrongBookStats();
+    this.pendingWrongCount = wrongStats.pending;
   }
 
   build() {
     Column() {
       // 顶部标题区域
       Column() {
-        Text('游戏结束')
-          .fontSize(28)
+        Text('本局结算')
+          .fontSize(26)
           .fontWeight(FontWeight.Bold)
           .fontColor(Color.White)
           .margin({ bottom: 8 });
@@ -126,7 +140,10 @@ struct GameOverPage {
             Row() {
               Column() {
                 Text(this.correctCount.toString())
-                  .fontSize(28)
+                  .fontSize(24)
+                  .maxLines(1)
+                  .textAlign(TextAlign.Center)
+                  .width('100%')
                   .fontWeight(FontWeight.Bold)
                   .fontColor('#2E7D32');
                 Text('答对')
@@ -139,7 +156,10 @@ struct GameOverPage {
 
               Column() {
                 Text(this.wrongCount.toString())
-                  .fontSize(28)
+                  .fontSize(24)
+                  .maxLines(1)
+                  .textAlign(TextAlign.Center)
+                  .width('100%')
                   .fontWeight(FontWeight.Bold)
                   .fontColor('#D32F2F');
                 Text('答错')
@@ -152,7 +172,10 @@ struct GameOverPage {
 
               Column() {
                 Text(this.totalQuestions.toString())
-                  .fontSize(28)
+                  .fontSize(24)
+                  .maxLines(1)
+                  .textAlign(TextAlign.Center)
+                  .width('100%')
                   .fontWeight(FontWeight.Bold)
                   .fontColor('#5C6BC0');
                 Text('总题')
@@ -165,7 +188,10 @@ struct GameOverPage {
 
               Column() {
                 Text(this.accuracy + '%')
-                  .fontSize(28)
+                  .fontSize(20)
+                  .maxLines(1)
+                  .textAlign(TextAlign.Center)
+                  .width('100%')
                   .fontWeight(FontWeight.Bold)
                   .fontColor('#E65100');
                 Text('正确率')
@@ -182,8 +208,9 @@ struct GameOverPage {
           .width('90%')
           .padding(24)
           .backgroundColor(this.bgCard)
-          .borderRadius(24)
-          .shadow({ radius: 16, color: '#0000001A', offsetX: 0, offsetY: 8 })
+          .borderRadius(14)
+          .border({ width: 1, color: this.borderColr })
+          .shadow({ radius: 10, color: '#00000012', offsetX: 0, offsetY: 5 })
           .margin({ top: -20, bottom: 16 });
 
           // 最高分卡片
@@ -205,14 +232,62 @@ struct GameOverPage {
             .alignItems(HorizontalAlign.Start);
           }
           .width('90%')
-          .padding(20)
+          .padding(18)
           .backgroundColor(this.bgCard)
-          .borderRadius(16)
-          .shadow({ radius: 8, color: '#0000000D', offsetX: 0, offsetY: 4 })
-          .margin({ bottom: 24 });
+          .borderRadius(12)
+          .border({ width: 1, color: this.borderColr })
+          .margin({ bottom: 16 });
+
+          // 复盘建议
+          if (this.wrongCount > 0 || this.pendingWrongCount > 0) {
+            Column() {
+              Row() {
+                Text('📌')
+                  .fontSize(24)
+                  .margin({ right: 10 });
+                Column() {
+                  Text(this.wrongCount > 0 ? `本局 ${this.wrongCount} 个错题已加入错题本` : '错题本仍有待复习内容')
+                    .fontSize(15)
+                    .fontWeight(FontWeight.Medium)
+                    .fontColor(this.textPrimary);
+                  Text(this.pendingWrongCount > 0 ? `当前待复习 ${this.pendingWrongCount} 个，连续答对 3 次后标记掌握` : '这局没有遗留错题')
+                    .fontSize(12)
+                    .fontColor(this.textSecondary)
+                    .margin({ top: 4 });
+                }
+                .alignItems(HorizontalAlign.Start)
+                .layoutWeight(1);
+              }
+              .width('100%')
+              .margin({ bottom: 14 });
+
+              Button('复习错题')
+                .width('100%')
+                .height(44)
+                .fontColor(Color.White)
+                .backgroundColor('#E85D26')
+                .borderRadius(22)
+                .onClick(() => {
+                  this.goToWrongReview();
+                });
+            }
+            .width('90%')
+            .padding(18)
+            .backgroundColor(this.bgCard)
+            .border({ width: 1, color: this.brandColor })
+            .borderRadius(12)
+            .margin({ bottom: 18 });
+          }
 
           // 按钮区域
           Column() {
+            Text('下一步')
+              .fontSize(13)
+              .fontColor(this.textSecondary)
+              .width('85%')
+              .textAlign(TextAlign.Start)
+              .margin({ bottom: 10 })
+
             // 分享按钮 - 使用系统分享面板
             Button({ type: ButtonType.Normal }) {
               Row() {
@@ -221,12 +296,13 @@ struct GameOverPage {
                   .margin({ right: 8 });
                 Text('分享成绩')
                   .fontSize(16)
-                  .fontColor(Color.White);
+                  .fontColor(this.pendingWrongCount > 0 ? this.textPrimary : '#FFFFFF');
               }
             }
             .width('85%')
             .height(52)
-            .backgroundColor('#4ECDC4')
+            .backgroundColor(this.pendingWrongCount > 0 ? this.bgCard : '#4ECDC4')
+            .border({ width: this.pendingWrongCount > 0 ? 1 : 0, color: this.borderColr })
             .borderRadius(26)
             .margin({ bottom: 12 })
             .onClick(() => {
@@ -299,7 +375,7 @@ struct GameOverPage {
 
           // 分享提示Toast
           if (this.showShareToast) {
-            Text('分享内容已复制到剪贴板')
+            Text(this.shareToastText)
               .fontSize(14)
               .fontColor(Color.White)
               .padding({ left: 16, right: 16, top: 8, bottom: 8 })
@@ -335,29 +411,26 @@ struct GameOverPage {
     }
   }
 
+  goToWrongReview() {
+    try {
+      const paramsMap: Record<string, Object> = {};
+      paramsMap['mode'] = 'wrongbook';
+      paramsMap['from'] = 'gameover';
+      navigateToWithParams('pages/ReviewPage', paramsMap);
+    } catch (error) {
+      console.error('Failed to navigate to wrong review:', error);
+    }
+  }
+
   /**
    * 分享成绩 - 使用系统剪贴板作为分享方式
    */
   async shareScore() {
-    try {
-      const shareText = `【妙语成语】挑战结束！\n🏆 最终得分：${this.score} 分\n✅ 答对：${this.correctCount} 题\n📊 正确率：${this.accuracy}%\n\n💪 快来和我一起玩「妙语成语」吧！`;
-      // 使用剪贴板复制分享内容
-      const pasteboard = await import('@ohos.pasteboard');
-      const systemPasteboard = pasteboard.default.getSystemPasteboard();
-      const pasteData = pasteboard.default.createData(pasteboard.default.MIMETYPE_TEXT_PLAIN, shareText);
-      await systemPasteboard.setData(pasteData);
-      this.showShareToast = true;
-      // 2秒后隐藏toast
-      setTimeout(() => {
-        this.showShareToast = false;
-      }, 2000);
-    } catch (error) {
-      console.error('Share failed:', error);
-      // 降级处理：仍然显示已复制
-      this.showShareToast = true;
-      setTimeout(() => {
-        this.showShareToast = false;
-      }, 2000);
-    }
+    const ok = await copyScoreShare(this.score, this.correctCount, this.totalQuestions, this.accuracy);
+    this.shareToastText = ok ? '已打开分享或复制到剪贴板' : '分享失败，请稍后重试';
+    this.showShareToast = true;
+    setTimeout(() => {
+      this.showShareToast = false;
+    }, 2000);
   }
 }

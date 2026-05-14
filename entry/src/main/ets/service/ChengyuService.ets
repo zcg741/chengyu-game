@@ -1,5 +1,5 @@
 // ChengyuService.ets - 成语数据服务（从 rawfile/chengyu_data.json 加载）
-import { Chengyu } from '../model/ChengyuModel';
+import { Chengyu, ChengyuWithIndex } from '../model/ChengyuModel';
 import common from '@ohos.app.ability.common';
 import { getAppContext } from '../utils/ContextManager';
 import { BusinessError } from '@ohos.base';
@@ -118,18 +118,68 @@ function filterChengyu(list: Chengyu[], difficulty: number, category: string): C
   return result;
 }
 
+function toIndexedList(list: Chengyu[]): ChengyuWithIndex[] {
+  const result: ChengyuWithIndex[] = [];
+  list.forEach((chengyu, index) => {
+    const originalIndex = list === chengyuList ? index : chengyuList.findIndex(c => c.word === chengyu.word);
+    result.push({
+      chengyu: chengyu,
+      originalIndex: originalIndex >= 0 ? originalIndex : index
+    });
+  });
+  return result;
+}
+
+function createRandom(seed?: number): () => number {
+  if (seed === undefined) {
+    return Math.random;
+  }
+
+  let state = Math.abs(Math.floor(seed)) % 2147483647;
+  if (state === 0) {
+    state = 1;
+  }
+
+  return () => {
+    state = (state * 48271) % 2147483647;
+    return state / 2147483647;
+  };
+}
+
+function shuffledItems(items: ChengyuWithIndex[], seed?: number): ChengyuWithIndex[] {
+  const result = items.slice();
+  const random = createRandom(seed);
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    const temp = result[i];
+    result[i] = result[j];
+    result[j] = temp;
+  }
+  return result;
+}
+
 /**
  * 获取随机成语（不重复）
  * @param count 需要的数量
  * @param usedIndices 已使用的索引
- * @returns 成语数组
+ * @returns 成语数组（包含原始索引）
  */
-export function getRandomChengyu(count: number, usedIndices: number[]): Chengyu[] {
-  // 使用过滤后的列表
+export function getRandomChengyu(count: number, usedIndices: number[]): ChengyuWithIndex[] {
+  return getRandomChengyuWithSeed(count, usedIndices);
+}
+
+/**
+ * 获取随机成语（支持传入种子，便于每日挑战固定题目）
+ * @param count 需要的数量
+ * @param usedIndices 已使用的原始索引
+ * @param seed 随机种子；不传则使用 Math.random
+ * @returns 成语数组（包含原始索引）
+ */
+export function getRandomChengyuWithSeed(count: number, usedIndices: number[], seed?: number): ChengyuWithIndex[] {
   const targetList = filteredList.length > 0 ? filteredList : chengyuList;
-  const available = targetList.filter((_, index) => !usedIndices.includes(index));
-  const result: Chengyu[] = [];
-  const shuffled = available.sort(() => Math.random() - 0.5);
+  const available = toIndexedList(targetList).filter(item => !usedIndices.includes(item.originalIndex));
+  const result: ChengyuWithIndex[] = [];
+  const shuffled = shuffledItems(available, seed);
   
   for (let i = 0; i < Math.min(count, shuffled.length); i++) {
     result.push(shuffled[i]);
@@ -186,10 +236,20 @@ export function getChengyuByWord(word: string): Chengyu | undefined {
 /**
  * 根据首字获取成语列表（用于接龙模式）
  * @param firstChar 首字
- * @returns 成语数组
+ * @returns 成语数组（包含原始索引）
  */
-export function getChengyuByFirstChar(firstChar: string): Chengyu[] {
-  return chengyuList.filter(c => c.word && c.word.length > 0 && c.word[0] === firstChar);
+export function getChengyuByFirstChar(firstChar: string): ChengyuWithIndex[] {
+  const result: ChengyuWithIndex[] = [];
+  chengyuList.forEach((c, index) => {
+    if (c.word && c.word.length > 0 && c.word[0] === firstChar) {
+      const item: ChengyuWithIndex = {
+        chengyu: c,
+        originalIndex: index
+      };
+      result.push(item);
+    }
+  });
+  return result;
 }
 
 /**

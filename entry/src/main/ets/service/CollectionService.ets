@@ -2,6 +2,8 @@
 import { Chengyu } from '../model/ChengyuModel';
 import { saveString, getString } from './StorageService';
 import { getChengyuByWord } from './ChengyuService';
+import { updateAchievementProgress } from './AchievementService';
+import { AchievementType } from '../model/AchievementModel';
 
 const STORAGE_KEY = 'collected_chengyu';
 
@@ -17,6 +19,9 @@ export async function collect(word: string): Promise<void> {
     }
     list.push(word);
     await saveString(STORAGE_KEY, JSON.stringify(list));
+    
+    // 用收藏总量推进成就，避免历史收藏和成就进度不一致。
+    await updateAchievementProgress(AchievementType.COLLECT, list.length);
   } catch (error) {
     console.error('CollectionService.collect error:', error);
   }

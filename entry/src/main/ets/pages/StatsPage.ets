@@ -1,6 +1,7 @@
 // StatsPage.ets - 游戏统计页面（精致设计版）
 import { getNumber } from '../service/StorageService';
 import { navigateBack } from '../utils/NavUtil';
+import { getDailyChallengeAggregate } from '../service/DailyChallengeService';
 
 const BG_PAGE: string = '#FAFAF7';
 const BG_CARD: string = '#FFFFFF';
@@ -18,13 +19,29 @@ struct StatsPage {
   @State totalScore: number = 0;
   @State avgScore: string = '0';
   @State accuracy: string = '0';
+  @StorageProp('status_bar_height') statusBarHeight: number = 0;
 
   async aboutToAppear() {
-    this.totalGames = await getNumber('total_games', 0);
-    this.totalCorrect = await getNumber('total_correct', 0);
+    const storedGames = await getNumber('total_games', 0);
+    const achievementGames = Math.max(
+      await getNumber('achievement_play_10_games_progress', 0),
+      await getNumber('achievement_first_game_progress', 0)
+    );
+    this.totalGames = Math.max(storedGames, achievementGames);
+
+    const achievementCorrect = Math.max(
+      await getNumber('achievement_correct_50_progress', 0),
+      await getNumber('achievement_correct_100_progress', 0)
+    );
+    this.totalCorrect = Math.max(await getNumber('total_correct', 0), achievementCorrect);
     this.totalWrong = await getNumber('total_wrong', 0);
+
+    const dailyStats = await getDailyChallengeAggregate();
+    this.totalGames += dailyStats.games;
+    this.totalCorrect += dailyStats.correct;
+    this.totalWrong += dailyStats.wrong;
     this.highScore = await getNumber('high_score', 0);
-    this.totalScore = await getNumber('total_score', 0);
+    this.totalScore = Math.max(await getNumber('total_score', 0), await getNumber('achievement_total_score_1000_progress', 0));
 
     const total = this.totalCorrect + this.totalWrong;
     this.accuracy = total > 0 ? ((this.totalCorrect / total) * 100).toFixed(1) : '0';
@@ -75,7 +92,7 @@ struct StatsPage {
         .layoutWeight(1)
     }
     .width('100%')
-    .padding({ left: 20, right: 20, top: 16, bottom: 14 })
+    .padding({ left: 20, right: 20, top: this.statusBarHeight + 10, bottom: 14 })
     .backgroundColor(BG_CARD)
   }
 

@@ -2,11 +2,12 @@
 import { GAME_MODE, GAME_CONFIG, QUESTION_TYPE } from '../utils/Constants';
 import { GameViewModel } from '../viewmodel/GameViewModel';
 import { TimerViewModel, TimerCallback, TimerFinishCallback } from '../viewmodel/TimerViewModel';
-import { HintLevel } from '../model/GameState';
+import { HintLevel, GameRecord } from '../model/GameState';
 import { replaceTo, replaceToWithParams, getRouteParams } from '../utils/NavUtil';
 import { playSound, stopSound } from '../service/SoundService';
 import { getCurrentTheme, setTheme } from '../service/ThemeService';
 import { Theme, THEMES } from '../model/ThemeModel';
+import { InfoDialogOptions, showInfoDialog } from '../utils/DialogUtil';
 
 @Entry
 @Component
@@ -28,7 +29,7 @@ struct GamePage {
   @State questionType: string = '';
 
   // 使用 @StorageLink 监听主题变化（全局同步）
-  @StorageLink('current_theme_id') themeId: string = 'classic';
+  @StorageLink('current_theme_id') @Watch('onThemeIdChange') themeId: string = 'classic';
 
   // 主题颜色状态
   @State brandColor: string = '#FF6B35';
@@ -47,6 +48,7 @@ struct GamePage {
   private gameViewModel: GameViewModel = new GameViewModel();
   private timerViewModel: TimerViewModel = new TimerViewModel();
   private storyTimerId: number = 0; // 故事弹窗定时器ID
+  private isFinishingGame: boolean = false;
 
   // 根据 themeId 获取主题对象（避免索引访问）
   getThemeByID(themeId: string): Theme {
@@ -57,8 +59,7 @@ struct GamePage {
     return THEMES.classic;
   }
 
-  async aboutToAppear() {
-    // 加载主题
+  applyTheme() {
     const theme = this.getThemeByID(this.themeId);
     this.brandColor = theme.brand;
     this.bgPage = theme.bgPage;
@@ -67,6 +68,14 @@ struct GamePage {
     this.textPrimary = theme.textPrimary;
     this.textSecondary = theme.textSecondary;
     this.bgLight = theme.bgLight;
+  }
+
+  onThemeIdChange() {
+    this.applyTheme();
+  }
+
+  async aboutToAppear() {
+    this.applyTheme();
 
     // 读取路由参数
     const params = getRouteParams();
@@ -100,8 +109,7 @@ struct GamePage {
         this.remainingTime = remaining;
       },
       () => {
-        this.gameViewModel.endGame();
-        this.navigateToGameOver();
+        this.finishGameAndNavigate();
       }
     );
     this.timerViewModel.start(GAME_CONFIG.TIMER_MODE_DURATION);
@@ -129,7 +137,7 @@ struct GamePage {
   }
 
   loadQuestion() {
-    const question = this.gameViewModel.getCurrentQuestion();
+    const question: GameRecord | null = this.gameViewModel.getCurrentQuestion();
     if (question) {
       this.currentExplanation = question.currentExplanation;
       this.questionType = question.questionType || '';
@@ -163,12 +171,12 @@ struct GamePage {
     return '📖';
   }
 
-  onAnswerSubmit() {
+  async onAnswerSubmit() {
     if (!this.userAnswer.trim() || this.isAnswered) {
       return;
     }
 
-    const correct = this.gameViewModel.submitAnswer(this.userAnswer);
+    const correct = await this.gameViewModel.submitAnswer(this.userAnswer);
     this.isCorrect = correct;
     this.isAnswered = correct;  // 只有答对才标记为已完成
     this.showResult = true;
@@ -187,25 +195,23 @@ struct GamePage {
     if (correct) {
       playSound('correct');
       // 答对后展示成语故事/出处
-      const question = this.gameViewModel.getCurrentQuestion();
+      const question: GameRecord | null = this.gameViewModel.getCurrentQuestion();
       if (question && question.currentSource) {
         this.storyTimerId = setTimeout(() => {
           this.storyTimerId = 0;
-          AlertDialog.show({
+          const options: InfoDialogOptions = {
             title: '📖 成语故事',
             message: `${question.currentChengyu}\n\n${question.currentSource}`,
-            confirm: {
-              value: '知道了',
-              action: () => {}
-            }
-          });
+            confirmText: '知道了'
+          };
+          showInfoDialog(options);
         }, 500) as number;
       }
     } else {
       playSound('wrong');
     }
 
-    const question = this.gameViewModel.getCurrentQuestion();
+    const question: GameRecord | null = this.gameViewModel.getCurrentQuestion();
     if (question) {
       this.hintLevel = question.hintLevel;
       if (!correct) {
@@ -223,8 +229,7 @@ struct GamePage {
           
           // 闯关模式下生命值耗尽，游戏结束
           if (this.gameMode === GAME_MODE.CHALLENGE && this.lives <= 0) {
-            this.gameViewModel.endGame();
-            this.navigateToGameOver();
+            this.finishGameAndNavigate();
           }
         }, 2000);
       } else {
@@ -242,7 +247,7 @@ struct GamePage {
     const hint = this.gameViewModel.getHint();
     this.hintText = hint;
 
-    const question = this.gameViewModel.getCurrentQuestion();
+    const question: GameRecord | null = this.gameViewModel.getCurrentQuestion();
     if (question) {
       this.hintLevel = question.hintLevel;
     }
@@ -268,6 +273,16 @@ struct GamePage {
         this.cardTranslateX = 0;
       }, 50);
     }, 300);
+  }
+
+  async finishGameAndNavigate() {
+    if (this.isFinishingGame) {
+      return;
+    }
+    this.isFinishingGame = true;
+    await this.gameViewModel.endGame();
+    this.timerViewModel.destroy();
+    this.navigateToGameOver();
   }
 
   aboutToDisappear() {
@@ -379,9 +394,10 @@ struct GamePage {
           .width('90%')
           .padding(24)
           .backgroundColor(this.bgCard)
-          .borderRadius(20)
-          .shadow({ radius: 12, color: '#0000001A', offsetX: 0, offsetY: 6 })
-          .margin({ top: 24, bottom: 20 })
+          .borderRadius(14)
+          .border({ width: 1, color: this.borderColr })
+          .shadow({ radius: 8, color: '#00000010', offsetX: 0, offsetY: 4 })
+          .margin({ top: 20, bottom: 16 })
           .translate({ x: this.cardTranslateX })
           .animation({
             duration: 300,
@@ -393,28 +409,30 @@ struct GamePage {
           // 提示区域
           Column() {
             Row() {
-              Text('💡')
-                .fontSize(20)
-                .margin({ right: 8 });
-              Text('提示')
+              Text('提示线索')
                 .fontSize(14)
                 .fontColor(this.brandColor)
                 .fontWeight(FontWeight.Medium);
+              Blank()
+              Text('逐步揭示')
+                .fontSize(11)
+                .fontColor(this.textSecondary)
             }
+            .width('100%')
             .margin({ bottom: 12 });
 
             Text(this.hintText)
-              .fontSize(36)
+              .fontSize(32)
               .fontWeight(FontWeight.Bold)
               .fontColor(this.brandColor)
-              .letterSpacing(8);
+              .letterSpacing(4);
           }
           .width('90%')
-          .padding(24)
+          .padding(20)
           .backgroundColor(this.bgLight)
-          .borderRadius(20)
-          .border({ width: 2, color: this.borderColr })
-          .margin({ bottom: 24 });
+          .borderRadius(14)
+          .border({ width: 1, color: this.borderColr })
+          .margin({ bottom: 18 });
 
           // 答案输入
           if (!this.isAnswered) {
@@ -431,22 +449,33 @@ struct GamePage {
                   this.userAnswer = value;
                 });
 
-              Button({ type: ButtonType.Normal }) {
-                Text('确定')
-                  .fontSize(18)
+              Row() {
+                Button('提示')
+                  .layoutWeight(1)
+                  .height(48)
+                  .fontSize(16)
+                  .fontColor(this.brandColor)
+                  .backgroundColor(this.bgLight)
+                  .borderRadius(24)
+                  .border({ width: 1, color: this.borderColr })
+                  .onClick(() => this.onGetHint())
+
+                Button('提交')
+                  .layoutWeight(1.4)
+                  .height(48)
+                  .fontSize(16)
                   .fontColor(Color.White)
-                  .fontWeight(FontWeight.Medium);
+                  .backgroundColor(this.brandColor)
+                  .borderRadius(24)
+                  .margin({ left: 10 })
+                  .onClick(() => { this.onAnswerSubmit(); })
               }
               .width('100%')
-              .height(52)
-              .backgroundColor(this.brandColor)
-              .borderRadius(26)
               .margin({ top: 12 })
-              .onClick(() => this.onAnswerSubmit());
             }
             .width('90%')
             .alignItems(HorizontalAlign.Center)
-            .margin({ bottom: 24 });
+            .margin({ bottom: 18 });
           }
 
           // 结果反馈
@@ -478,9 +507,9 @@ struct GamePage {
                   .margin({ top: 8 });
               }
             }
-            .padding(20)
+            .padding(16)
             .backgroundColor(this.isCorrect ? '#E8F5E9' : '#FFEBEE')
-            .borderRadius(16)
+            .borderRadius(12)
             .opacity(this.hintOpacity)
             .animation({
               duration: 500,
@@ -496,9 +525,6 @@ struct GamePage {
             if (this.isAnswered) {
               Button({ type: ButtonType.Normal }) {
                 Row() {
-                  Text('➡️')
-                    .fontSize(18)
-                    .margin({ right: 8 });
                   Text('下一题')
                     .fontSize(16)
                     .fontColor(Color.White)
@@ -510,31 +536,11 @@ struct GamePage {
               .backgroundColor('#4ECDC4')
               .borderRadius(26)
               .onClick(() => this.onNextQuestion());
-            } else {
-              Button({ type: ButtonType.Normal }) {
-                Row() {
-                  Text('💡')
-                    .fontSize(18)
-                    .margin({ right: 8 });
-                  Text('提示')
-                    .fontSize(16)
-                    .fontColor(Color.White)
-                    .fontWeight(FontWeight.Medium);
-                }
-              }
-              .layoutWeight(1)
-              .height(52)
-              .backgroundColor('#FFA726')
-              .borderRadius(26)
-              .onClick(() => this.onGetHint());
             }
 
             Button({ type: ButtonType.Normal }) {
               Row() {
-                Text('🚪')
-                  .fontSize(18)
-                  .margin({ right: 8 });
-                Text('结束')
+                Text(this.isAnswered ? '结束' : '结束本局')
                   .fontSize(16)
                   .fontColor(this.textPrimary)
                   .fontWeight(FontWeight.Medium);
@@ -545,11 +551,9 @@ struct GamePage {
             .backgroundColor(this.bgCard)
             .borderRadius(26)
             .border({ width: 2, color: this.borderColr })
-            .margin({ left: 12 })
+            .margin({ left: this.isAnswered ? 12 : 0 })
             .onClick(() => {
-              this.gameViewModel.endGame();
-              this.timerViewModel.destroy();
-              this.navigateToGameOver();
+              this.finishGameAndNavigate();
             });
           }
           .width('90%')

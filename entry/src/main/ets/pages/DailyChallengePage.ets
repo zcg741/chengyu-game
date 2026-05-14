@@ -1,10 +1,13 @@
 // DailyChallengePage.ets - 每日挑战页面
-import { loadChengyuData, getRandomChengyu, getChengyuByFirstChar } from '../service/ChengyuService';
-import { Chengyu } from '../model/ChengyuModel';
-import { generatePinyinHint, getPinyinInitials } from '../utils/PinyinUtil';
-import { saveNumber, getNumber, getString, saveString } from '../service/StorageService';
+import { loadChengyuData, getRandomChengyuWithSeed } from '../service/ChengyuService';
+import { Chengyu, ChengyuWithIndex } from '../model/ChengyuModel';
 import { navigateBack, replaceTo } from '../utils/NavUtil';
 import { QUESTION_TYPE } from '../utils/Constants';
+import { getDailyChallengeRecord, getTodayDateString, saveDailyChallengeResult, getDailyChallengeSummary } from '../service/DailyChallengeService';
+import { incrementAchievement, updateAchievementProgress } from '../service/AchievementService';
+import { AchievementType } from '../model/AchievementModel';
+import { getPinyinHintText, getQuestionPrompt, isAnswerCorrect } from '../service/QuestionService';
+import { collect } from '../service/CollectionService';
 
 interface DailyQuestion {
   chengyu: Chengyu;
@@ -36,6 +39,7 @@ struct DailyChallengePage {
   @State todayType: string = QUESTION_TYPE.EXPLANATION; // 今日题型
   @State todayTypeName: string = '释义猜词'; // 今日题型名称
   @State todayTypeIcon: string = '📖'; // 今日题型图标
+  @StorageProp('status_bar_height') statusBarHeight: number = 0;
 
   // 题型配置（使用接口定义）
   private typeConfig: Record<string, TypeConfigItem> = {};
@@ -43,8 +47,8 @@ struct DailyChallengePage {
   async aboutToAppear() {
     const today = this.getTodayStr();
     this.dailyDate = today;
-    const doneDate = await getString('daily_done_date', '');
-    this.isDailyDone = (doneDate === today);
+    const todayRecord = await getDailyChallengeRecord(today);
+    this.isDailyDone = !!(todayRecord && todayRecord.completed);
 
     // 初始化题型配置
     this.typeConfig[QUESTION_TYPE.EXPLANATION] = { name: '释义猜词', icon: '📖' };
@@ -63,8 +67,11 @@ struct DailyChallengePage {
   }
 
   getTodayStr(): string {
-    const now = new Date();
-    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    return getTodayDateString();
+  }
+
+  getDailySeed(): number {
+    return Number(this.dailyDate.replace(/-/g, '')) || 1;
   }
 
   // 根据日期计算今日题型（4种题型每日轮换）
@@ -76,19 +83,11 @@ struct DailyChallengePage {
   }
 
   generateDailyQuestions() {
-    const list = getRandomChengyu(10, []);
-    this.questions = list.map((c: Chengyu): DailyQuestion => {
-      // 根据今日题型生成提示
-      let hint = '';
-      if (this.todayType === QUESTION_TYPE.EXPLANATION) {
-        hint = c.explanation || '';
-      } else if (this.todayType === QUESTION_TYPE.PINYIN) {
-        hint = c.pinyin || '';
-      } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
-        hint = this.generateFillBlank(c.word);
-      } else if (this.todayType === QUESTION_TYPE.DRAGON) {
-        hint = c.explanation || '';
-      }
+    const dailySeed = this.getDailySeed();
+    const list = getRandomChengyuWithSeed(10, [], dailySeed);
+    this.questions = list.map((item: ChengyuWithIndex): DailyQuestion => {
+      const c = item.chengyu;
+      const hint = getQuestionPrompt(c, this.todayType, '', dailySeed + item.originalIndex);
 
       return {
         chengyu: c,
@@ -102,27 +101,6 @@ struct DailyChallengePage {
     });
   }
 
-  // 生成填空版本成语（如"一心_意"）
-  generateFillBlank(word: string): string {
-    if (!word || word.length < 4) return word;
-    const len = word.length;
-    // 随机隐藏 1~2 个字
-    const hideCount = Math.min(Math.floor(Math.random() * 2) + 1, len - 1);
-    const indices: number[] = [];
-    for (let i = 0; i < len; i++) {
-      indices.push(i);
-    }
-    // 简单随机隐藏
-    for (let i = indices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = indices[i];
-      indices[i] = indices[j];
-      indices[j] = temp;
-    }
-    const hideIdx = new Set(indices.slice(0, hideCount));
-    return word.split('').map((ch, i) => hideIdx.has(i) ? '_' : ch).join('');
-  }
-
   getCurrentQuestion(): DailyQuestion | null {
     if (this.currentIndex < this.questions.length) {
       return this.questions[this.currentIndex];
@@ -130,14 +108,13 @@ struct DailyChallengePage {
     return null;
   }
 
-  onAnswerSubmit() {
+  async onAnswerSubmit() {
     const q = this.getCurrentQuestion();
     if (!q || q.isAnswered || !this.userAnswer.trim()) {
       return;
     }
 
-    const normalize = (str: string) => str.replace(/[！!，,。.\、?？;；:：""''（）()\s]/g, '');
-    const correct = normalize(this.userAnswer.trim()) === normalize(q.chengyu.word);
+    const correct = isAnswerCorrect(this.userAnswer, q.chengyu.word);
 
     q.userAnswer = this.userAnswer.trim();
     q.isCorrect = correct;
@@ -147,10 +124,11 @@ struct DailyChallengePage {
 
     if (correct) {
       this.correctCount++;
+      await collect(q.chengyu.word);
     }
   }
 
-  onNextQuestion() {
+  async onNextQuestion() {
     if (this.currentIndex < this.questions.length - 1) {
       this.currentIndex++;
       this.userAnswer = '';
@@ -159,7 +137,14 @@ struct DailyChallengePage {
     } else {
       this.isCompleted = true;
       // 记录今日完成
-      saveString('daily_done_date', this.dailyDate);
+      await saveDailyChallengeResult(this.dailyDate, this.correctCount, this.questions.length, this.todayType);
+      
+      // 触发成就：首次完成每日挑战
+      await incrementAchievement(AchievementType.DAILY_CHALLENGE_FIRST, 1);
+      
+      // 触发成就：连续打卡天数（会自动检查3天和7天）
+      const summary = await getDailyChallengeSummary(this.dailyDate);
+      await updateAchievementProgress(AchievementType.DAILY_STREAK, summary.streak);
     }
   }
 
@@ -168,9 +153,26 @@ struct DailyChallengePage {
     if (!q || q.isAnswered) {
       return;
     }
-    if (q.hintLevel < 4) {
+    const maxLevel = Math.max(q.chengyu.word.length - 1, 1);
+    if (q.hintLevel < maxLevel) {
       q.hintLevel++;
+      this.questions = this.questions.slice();
     }
+  }
+
+  getCurrentHintText(): string {
+    const q = this.getCurrentQuestion();
+    if (!q) {
+      return '';
+    }
+
+    if (this.todayType === QUESTION_TYPE.PINYIN) {
+      const prefix = q.chengyu.explanation || '根据拼音猜出完整成语';
+      const pinyinHint = getPinyinHintText(q.chengyu.word, q.chengyu.pinyin, q.hintLevel);
+      return `${prefix}\n${pinyinHint}`;
+    }
+
+    return getPinyinHintText(q.chengyu.word, q.chengyu.pinyin, q.hintLevel);
   }
 
   // 获取接龙模式提示（上一个成语的尾字）
@@ -224,7 +226,7 @@ struct DailyChallengePage {
           .fontColor('#666666')
       }
       .width('100%')
-      .padding({ left: 16, right: 16, top: 16, bottom: 12 })
+      .padding({ left: 16, right: 16, top: this.statusBarHeight + 10, bottom: 12 })
       .backgroundColor('#FFFFFF')
 
       // 进度条
@@ -454,44 +456,15 @@ struct DailyChallengePage {
                 }
                 .margin({ bottom: 12 })
 
-                // 根据题型显示不同提示
-                if (this.todayType === QUESTION_TYPE.EXPLANATION) {
-                  // 释义猜词：显示拼音提示
-                  Text(generatePinyinHint(
-                    this.getCurrentQuestion()?.chengyu.word || '',
-                    this.getCurrentQuestion()?.hintLevel || 2
-                  ))
-                    .fontSize(36)
-                    .fontWeight(FontWeight.Bold)
-                    .fontColor('#FF6B35')
-                    .letterSpacing(8)
-                } else if (this.todayType === QUESTION_TYPE.PINYIN) {
-                  // 拼音猜词：显示释义提示
-                  Text(this.getCurrentQuestion()?.chengyu.explanation || '')
-                    .fontSize(18)
-                    .fontWeight(FontWeight.Medium)
-                    .textAlign(TextAlign.Center)
-                    .lineHeight(28)
-                    .fontColor('#333333')
-                } else if (this.todayType === QUESTION_TYPE.FILL_BLANK) {
-                  // 填空挑战：显示释义提示
-                  Text(this.getCurrentQuestion()?.chengyu.explanation || '')
-                    .fontSize(18)
-                    .fontWeight(FontWeight.Medium)
-                    .textAlign(TextAlign.Center)
-                    .lineHeight(28)
-                    .fontColor('#333333')
-                } else if (this.todayType === QUESTION_TYPE.DRAGON) {
-                  // 成语接龙：显示拼音提示
-                  Text(generatePinyinHint(
-                    this.getCurrentQuestion()?.chengyu.word || '',
-                    this.getCurrentQuestion()?.hintLevel || 2
-                  ))
-                    .fontSize(36)
-                    .fontWeight(FontWeight.Bold)
-                    .fontColor('#FF6B35')
-                    .letterSpacing(8)
-                }
+                Text(this.getCurrentHintText())
+                  .fontSize(this.todayType === QUESTION_TYPE.PINYIN ? 16 : 32)
+                  .fontWeight(FontWeight.Bold)
+                  .fontColor('#FF6B35')
+                  .textAlign(TextAlign.Center)
+                  .lineHeight(this.todayType === QUESTION_TYPE.PINYIN ? 26 : 40)
+                  .letterSpacing(this.todayType === QUESTION_TYPE.PINYIN ? 0 : 6)
+                  .width('100%')
+                  .maxLines(3)
               }
               .width('90%')
               .padding(24)
@@ -540,7 +513,7 @@ struct DailyChallengePage {
                     .backgroundColor('#FF6B35')
                     .borderRadius(24)
                     .margin({ left: 8 })
-                    .onClick(() => this.onAnswerSubmit())
+                    .onClick(() => { this.onAnswerSubmit(); })
                   }
                   .width('100%')
                   .margin({ top: 12 })
